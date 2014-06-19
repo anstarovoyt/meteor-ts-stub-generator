@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/generator/generator.iml" filepath="$PROJECT_DIR$/generator/generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meteor-ts-stub-generator.iml" filepath="$PROJECT_DIR$/meteor-ts-stub-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stubs/stubs.iml" filepath="$PROJECT_DIR$/stubs/stubs.iml" />
+    </modules>
+  </component>
+</project>
+
