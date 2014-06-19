@@ -1,0 +1,2 @@
+meteor-ts-stub-generator
+========================
