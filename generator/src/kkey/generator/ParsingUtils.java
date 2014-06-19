@@ -14,10 +14,12 @@ public class ParsingUtils {
     types.put("Number", "Number");
     types.put("Boolean", "Boolean");
     types.put("Array of Strings", "String[]");
+    types.put("Void", "Void");
   }
 
   public static String parseType(String type) {
-    return null;
+    String parsedType = types.get(type);
+    return parsedType == null ? "Object" : parsedType;
   }
 
   public static boolean isFunction(String name) {
