@@ -4,19 +4,23 @@ package kkey.generator;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 
 public class GeneratorTest {
 
   @Test
   public void testSimpleSplit() {
-    Generator generator = new Generator();
-    LinkedHashMap<String, String> map = generator.splitByTemplates("Template.api.isClient = {\n" +
+    LinkedHashMap<String, String> map = new TemplateSplitter("Template.api.isClient = {\n" +
                                                                    "  id: \"meteor_isclient\",\n" +
                                                                    "  name: \"Meteor.isClient\",\n" +
                                                                    "  locus: \"Anywhere\",\n" +
                                                                    "  descr: [\"Boolean variable.  True if running in client environment.\"]\n" +
-                                                                   "};");
+                                                                   "};").splitByTemplates().getResult();
     Assert.assertEquals(1, map.size());
     Assert.assertEquals("{\n" +
                         "  id: \"meteor_isclient\",\n" +
@@ -29,8 +33,7 @@ public class GeneratorTest {
 
   @Test
   public void testSplitWithTwoBlocks() {
-    Generator generator = new Generator();
-    LinkedHashMap<String, String> map = generator.splitByTemplates("Template.api.isClient = {\n" +
+    LinkedHashMap<String, String> map = new TemplateSplitter("Template.api.isClient = {\n" +
                                                                    "  id: \"meteor_isclient\",\n" +
                                                                    "  name: \"Meteor.isClient\",\n" +
                                                                    "  locus: \"Anywhere\",\n" +
@@ -42,7 +45,7 @@ public class GeneratorTest {
                                                                    "  name: \"Meteor.isServer\",\n" +
                                                                    "  locus: \"Anywhere\",\n" +
                                                                    "  descr: [\"Boolean variable.  True if running in server environment.\"]\n" +
-                                                                   "};");
+                                                                   "};").splitByTemplates().getResult();
     Assert.assertEquals(2, map.size());
     Assert.assertEquals("{\n" +
                         "  id: \"meteor_isclient\",\n" +
@@ -61,8 +64,7 @@ public class GeneratorTest {
 
   @Test
   public void testSplitComplexBlock() {
-    Generator generator = new Generator();
-    LinkedHashMap<String, String> map = generator.splitByTemplates("Template.api.ejsonStringify = {\n" +
+    LinkedHashMap<String, String> map =  new TemplateSplitter("Template.api.ejsonStringify = {\n" +
                                                                    "  id: \"ejson_stringify\",\n" +
                                                                    "  name: \"EJSON.stringify(val, [options])\",\n" +
                                                                    "  locus: \"Anywhere\",\n" +
@@ -78,7 +80,7 @@ public class GeneratorTest {
                                                                    "  descr: [\"Serialize a value to a string.\\n\\nFor EJSON values, the serialization \" +\n" +
                                                                    "          \"fully represents the value. For non-EJSON values, serializes the \" +\n" +
                                                                    "          \"same way as `JSON.stringify`.\"]\n" +
-                                                                   "},");
+                                                                   "},").splitByTemplates().getResult();
     Assert.assertEquals(1, map.size());
     Assert.assertEquals("{\n" +
                         "  id: \"ejson_stringify\",\n" +
@@ -97,5 +99,12 @@ public class GeneratorTest {
                         "          \"fully represents the value. For non-EJSON values, serializes the \" +\n" +
                         "          \"same way as `JSON.stringify`.\"]\n" +
                         "}", map.get("Template.api.ejsonStringify"));
+  }
+
+  @Test
+  public void testParse() throws IOException {
+    String content = new String(Files.readAllBytes(Paths.get("docs.txt")));
+
+    new Generator().build(content);
   }
 }
