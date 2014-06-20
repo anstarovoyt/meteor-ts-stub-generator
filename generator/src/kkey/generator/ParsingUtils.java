@@ -22,11 +22,23 @@ public class ParsingUtils {
     return parsedType == null ? "Object" : parsedType;
   }
 
-  public static boolean isFunction(String name) {
-    return -1 != name.indexOf('(') && -1 != name.indexOf(')');
+  public static boolean isFunction(String fullName) {
+    return -1 != fullName.indexOf('(') && -1 != fullName.indexOf(')');
   }
 
-  public static String getNameSpace(String name) {
-    return Character.isUpperCase(name.charAt(0)) && name.indexOf('.') > 0 ? name.substring(0, name.indexOf('.') - 1) : null;
+  public static String parseNameSpace(String fullName) {
+    return Character.isUpperCase(fullName.charAt(0)) && fullName.indexOf('.') > 0 ? fullName.substring(0, fullName.indexOf('.') - 1) : null;
+  }
+
+  public static String parseFieldName(String fullName) {
+    return fullName.substring(fullName.indexOf('.') + 1);
+  }
+
+  public static String parseFunctionName(String fullName) {
+    return fullName.substring(fullName.indexOf('.') + 1, fullName.indexOf('('));
+  }
+
+  public static String getTypeByFullName(String fullName) {
+    return "Object";
   }
 }
