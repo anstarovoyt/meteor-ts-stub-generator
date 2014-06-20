@@ -1,5 +1,7 @@
 package kkey.generator.blocks;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +9,7 @@ import java.util.Set;
 public class NameSpace {
 
   private final String myName;
-  private final Set<Declaration> myDeclarations = new HashSet<>();
+  private final Collection<Declaration> myDeclarations = new ArrayList<>();
 
   public NameSpace(String name) {
     myName = name;
