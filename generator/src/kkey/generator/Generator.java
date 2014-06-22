@@ -61,10 +61,10 @@ public class Generator {
           NameSpace nameSpace = getNameSpace(rawSpace);
           if (ParsingUtils.isField(fullName)) {
             FieldDeclaration fieldDeclaration = new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
-                                                                ParsingUtils.getTypeByFullName(fullName),
-                                                                getElement(element, MEMBER_DESCR));
+                                                                     ParsingUtils.getTypeByFullName(fullName),
+                                                                     getElement(element, MEMBER_DESCR));
             nameSpace.addDeclaration(fieldDeclaration);
-            break;
+            continue;
           }
 
           if (ParsingUtils.isFunction(fullName)) {
@@ -74,12 +74,13 @@ public class Generator {
                                                                         getElement(element, MEMBER_SCOPE));
             nameSpace.addDeclaration(methodDeclaration);
             methodDeclaration.addAllArgs(getArgs(element));
-
-            break;
+            continue;
           }
+
+          logger.info("Skipped \n" + s.getKey());
         }
         else {
-          //logger.info(s.getKey());
+          logger.info(s.getKey());
         }
       }
       catch (Exception e) {
@@ -104,7 +105,7 @@ public class Generator {
     return JSON_PARSER.parse(json);
   }
 
-  private String getElement(JsonElement element, String member) {
+  public static String getElement(JsonElement element, String member) {
     JsonElement memberElement = element.getAsJsonObject().get(member);
     if (memberElement != null && memberElement.isJsonArray()) {
       StringJoiner joiner = new StringJoiner("\n");

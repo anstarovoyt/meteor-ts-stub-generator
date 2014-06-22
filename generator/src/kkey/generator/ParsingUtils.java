@@ -22,7 +22,6 @@ public class ParsingUtils {
   }
 
 
-
   public static String parseType(String type) {
     String parsedType = types.get(type);
     return parsedType == null ? "Object" : parsedType;
@@ -37,7 +36,11 @@ public class ParsingUtils {
   }
 
   public static String parseNameSpace(String fullName) {
-    return Character.isUpperCase(fullName.charAt(0)) && fullName.indexOf('.') > 0 ? fullName.substring(0, fullName.indexOf('.')) : null;
+    return Character.isJavaIdentifierStart(fullName.charAt(0))
+           && Character.isUpperCase(fullName.charAt(0))
+           && fullName.indexOf('.') > 0
+           ? fullName.substring(0, fullName.indexOf('.'))
+           : null;
   }
 
   public static String parseFieldName(String fullName) {
