@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ed83622-e0d5-41fb-bf30-efaec4d058ce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/FieldTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodDeclaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java" />
     </list>
     <ignored path="meteor-ts-stub-generator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,8 +39,8 @@
       <file leaf-file-name="MethodTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3624031" vertical-offset="0" max-vertical-offset="1020">
-              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.86821705" vertical-offset="912" max-vertical-offset="1564">
+              <caret line="80" column="65" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,8 +74,8 @@
       <file leaf-file-name="docs.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2370" max-vertical-offset="34459">
-              <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="158" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2744" max-vertical-offset="34459">
+              <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="182" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -114,9 +109,9 @@
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/FieldTest.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" />
-        <option value="$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodDeclaration.java" />
+        <option value="$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java" />
       </list>
     </option>
   </component>
@@ -694,12 +689,6 @@
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java</url>
-          <line>45</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="9" />
     </breakpoint-manager>
@@ -1062,14 +1051,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2370" max-vertical-offset="34459">
-          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="158" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6250" max-vertical-offset="23494">
@@ -1097,10 +1078,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/docs.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2744" max-vertical-offset="34459">
+          <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="182" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/MethodTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3624031" vertical-offset="0" max-vertical-offset="1020">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.86821705" vertical-offset="912" max-vertical-offset="1564">
+          <caret line="80" column="65" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
