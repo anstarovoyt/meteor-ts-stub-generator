@@ -1,14 +1,15 @@
 package kkey.generator.blocks;
 
 
-public class MethodParameterDeclaration {
-  private final String myName;
-  private final String myType;
+public class MethodParameterDeclaration extends  Declaration {
   private final String myDescription;
 
   public MethodParameterDeclaration(String name, String type, String description) {
-    myName = name;
-    myType = type;
+    super(name, type);
     myDescription = description;
+  }
+
+  public String getDescription() {
+    return myDescription;
   }
 }

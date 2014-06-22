@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class ParsingUtils {
 
   public static final HashMap<String, String> types = new HashMap<>();
+  public static final HashMap<String, String> predefinedTypes = new HashMap<>();
 
   static {
     types.put("Function", "Function");
@@ -15,7 +16,12 @@ public class ParsingUtils {
     types.put("Boolean", "Boolean");
     types.put("Array of Strings", "String[]");
     types.put("Void", "Void");
+
+    predefinedTypes.put("Template.api.isClient", "Boolean");
+    predefinedTypes.put("Template.api.isServer", "Boolean");
   }
+
+
 
   public static String parseType(String type) {
     String parsedType = types.get(type);

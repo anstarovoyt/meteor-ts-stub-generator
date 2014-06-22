@@ -1,15 +1,15 @@
 package kkey.generator;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import kkey.generator.blocks.FieldDeclaration;
-import kkey.generator.blocks.NameSpace;
+import kkey.generator.blocks.*;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +18,7 @@ public class Generator {
   private static final Logger logger = Logger.getLogger(Generator.class.getName());
   public static final String MEMBER_NAME = "name";
   public static final String MEMBER_DESCR = "descr";
+  public static final String MEMBER_SCOPE = "locus";
   public static final JsonParser JSON_PARSER = new JsonParser();
 
   private final ScriptEngine myEngine;
@@ -58,16 +59,23 @@ public class Generator {
             nameSpace.addDeclaration(new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
                                                           ParsingUtils.getTypeByFullName(fullName),
                                                           getElement(element, MEMBER_DESCR)));
-            logger.info("Parsed member: " + fullName);
+            // logger.info("Parsed member: " + fullName);
+          }
+          else {
+            MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
+                                                                        ParsingUtils.getTypeByFullName(fullName),
+                                                                        getElement(element, MEMBER_DESCR),
+                                                                        getElement(element, MEMBER_SCOPE));
+            nameSpace.addDeclaration(methodDeclaration);
+            methodDeclaration.addAllArgs(getArgs(element));
           }
         }
         else {
-          logger.fine(s.getKey());
+          //logger.info(s.getKey());
         }
       }
       catch (Exception e) {
         logger.log(Level.SEVERE, "error. Text\n" + s, e);
-        break;
       }
     }
   }
@@ -89,7 +97,35 @@ public class Generator {
   }
 
   private String getElement(JsonElement element, String member) {
-    return element.getAsJsonObject().get(member).getAsString();
+    JsonElement memberElement = element.getAsJsonObject().get(member);
+    if (memberElement != null && memberElement.isJsonArray()) {
+      StringJoiner joiner = new StringJoiner("\n");
+      for (JsonElement jsonElement : memberElement.getAsJsonArray()) {
+        joiner.add(jsonElement.getAsString());
+      }
+      return joiner.toString();
+    }
+
+    return memberElement == null ? "" : memberElement.getAsString();
+  }
+
+  private Collection<Declaration> getArgs(JsonElement element) {
+    Collection<Declaration> result = new ArrayList<>();
+    JsonElement args = element.getAsJsonObject().get("args");
+    if (args == null && getElement(element, MEMBER_NAME).endsWith("()")) {
+      return result;
+    }
+    JsonArray array = args.getAsJsonArray();
+    for (JsonElement jsonElement : array) {
+      JsonObject object = jsonElement.getAsJsonObject();
+      JsonElement descr = object.get(MEMBER_DESCR);
+      String descrText = descr == null ? "" : descr.getAsString();
+      result.add(new MethodParameterDeclaration(object.get("name").getAsString(),
+                                                ParsingUtils.parseType(object.get("type").getAsString()),
+                                                descrText));
+    }
+
+    return result;
   }
 
   private NameSpace getNameSpace(String name) {

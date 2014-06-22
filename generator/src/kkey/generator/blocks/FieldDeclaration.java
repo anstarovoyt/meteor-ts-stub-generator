@@ -8,4 +8,8 @@ public class FieldDeclaration extends Declaration {
     super(name, type);
     myDescr = descr;
   }
+
+  public String getDescr() {
+    return myDescr;
+  }
 }
