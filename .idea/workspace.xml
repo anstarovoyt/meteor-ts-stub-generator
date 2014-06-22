@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ed83622-e0d5-41fb-bf30-efaec4d058ce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/OptionDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/OptionDeclaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" />
     </list>
     <ignored path="meteor-ts-stub-generator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +40,8 @@
       <file leaf-file-name="ArgsParsing.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49195403" vertical-offset="585" max-vertical-offset="1020">
-              <caret line="47" column="82" selection-start-line="47" selection-start-column="82" selection-end-line="47" selection-end-column="82" />
+            <state vertical-scroll-proportion="0.64827585" vertical-offset="228" max-vertical-offset="1598">
+              <caret line="30" column="66" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,9 +72,18 @@
       <file leaf-file-name="MethodParameterDeclaration.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+              <folding>
+                <element signature="e#450#451#0" expanded="true" />
+                <element signature="e#495#496#0" expanded="true" />
+                <element signature="e#531#532#0" expanded="true" />
+                <element signature="e#561#562#0" expanded="true" />
+                <element signature="e#594#595#0" expanded="true" />
+                <element signature="e#623#624#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
+                <element signature="e#707#708#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,7 +179,6 @@
         <option value="$PROJECT_DIR$/docs.txt" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/TemplateSplitter.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java" />
-        <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/FieldDeclaration.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/FieldTest.java" />
@@ -182,6 +187,7 @@
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/OptionDeclaration.java" />
+        <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java" />
       </list>
     </option>
@@ -1135,18 +1141,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="27071" max-vertical-offset="34459">
           <caret line="1605" column="28" selection-start-line="1605" selection-start-column="28" selection-end-line="1605" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/Generator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1449" max-vertical-offset="2448">
+          <caret line="107" column="23" selection-start-line="107" selection-start-column="23" selection-end-line="107" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1169,18 +1175,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/Generator.java">
+    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1449" max-vertical-offset="2448">
-          <caret line="107" column="23" selection-start-line="107" selection-start-column="23" selection-end-line="107" selection-end-column="23" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+          <folding>
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#495#496#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+            <element signature="e#561#562#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#623#624#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#707#708#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49195403" vertical-offset="585" max-vertical-offset="1020">
-          <caret line="47" column="82" selection-start-line="47" selection-start-column="82" selection-end-line="47" selection-end-column="82" />
+        <state vertical-scroll-proportion="0.64827585" vertical-offset="228" max-vertical-offset="1598">
+          <caret line="30" column="66" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
