@@ -23,6 +23,11 @@ public class MethodDeclaration extends Declaration {
   }
 
   public void addAllArgs(Collection<Declaration> args) {
-    myArgs.addAll(myArgs);
+    myArgs.addAll(args);
+  }
+
+  public boolean hasArg(String name, int index) {
+    Declaration declaration = myArgs.get(index);
+    return declaration != null && declaration.getName().equals(name);
   }
 }

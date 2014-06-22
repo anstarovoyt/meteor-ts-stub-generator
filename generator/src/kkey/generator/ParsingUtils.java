@@ -29,14 +29,21 @@ public class ParsingUtils {
   }
 
   public static boolean isFunction(String fullName) {
-    return -1 != fullName.indexOf('(') && -1 != fullName.indexOf(')');
+    return -1 != fullName.indexOf('(') && fullName.endsWith(")");
+  }
+
+  public static boolean isField(String fullName) {
+    return !isFunction(fullName) || fullName.endsWith("function ( ) { ... }");
   }
 
   public static String parseNameSpace(String fullName) {
-    return Character.isUpperCase(fullName.charAt(0)) && fullName.indexOf('.') > 0 ? fullName.substring(0, fullName.indexOf('.') - 1) : null;
+    return Character.isUpperCase(fullName.charAt(0)) && fullName.indexOf('.') > 0 ? fullName.substring(0, fullName.indexOf('.')) : null;
   }
 
   public static String parseFieldName(String fullName) {
+    if (fullName.endsWith("function ( ) { ... }")) {
+      return fullName.substring(fullName.indexOf('.') + 1, fullName.indexOf(" ="));
+    }
     return fullName.substring(fullName.indexOf('.') + 1);
   }
 

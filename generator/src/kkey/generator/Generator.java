@@ -23,6 +23,10 @@ public class Generator {
 
   private final ScriptEngine myEngine;
 
+  public Map<String, NameSpace> getNameSpaces() {
+    return myNameSpaces;
+  }
+
   private Map<String, NameSpace> myNameSpaces = new HashMap<>();
 
   public Generator() {
@@ -55,19 +59,23 @@ public class Generator {
         String rawSpace = ParsingUtils.parseNameSpace(fullName);
         if (rawSpace != null) {
           NameSpace nameSpace = getNameSpace(rawSpace);
-          if (!ParsingUtils.isFunction(fullName)) {
-            nameSpace.addDeclaration(new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
-                                                          ParsingUtils.getTypeByFullName(fullName),
-                                                          getElement(element, MEMBER_DESCR)));
-            // logger.info("Parsed member: " + fullName);
+          if (ParsingUtils.isField(fullName)) {
+            FieldDeclaration fieldDeclaration = new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
+                                                                ParsingUtils.getTypeByFullName(fullName),
+                                                                getElement(element, MEMBER_DESCR));
+            nameSpace.addDeclaration(fieldDeclaration);
+            break;
           }
-          else {
+
+          if (ParsingUtils.isFunction(fullName)) {
             MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
                                                                         ParsingUtils.getTypeByFullName(fullName),
                                                                         getElement(element, MEMBER_DESCR),
                                                                         getElement(element, MEMBER_SCOPE));
             nameSpace.addDeclaration(methodDeclaration);
             methodDeclaration.addAllArgs(getArgs(element));
+
+            break;
           }
         }
         else {
