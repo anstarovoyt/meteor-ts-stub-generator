@@ -1,6 +1,8 @@
 package kkey.generator;
 
 
+import com.google.gson.JsonElement;
+
 import java.util.HashMap;
 
 public class ParsingUtils {
@@ -15,12 +17,14 @@ public class ParsingUtils {
     types.put("string", "string");
     types.put("Number", "Number");
     types.put("Number", "Number");
-    types.put("Boolean", "Boolean");
+    types.put("Boolean", "boolean");
+    types.put("boolean", "boolean");
+    types.put("bool", "boolean");
     types.put("Array of Strings", "String[]");
     types.put("Void", "Void");
 
-    predefinedTypes.put("Template.api.isClient", "Boolean");
-    predefinedTypes.put("Template.api.isServer", "Boolean");
+    predefinedTypes.put("Meteor.isClient", "boolean");
+    predefinedTypes.put("Meteor.isServer", "boolean");
   }
 
 
@@ -56,7 +60,21 @@ public class ParsingUtils {
     return fullName.substring(fullName.indexOf('.') + 1, fullName.indexOf('('));
   }
 
-  public static String getTypeByFullName(String fullName) {
-    return "Object";
+  public static String getTypeByElement(JsonElement element) {
+    String text = Generator.getJSObjectMemberText(element, Generator.MEMBER_TYPE);
+    if (!text.isEmpty()) {
+      return parseType(text);
+    }
+
+    if (Generator.getJSObjectMemberText(element, Generator.MEMBER_DESCR).startsWith("Boolean")) {
+      return parseType("Boolean");
+    }
+
+    String fullName = Generator.getJSObjectMemberText(element, Generator.MEMBER_NAME);
+    if (predefinedTypes.containsKey(fullName)) {
+      return parseType(predefinedTypes.get(fullName));
+    }
+
+    return "any";
   }
 }

@@ -1,25 +1,30 @@
 package kkey.generator;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import kkey.generator.blocks.*;
+import kkey.generator.blocks.FieldDeclaration;
+import kkey.generator.blocks.MethodDeclaration;
+import kkey.generator.blocks.NameSpace;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Generator {
-  private static final Logger logger = Logger.getLogger(Generator.class.getName());
+  public static final String MEMBER_TYPE = "type";
   public static final String MEMBER_NAME = "name";
   public static final String MEMBER_DESCR = "descr";
   public static final String MEMBER_SCOPE = "locus";
   public static final JsonParser JSON_PARSER = new JsonParser();
+
+  private static final Logger logger = Logger.getLogger(Generator.class.getName());
+
 
   private final ScriptEngine myEngine;
 
@@ -54,15 +59,33 @@ public class Generator {
     for (Map.Entry<String, String> s : splitter.getResult().entrySet()) {
       try {
         JsonElement element = getJsonElement(s);
-        String fullName = getElement(element, MEMBER_NAME);
+        String fullName = getJSObjectMemberText(element, MEMBER_NAME);
 
         String rawSpace = ParsingUtils.parseNameSpace(fullName);
+        if (ParsingUtils.isFunction(fullName)) {
+          String methodName = fullName.substring(0, fullName.indexOf("("));
+          if (methodName.indexOf('.') != methodName.lastIndexOf('.')) {
+            //initialize second namespace
+
+            if (fullName.startsWith("new ") || fullName.startsWith("Template.<em>myTemplate</em>")) {
+              logger.warning("Skipped (function for undefined property) " + fullName);
+              continue;
+            }
+            logger.info("Has twice namespace! " + fullName);
+          }
+        }
         if (rawSpace != null) {
           NameSpace nameSpace = getNameSpace(rawSpace);
           if (ParsingUtils.isField(fullName)) {
+            if (fullName.startsWith("Template.<em>myTemplate</em>")) {
+              logger.warning("Skipped (field for undefined property) " + fullName);
+              continue;
+            }
+
             FieldDeclaration fieldDeclaration = new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
-                                                                     ParsingUtils.getTypeByFullName(fullName),
-                                                                     getElement(element, MEMBER_DESCR));
+                                                                     ParsingUtils.getTypeByElement(element),
+                                                                     getJSObjectMemberText(element, MEMBER_DESCR),
+                                                                     getJSObjectMemberText(element, MEMBER_SCOPE));
             nameSpace.addDeclaration(fieldDeclaration);
             continue;
           }
@@ -81,10 +104,10 @@ public class Generator {
             continue;
           }
 
-          logger.info("Skipped \n" + s.getKey());
+          logger.warning("Skipped (unknown type) " + fullName);
         }
         else {
-          logger.info("Skipped for key " + s.getKey());
+         // logger.info("Skipped for key " + s.getKey());
         }
       }
       catch (Exception e) {
@@ -95,9 +118,9 @@ public class Generator {
 
   private void addFunctionToNameSpace(JsonElement element, String fullName, NameSpace nameSpace) {
     MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
-                                                                ParsingUtils.getTypeByFullName(fullName),
-                                                                getElement(element, MEMBER_DESCR),
-                                                                getElement(element, MEMBER_SCOPE));
+                                                                ParsingUtils.getTypeByElement(element),
+                                                                getJSObjectMemberText(element, MEMBER_DESCR),
+                                                                getJSObjectMemberText(element, MEMBER_SCOPE));
     nameSpace.addDeclaration(methodDeclaration);
     methodDeclaration.addAllArgs(ArgsParsing.getArgs(element));
   }
@@ -118,7 +141,7 @@ public class Generator {
     return JSON_PARSER.parse(json);
   }
 
-  public static String getElement(JsonElement element, String member) {
+  public static String getJSObjectMemberText(JsonElement element, String member) {
     JsonElement memberElement = element.getAsJsonObject().get(member);
     if (memberElement != null && memberElement.isJsonArray()) {
       StringJoiner joiner = new StringJoiner("\n");

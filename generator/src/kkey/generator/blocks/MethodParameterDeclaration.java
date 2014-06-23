@@ -4,34 +4,18 @@ package kkey.generator.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MethodParameterDeclaration extends Declaration {
-  private final String myDescription;
-  private boolean myIsRequired;
+public class MethodParameterDeclaration extends ArgumentDeclaration {
   private boolean myIsVarArgs;
   private List<MethodParameterDeclaration> myMergedParameters = new ArrayList<>();
 
 
-  public MethodParameterDeclaration(String name, String type, String description, boolean isRequired) {
-    super(name, type);
-    this.myDescription = description;
-    this.myIsRequired = isRequired;
+  public MethodParameterDeclaration(String name, String type, String rawType, String description, boolean isRequired) {
+    super(name, type, rawType, description, isRequired);
     this.myIsVarArgs = false;
   }
 
-  public MethodParameterDeclaration(String name, String type, String description) {
-    this(name, type, description, true);
-  }
-
-  public String getDescription() {
-    return myDescription;
-  }
-
-  public boolean isRequired() {
-    return myIsRequired;
-  }
-
-  public void setRequired(boolean isRequired) {
-    myIsRequired = isRequired;
+  public MethodParameterDeclaration(String name, String type, String rawType, String description) {
+    this(name, type, rawType, description, true);
   }
 
   public boolean isVarArgs() {

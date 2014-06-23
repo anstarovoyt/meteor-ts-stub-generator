@@ -5,9 +5,12 @@ public class Declaration {
   private final String myName;
   private final String myType;
 
-  public Declaration(String name, String type) {
+  private final String myDescription;
+
+  public Declaration(String name, String type, String description) {
     myName = name;
     myType = type;
+    myDescription = description;
   }
 
   public String getType() {
@@ -16,5 +19,9 @@ public class Declaration {
 
   public String getName() {
     return myName;
+  }
+
+  public String getDescription() {
+    return myDescription;
   }
 }

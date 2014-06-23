@@ -4,21 +4,22 @@ package kkey.generator;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import kkey.generator.blocks.Declaration;
+import kkey.generator.blocks.ArgumentDeclaration;
 import kkey.generator.blocks.MethodParameterDeclaration;
 import kkey.generator.blocks.OptionsDeclaration;
 
 import java.util.*;
 
 public class ArgsParsing {
-  public static Collection<Declaration> getArgs(JsonElement element) {
-    Collection<Declaration> result = new ArrayList<>();
-    String fullName = Generator.getElement(element, Generator.MEMBER_NAME);
+
+  public static Collection<ArgumentDeclaration> getArgs(JsonElement element) {
+    Collection<ArgumentDeclaration> result = new ArrayList<>();
+    String fullName = Generator.getJSObjectMemberText(element, Generator.MEMBER_NAME);
     if (fullName.endsWith("()")) {
       return result;
     }
     List<String> argsFromName = argsFromName(fullName);
-    LinkedHashMap<String, Declaration> directArgs = getArgsFromField(element, new HashSet<>(argsFromName));
+    LinkedHashMap<String, ArgumentDeclaration> directArgs = getArgsFromField(element, new HashSet<>(argsFromName));
 
     if (directArgs.isEmpty()) {
       for (String name : argsFromName) {
@@ -26,7 +27,7 @@ public class ArgsParsing {
           result.add(getOptions(element, isRequired(name)));
         }
         else {
-          result.add(new MethodParameterDeclaration(getRealName(name), "Object", "", isRequired(name)));
+          result.add(new MethodParameterDeclaration(getRealName(name), "any", "", "", isRequired(name)));
         }
       }
     }
@@ -49,8 +50,8 @@ public class ArgsParsing {
     return result;
   }
 
-  public static LinkedHashMap<String, Declaration> getArgsFromField(JsonElement element, Collection<String> argsNames) {
-    LinkedHashMap<String, Declaration> result = new LinkedHashMap<>();
+  public static LinkedHashMap<String, ArgumentDeclaration> getArgsFromField(JsonElement element, Collection<String> argsNames) {
+    LinkedHashMap<String, ArgumentDeclaration> result = new LinkedHashMap<>();
 
     JsonElement args = element.getAsJsonObject().get("args");
     if (args == null) {
@@ -65,9 +66,10 @@ public class ArgsParsing {
       JsonElement descr = object.get(Generator.MEMBER_DESCR);
       String descrText = descr == null ? "" : descr.getAsString();
       String name = object.get("name").getAsString();
+      String rawType = Generator.getJSObjectMemberText(jsonElement, "type");
       MethodParameterDeclaration methodParameterDeclaration = new MethodParameterDeclaration(name,
-                                                                                             ParsingUtils
-                                                                                               .parseType(object.get("type").getAsString()),
+                                                                                             ParsingUtils.parseType(rawType),
+                                                                                             rawType,
                                                                                              descrText);
       methodParameterDeclaration.setRequired(!argsNames.contains("[" + name + "]"));
       methodParameterDeclaration.setVarArgs(name.contains("..."));
@@ -89,7 +91,7 @@ public class ArgsParsing {
     return name.equals("options") || name.equals("[options]");
   }
 
-  public static Declaration getOptions(JsonElement element, boolean isRequired) {
+  public static ArgumentDeclaration getOptions(JsonElement element, boolean isRequired) {
     JsonElement options = element.getAsJsonObject().get("options");
 
     OptionsDeclaration declaration = new OptionsDeclaration(isRequired);
@@ -97,9 +99,21 @@ public class ArgsParsing {
       return declaration;
     }
     for (JsonElement jsonElement : options.getAsJsonArray()) {
-      declaration.addParameter(new MethodParameterDeclaration(Generator.getElement(jsonElement, "name"),
-                                                              ParsingUtils.parseType(Generator.getElement(jsonElement, "type")),
-                                                              Generator.getElement(jsonElement, "descr")));
+      String rawType = Generator.getJSObjectMemberText(jsonElement, "type");
+      String rawName = Generator.getJSObjectMemberText(jsonElement, "name");
+
+      String[] names = {rawName};
+      if (rawName.contains(", ")) {
+        names = rawName.split(", ");
+      }
+
+      for (String name : names) {
+        declaration.addParameter(new MethodParameterDeclaration(name,
+                                                                ParsingUtils.parseType(rawType),
+                                                                rawType,
+                                                                Generator.getJSObjectMemberText(jsonElement, "descr"),
+                                                                false));
+      }
     }
 
     return declaration;

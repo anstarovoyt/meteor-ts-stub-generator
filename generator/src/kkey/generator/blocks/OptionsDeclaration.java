@@ -2,27 +2,38 @@ package kkey.generator.blocks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
-public class OptionsDeclaration extends Declaration {
+import static kkey.generator.blocks.DocUtils.INDENT;
 
-  private List<Declaration> list = new ArrayList<>();
-  private boolean myIsRequired;
+public class OptionsDeclaration extends ArgumentDeclaration {
+
+
+  private List<ArgumentDeclaration> list = new ArrayList<>();
 
   public OptionsDeclaration(boolean isRequired) {
-    super("options", "any");
-    myIsRequired = isRequired;
+    super("options", "any", "Options", "", isRequired);
   }
 
-  public void addParameter(Declaration declaration) {
+  public void addParameter(ArgumentDeclaration declaration) {
     list.add(declaration);
   }
 
+  @Override
+  public String toStringWithIndent(String indent) {
+    StringBuilder result = new StringBuilder();
+    result.append(getName()).append(getRequiredPart()).append(":{\n");
+    String addIndent = indent + INDENT;
+    result.append(addIndent);
+    StringJoiner joiner = new StringJoiner(";\n" + addIndent);
+    for (ArgumentDeclaration declaration : list) {
+      joiner.add(declaration.toStringWithIndent(""));
+    }
 
-  public boolean isRequired() {
-    return myIsRequired;
-  }
-
-  public void setRequired(boolean isRequired) {
-    this.myIsRequired = isRequired;
+    result.append(joiner.toString());
+    result.append('\n');
+    result.append(indent);
+    result.append("}");
+    return result.toString();
   }
 }

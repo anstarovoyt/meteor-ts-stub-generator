@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MethodTest {
+
   @Test
   public void testSimple() {
     Generator generator = new Generator();
