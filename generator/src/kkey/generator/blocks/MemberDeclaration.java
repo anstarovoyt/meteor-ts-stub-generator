@@ -1,6 +1,7 @@
 package kkey.generator.blocks;
 
-import org.testng.util.Strings;
+
+import com.google.common.base.Strings;
 
 import static kkey.generator.blocks.DocUtils.*;
 

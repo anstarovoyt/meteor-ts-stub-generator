@@ -202,6 +202,29 @@ public class TypeScriptStubTest {
                                           "  ]\n" +
                                           "};"));
   }
+
+  @Test
+  public void testGenerateStubForVarArgs() {
+    assertResult(getSpaceText("Meteor", "Template.api.subscribe = {\n" +
+                                        "  id: \"meteor_subscribe\",\n" +
+                                        "  name: \"Meteor.subscribe(name [, arg1, arg2, ... ])\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"name\",\n" +
+                                        "     type: \"String\",\n" +
+                                        "     descr: \"Name of the subscription.  Matches the name of the server's `publish()` call.\"},\n" +
+                                        "    {name: \"arg1, arg2, ...\",\n" +
+                                        "     type: \"Any\",\n" +
+                                        "     descr: \"Optional arguments passed to publisher function on server.\"},\n" +
+                                        "    {name: \"callbacks\",\n" +
+                                        "     type: \"Function or Object\",\n" +
+                                        "     descr: \"Optional. May include `onError` and `onReady` callbacks. If a function is passed instead of an object, it is interpreted as an `onReady` callback.\"}\n" +
+                                        "  ]\n" +
+                                        "};"));
+  }
+
+
   private String getSpaceText(String spaceName, String raw) {
     Generator generator = new Generator();
     generator.build(raw);

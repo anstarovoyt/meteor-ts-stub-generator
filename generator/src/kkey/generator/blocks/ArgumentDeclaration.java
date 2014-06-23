@@ -1,7 +1,7 @@
 package kkey.generator.blocks;
 
 
-import org.testng.util.Strings;
+import com.google.common.base.Strings;
 
 public class ArgumentDeclaration extends Declaration {
   private boolean myIsRequired;
@@ -22,6 +22,7 @@ public class ArgumentDeclaration extends Declaration {
   }
 
   public String getArgumentJSDoc() {
+
     String descriptionPart = Strings.isNullOrEmpty(getDescription()) ? "" : " - " + getDescription();
     String rawTypePart = Strings.isNullOrEmpty(getRawType()) ? "" : "{" + getRawType() + "} ";
     return "@param " + rawTypePart + coverWithRequired(getName()) + descriptionPart;

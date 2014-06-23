@@ -29,4 +29,20 @@ public class MethodParameterDeclaration extends ArgumentDeclaration {
   public void addMergedParameter(MethodParameterDeclaration mergedParameter) {
     myMergedParameters.add(mergedParameter);
   }
+
+  @Override
+  public String toStringWithIndent(String indent) {
+    if (isVarArgs()) {
+      return "..." + determineArgValue() + ":" + getType() + "[]";
+    }
+    else {
+      return super.toStringWithIndent(indent);
+    }
+  }
+
+  private String determineArgValue() {
+    String value = getName().split(",")[0].trim();
+    String substring = value.substring(0, value.length() - 1);
+    return substring + "s";
+  }
 }
