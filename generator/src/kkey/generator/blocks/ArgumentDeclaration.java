@@ -22,7 +22,6 @@ public class ArgumentDeclaration extends Declaration {
   }
 
   public String getArgumentJSDoc() {
-
     String descriptionPart = Strings.isNullOrEmpty(getDescription()) ? "" : " - " + getDescription();
     String rawTypePart = Strings.isNullOrEmpty(getRawType()) ? "" : "{" + getRawType() + "} ";
     return "@param " + rawTypePart + coverWithRequired(getName()) + descriptionPart;

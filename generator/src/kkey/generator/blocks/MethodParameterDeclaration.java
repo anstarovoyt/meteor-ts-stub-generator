@@ -45,4 +45,15 @@ public class MethodParameterDeclaration extends ArgumentDeclaration {
     String substring = value.substring(0, value.length() - 1);
     return substring + "s";
   }
+
+  @Override
+  public String getArgumentJSDoc() {
+    StringBuilder result = new StringBuilder();
+    result.append(super.getArgumentJSDoc());
+    for (MethodParameterDeclaration parameter : myMergedParameters) {
+      result.append(DocUtils.newDocLine(parameter.getArgumentJSDoc()));
+    }
+
+    return result.toString();
+  }
 }

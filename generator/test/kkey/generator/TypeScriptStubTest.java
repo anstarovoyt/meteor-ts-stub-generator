@@ -216,6 +216,24 @@ public class TypeScriptStubTest {
                                         "     descr: \"Name of the subscription.  Matches the name of the server's `publish()` call.\"},\n" +
                                         "    {name: \"arg1, arg2, ...\",\n" +
                                         "     type: \"Any\",\n" +
+                                        "     descr: \"Optional arguments passed to publisher function on server.\"}\n" +
+                                        "  ]\n" +
+                                        "};"));
+  }
+
+  @Test
+  public void testGenerateStubForVarArgsAndOptional() {
+    assertResult(getSpaceText("Meteor", "Template.api.subscribe = {\n" +
+                                        "  id: \"meteor_subscribe\",\n" +
+                                        "  name: \"Meteor.subscribe(name [, arg1, arg2, ... ] [, callbacks])\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"name\",\n" +
+                                        "     type: \"String\",\n" +
+                                        "     descr: \"Name of the subscription.  Matches the name of the server's `publish()` call.\"},\n" +
+                                        "    {name: \"arg1, arg2, ...\",\n" +
+                                        "     type: \"Any\",\n" +
                                         "     descr: \"Optional arguments passed to publisher function on server.\"},\n" +
                                         "    {name: \"callbacks\",\n" +
                                         "     type: \"Function or Object\",\n" +
@@ -223,7 +241,6 @@ public class TypeScriptStubTest {
                                         "  ]\n" +
                                         "};"));
   }
-
 
   private String getSpaceText(String spaceName, String raw) {
     Generator generator = new Generator();
