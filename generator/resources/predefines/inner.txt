@@ -1,0 +1,25 @@
+Template.api.subscribe_stop = {
+  id: "subscribe_stop",
+  name: "SubscribeHandler.stop()",
+  locus: "Anywhere",
+  descr: ["Cancel the subscription. This will typically result in the server directing the client to remove the subscription's data from the client's cache."],
+};
+
+Template.api.subscribe_ready = {
+  id: "subscribe_ready",
+  name: "SubscribeHandler.ready()",
+  locus: "Anywhere",
+  type: "boolean",
+  descr: ["True if the server has marked the subscription as ready. A reactive data source."],
+};
+
+//ConnectionHandler
+
+Template.api.on_connection_stop = {
+  id: "on_connection_stop",
+  name: "OnConnectionHandler.stop()",
+  locus: "Anywhere",
+  descr: ["Calling stop unregisters the callback, so that this callback will no longer be called on new connections."],
+};
+
+//DDP
