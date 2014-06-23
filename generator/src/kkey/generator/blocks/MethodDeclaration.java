@@ -10,6 +10,10 @@ public class MethodDeclaration extends Declaration {
   private final String myDescription;
   private final String myScope;
 
+  public List<Declaration> getArgs() {
+    return myArgs;
+  }
+
   private final List<Declaration> myArgs = new ArrayList<>();
 
   public MethodDeclaration(String name, String type, String description, String scope) {
@@ -29,5 +33,9 @@ public class MethodDeclaration extends Declaration {
   public boolean hasArg(String name, int index) {
     Declaration declaration = myArgs.get(index);
     return declaration != null && declaration.getName().equals(name);
+  }
+
+  public Declaration getArg(int index) {
+    return myArgs.get(index);
   }
 }

@@ -10,7 +10,9 @@ public class ParsingUtils {
 
   static {
     types.put("Function", "Function");
-    types.put("String", "String");
+    types.put("function", "Function");
+    types.put("String", "string");
+    types.put("string", "string");
     types.put("Number", "Number");
     types.put("Number", "Number");
     types.put("Boolean", "Boolean");
@@ -24,7 +26,7 @@ public class ParsingUtils {
 
   public static String parseType(String type) {
     String parsedType = types.get(type);
-    return parsedType == null ? "Object" : parsedType;
+    return parsedType == null ? "any" : parsedType;
   }
 
   public static boolean isFunction(String fullName) {

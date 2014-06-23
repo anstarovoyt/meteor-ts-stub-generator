@@ -67,26 +67,39 @@ public class Generator {
             continue;
           }
 
+
           if (ParsingUtils.isFunction(fullName)) {
-            MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
-                                                                        ParsingUtils.getTypeByFullName(fullName),
-                                                                        getElement(element, MEMBER_DESCR),
-                                                                        getElement(element, MEMBER_SCOPE));
-            nameSpace.addDeclaration(methodDeclaration);
-            methodDeclaration.addAllArgs(getArgs(element));
+            if (fullName.contains(" and ")) {
+              for (String s1 : fullName.split(" and ")) {
+                element.getAsJsonObject().addProperty(MEMBER_NAME, s1);
+                addFunctionToNameSpace(element, s1, nameSpace);
+              }
+            }
+            else {
+              addFunctionToNameSpace(element, fullName, nameSpace);
+            }
             continue;
           }
 
           logger.info("Skipped \n" + s.getKey());
         }
         else {
-          logger.info(s.getKey());
+          logger.info("Skipped for key " + s.getKey());
         }
       }
       catch (Exception e) {
         logger.log(Level.SEVERE, "error. Text\n" + s, e);
       }
     }
+  }
+
+  private void addFunctionToNameSpace(JsonElement element, String fullName, NameSpace nameSpace) {
+    MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
+                                                                ParsingUtils.getTypeByFullName(fullName),
+                                                                getElement(element, MEMBER_DESCR),
+                                                                getElement(element, MEMBER_SCOPE));
+    nameSpace.addDeclaration(methodDeclaration);
+    methodDeclaration.addAllArgs(ArgsParsing.getArgs(element));
   }
 
   private void initFunctions(TemplateSplitter splitter) {
@@ -118,24 +131,6 @@ public class Generator {
     return memberElement == null ? "" : memberElement.getAsString();
   }
 
-  private Collection<Declaration> getArgs(JsonElement element) {
-    Collection<Declaration> result = new ArrayList<>();
-    JsonElement args = element.getAsJsonObject().get("args");
-    if (args == null && getElement(element, MEMBER_NAME).endsWith("()")) {
-      return result;
-    }
-    JsonArray array = args.getAsJsonArray();
-    for (JsonElement jsonElement : array) {
-      JsonObject object = jsonElement.getAsJsonObject();
-      JsonElement descr = object.get(MEMBER_DESCR);
-      String descrText = descr == null ? "" : descr.getAsString();
-      result.add(new MethodParameterDeclaration(object.get("name").getAsString(),
-                                                ParsingUtils.parseType(object.get("type").getAsString()),
-                                                descrText));
-    }
-
-    return result;
-  }
 
   private NameSpace getNameSpace(String name) {
     NameSpace nameSpace = myNameSpaces.get(name);

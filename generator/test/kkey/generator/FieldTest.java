@@ -9,25 +9,27 @@ import org.junit.Test;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 public class FieldTest {
 
   @Test
   public void simpleTest() {
     Generator generator = new Generator();
 
-     generator.build("Template.api.isClient = {\n" +
-                     "  id: \"meteor_isclient\",\n" +
-                     "  name: \"Meteor.isClient\",\n" +
-                     "  locus: \"Anywhere\",\n" +
-                     "  descr: [\"Boolean variable.  True if running in client environment.\"]\n" +
-                     "};");
+    generator.build("Template.api.isClient = {\n" +
+                    "  id: \"meteor_isclient\",\n" +
+                    "  name: \"Meteor.isClient\",\n" +
+                    "  locus: \"Anywhere\",\n" +
+                    "  descr: [\"Boolean variable.  True if running in client environment.\"]\n" +
+                    "};");
 
     Map<String, NameSpace> spaces = generator.getNameSpaces();
 
     NameSpace space = spaces.get("Meteor");
     Declaration next = space.getDeclarations().iterator().next();
     assert next instanceof FieldDeclaration;
-    Assert.assertTrue(((FieldDeclaration)next).getName().equals("isClient"));
+    Assert.assertEquals("isClient", next.getName());
   }
 
   @Test
@@ -46,6 +48,6 @@ public class FieldTest {
     NameSpace space = spaces.get("Template");
     Declaration next = space.getDeclarations().iterator().next();
     assert next instanceof FieldDeclaration;
-    Assert.assertTrue(((FieldDeclaration)next).getName().equals("created"));
+    Assert.assertEquals("created", next.getName());
   }
 }

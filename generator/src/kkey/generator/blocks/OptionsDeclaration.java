@@ -3,13 +3,14 @@ package kkey.generator.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionDeclaration extends Declaration {
+public class OptionsDeclaration extends Declaration {
 
   private List<Declaration> list = new ArrayList<>();
-  private boolean isRequired;
+  private boolean myIsRequired;
 
-  public OptionDeclaration() {
-    super("options", "Object");
+  public OptionsDeclaration(boolean isRequired) {
+    super("options", "any");
+    myIsRequired = isRequired;
   }
 
   public void addParameter(Declaration declaration) {
@@ -18,10 +19,10 @@ public class OptionDeclaration extends Declaration {
 
 
   public boolean isRequired() {
-    return isRequired;
+    return myIsRequired;
   }
 
   public void setRequired(boolean isRequired) {
-    this.isRequired = isRequired;
+    this.myIsRequired = isRequired;
   }
 }
