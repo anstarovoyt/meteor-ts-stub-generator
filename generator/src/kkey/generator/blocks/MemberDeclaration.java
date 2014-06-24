@@ -21,7 +21,7 @@ public class MemberDeclaration extends Declaration {
 
   protected String getDocs() {
     return startDoc() +
-           newDocLine(getDescription()) +
+           newDocLine(getDescription().replace("\n", DocUtils.newDocLine("") + " ")) +
            newDocLine("") +
            (Strings.isNullOrEmpty(myScope) ? "" : newDocLine(LOCUS + " " + myScope)) +
            docPart() +

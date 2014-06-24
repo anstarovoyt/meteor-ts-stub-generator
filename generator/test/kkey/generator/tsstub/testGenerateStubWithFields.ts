@@ -7,6 +7,7 @@ interface IMeteor {
      */
     isClient:boolean;
 
+
     /**
      * Boolean variable.  True if running in server environment.
      *
@@ -17,4 +18,3 @@ interface IMeteor {
 }
 
 declare var Meteor:IMeteor;
-

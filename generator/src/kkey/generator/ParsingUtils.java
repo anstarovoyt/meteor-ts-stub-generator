@@ -42,6 +42,11 @@ public class ParsingUtils {
   }
 
   public static String parseNameSpace(String fullName) {
+    //has tag -> cannot process from this place
+    if (fullName.matches(".*(<.*>).*")){
+      return null;
+    }
+
     return Character.isJavaIdentifierStart(fullName.charAt(0))
            && Character.isUpperCase(fullName.charAt(0))
            && fullName.indexOf('.') > 0

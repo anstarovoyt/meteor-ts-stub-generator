@@ -9,6 +9,9 @@ import kkey.generator.blocks.NameSpace;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -33,6 +36,7 @@ public class Generator {
   }
 
   private Map<String, NameSpace> myNameSpaces = new HashMap<>();
+  private Map<String, String> fullNameToType = new HashMap<>();
 
   public Generator() {
     ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -55,7 +59,7 @@ public class Generator {
 
   public void parseJSONValue(TemplateSplitter splitter) {
     initFunctions(splitter);
-
+    fillSignatureMapping();
     for (Map.Entry<String, String> s : splitter.getResult().entrySet()) {
       try {
         JsonElement element = getJsonElement(s);
@@ -72,6 +76,8 @@ public class Generator {
               continue;
             }
             logger.info("Has twice namespace! " + fullName);
+            //temporary
+            continue;
           }
         }
         if (rawSpace != null) {
@@ -83,7 +89,7 @@ public class Generator {
             }
 
             FieldDeclaration fieldDeclaration = new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
-                                                                     ParsingUtils.getTypeByElement(element),
+                                                                     getMethodOrFieldType(element, fullName),
                                                                      getJSObjectMemberText(element, MEMBER_DESCR),
                                                                      getJSObjectMemberText(element, MEMBER_SCOPE));
             nameSpace.addDeclaration(fieldDeclaration);
@@ -107,7 +113,7 @@ public class Generator {
           logger.warning("Skipped (unknown type) " + fullName);
         }
         else {
-         // logger.info("Skipped for key " + s.getKey());
+          logger.info("Skipped (not namespace) " + fullName);
         }
       }
       catch (Exception e) {
@@ -116,9 +122,28 @@ public class Generator {
     }
   }
 
+  private String getMethodOrFieldType(JsonElement element, String fullName) {
+    if (fullNameToType.containsKey(fullName)) return fullNameToType.get(fullName);
+
+    return ParsingUtils.getTypeByElement(element);
+  }
+
+  private void fillSignatureMapping() {
+    try {
+      String content = new String(Files.readAllBytes(Paths.get("generator/resources/mapping.txt")));
+      for (String signatureToType : content.split("\n")) {
+        int index = signatureToType.lastIndexOf(' ');
+        fullNameToType.put(signatureToType.substring(0, index), signatureToType.substring(index + 1));
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   private void addFunctionToNameSpace(JsonElement element, String fullName, NameSpace nameSpace) {
     MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
-                                                                ParsingUtils.getTypeByElement(element),
+                                                                getMethodOrFieldType(element, fullName),
                                                                 getJSObjectMemberText(element, MEMBER_DESCR),
                                                                 getJSObjectMemberText(element, MEMBER_SCOPE));
     nameSpace.addDeclaration(methodDeclaration);
@@ -166,6 +191,11 @@ public class Generator {
   }
 
   public String getTypeScriptStub() {
-    return null;
+    StringJoiner result = new StringJoiner("\n\n");
+    for (NameSpace space : myNameSpaces.values()) {
+      result.add(space.toString());
+    }
+
+    return result.toString();
   }
 }

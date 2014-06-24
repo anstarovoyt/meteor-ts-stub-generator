@@ -7,7 +7,7 @@ interface IMeteor {
      *
      * @param {Function} func - A function to run on startup.
      */
-    startup(func:Function):any;
+    startup(func:Function):void;
 
 }
 

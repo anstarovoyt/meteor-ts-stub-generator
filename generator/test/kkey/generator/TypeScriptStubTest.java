@@ -242,6 +242,15 @@ public class TypeScriptStubTest {
                                         "};"));
   }
 
+  @Test
+  public void testDocs() throws IOException {
+    String content = new String(Files.readAllBytes(Paths.get("docs.txt")));
+    Generator generator = new Generator();
+    generator.build(content);
+
+    assertResult(generator.getTypeScriptStub());
+  }
+
   private String getSpaceText(String spaceName, String raw) {
     Generator generator = new Generator();
     generator.build(raw);

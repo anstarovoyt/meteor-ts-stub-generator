@@ -13,7 +13,7 @@ interface IMeteor {
                     secure?:boolean;
                     replaceLocalhost?:boolean;
                     rootUrl?:string
-                }):any;
+                }):string;
 
 }
 

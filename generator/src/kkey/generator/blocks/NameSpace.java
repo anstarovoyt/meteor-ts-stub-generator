@@ -46,9 +46,14 @@ public class NameSpace {
     result.append(getInterfaceName());
     result.append(" {");
 
+    boolean isFirst = true;
     for (Declaration declaration : myDeclarations) {
       result.append("\n\n");
+      if (!isFirst) {
+        result.append('\n');
+      }
       result.append(declaration);
+      isFirst = false;
     }
 
     result.append("\n\n}\n");

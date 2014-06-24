@@ -4,12 +4,12 @@ Meteor.startup(func) void
 Meteor.absoluteUrl([path], [options]) string
 Meteor.release string
 Meteor.publish(name, func) string
-Meteor.subscribe(name [, arg1, arg2, ... ] [, callbacks]) ISubscribeHandler
+//Meteor.subscribe(name [, arg1, arg2, ... ] [, callbacks]) ISubscribeHandler
 Meteor.reconnect() void
 Meteor.disconnect() void
-Meteor.onConnection(callback) IOnConnectionHandler
+//Meteor.onConnection(callback) IOnConnectionHandler
 //DDP.connect(url) IDDPConnection
-collection.find(selector, [options]) Icursor
-collection.findOne(selector, [options]) Icursor
-collection.update(selector, modifier, [options], [callback]) number
-Meteor.users Icollection
+//collection.find(selector, [options]) Icursor
+//collection.findOne(selector, [options]) Icursor
+//collection.update(selector, modifier, [options], [callback]) number
+//Meteor.users Icollection

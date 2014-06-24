@@ -3,7 +3,20 @@ package kkey.generator.blocks;
 
 import com.google.common.base.Strings;
 
+import java.util.HashMap;
+
 public class ArgumentDeclaration extends Declaration {
+
+  //keywords replacement
+  public static final HashMap<String, String> keywords = new HashMap<>();
+
+  static {
+    keywords.put("function", "func");
+    keywords.put("new", "newValue");
+    keywords.put("return", "result");
+    keywords.put("var", "variable");
+  }
+
   private boolean myIsRequired;
   private String myRawType;
 
@@ -23,8 +36,9 @@ public class ArgumentDeclaration extends Declaration {
 
   public String getArgumentJSDoc() {
     String descriptionPart = Strings.isNullOrEmpty(getDescription()) ? "" : " - " + getDescription();
+    descriptionPart = descriptionPart.replace("\n", DocUtils.newDocLine("") + " ");
     String rawTypePart = Strings.isNullOrEmpty(getRawType()) ? "" : "{" + getRawType() + "} ";
-    return "@param " + rawTypePart + coverWithRequired(getName()) + descriptionPart;
+    return "@param " + rawTypePart + coverWithRequired(getFixedName()) + descriptionPart;
   }
 
   public String toStringWithIndent(String indent) {
@@ -34,7 +48,7 @@ public class ArgumentDeclaration extends Declaration {
   @Override
   public String toString() {
     String requirePart = getRequiredPart();
-    return getName() + requirePart + ":" + getType();
+    return getFixedName() + requirePart + ":" + getType();
   }
 
   protected String getRequiredPart() {
@@ -47,5 +61,10 @@ public class ArgumentDeclaration extends Declaration {
 
   public String getRawType() {
     return myRawType;
+  }
+
+  protected String getFixedName() {
+    String name = getName();
+    return keywords.containsKey(name) ? keywords.get(name) : name;
   }
 }
