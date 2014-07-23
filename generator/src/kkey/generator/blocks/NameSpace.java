@@ -13,6 +13,11 @@ public class NameSpace {
   private final String myName;
   private final Collection<Declaration> myDeclarations = new ArrayList<>();
 
+  public boolean isModule() {
+    return myIsModule;
+  }
+
+  private final boolean myIsModule;
   private final List<NameSpace> subNameSpaces = new ArrayList<>();
 
   private boolean myGenerateVariable;
@@ -32,6 +37,13 @@ public class NameSpace {
   public NameSpace(String name) {
     myName = name;
     myGenerateVariable = true;
+    myIsModule = false;
+  }
+
+  public NameSpace(String name, boolean isModule) {
+    myName = name;
+    myGenerateVariable = true;
+    myIsModule = isModule;
   }
 
   public void addDeclaration(Declaration declaration) {
@@ -42,7 +54,7 @@ public class NameSpace {
   public String toString() {
     StringBuilder result = new StringBuilder();
 
-    result.append("\ninterface ");
+    result.append("\n").append(getDeclare()).append(" ");
     result.append(getInterfaceName());
     result.append(" {");
 
@@ -58,12 +70,16 @@ public class NameSpace {
 
     result.append("\n\n}\n");
 
-    if (myGenerateVariable) {
+    if (myGenerateVariable && !myIsModule) {
       result.append("\ndeclare var ");
       result.append(myName).append(":").append(getInterfaceName()).append(";");
     }
 
     return result.toString();
+  }
+
+  private String getDeclare() {
+    return myIsModule ? "declare module" : "interface";
   }
 
   private String getInterfaceName() {

@@ -9,14 +9,18 @@ public class MemberDeclaration extends Declaration {
   public static final String LOCUS = "@locus";
   private String myScope;
 
-  public MemberDeclaration(String name, String type, String description, String scope) {
-    super(name, type, description);
+  public MemberDeclaration(String name, String type, String description, String scope, NameSpace nameSpace) {
+    super(name, type, description, nameSpace);
     myScope = scope;
   }
 
   @Override
   public String toString() {
-    return getDocs() + fullDeclaration() + ":" + getType() + ";";
+    return getDocs()  + INDENT + getKeyWords() + fullDeclaration() + ":" + getType() + ";";
+  }
+
+  protected String getKeyWords() {
+    return "";
   }
 
   protected String getDocs() {
@@ -33,6 +37,6 @@ public class MemberDeclaration extends Declaration {
   }
 
   protected String fullDeclaration() {
-    return INDENT + getName();
+    return getName();
   }
 }

@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class TypeScriptStubTest {
+  public static final String DEFAULT_MODULE = "Meteor";
   @Rule
   public TestName name = new TestName();
 
@@ -173,34 +174,34 @@ public class TypeScriptStubTest {
   @Test
   public void testGenerateStubWithParamAndOption() {
     assertResult(getSpaceText("Meteor", "Template.api.absoluteUrl = {\n" +
-                                          "  id: \"meteor_absoluteurl\",\n" +
-                                          "  name: \"Meteor.absoluteUrl([path], [options])\",\n" +
-                                          "  locus: \"Anywhere\",\n" +
-                                          "  descr: [\"Generate an absolute URL pointing to the application. The server \"\n" +
-                                          "          + \"reads from the `ROOT_URL` environment variable to determine \"\n" +
-                                          "          + \"where it is running. This is taken care of automatically for \"\n" +
-                                          "          + \"apps deployed with `meteor deploy`, but must be provided when \"\n" +
-                                          "          + \"using `meteor bundle`.\"],\n" +
-                                          "  args: [\n" +
-                                          "    {name: \"path\",\n" +
-                                          "     type: \"String\",\n" +
-                                          "     descr: 'A path to append to the root URL. Do not include a leading \"`/`\".'\n" +
-                                          "    }\n" +
-                                          "  ],\n" +
-                                          "  options: [\n" +
-                                          "    {name: \"secure\",\n" +
-                                          "     type: \"Boolean\",\n" +
-                                          "     descr: \"Create an HTTPS URL.\"\n" +
-                                          "    },\n" +
-                                          "    {name: \"replaceLocalhost\",\n" +
-                                          "     type: \"Boolean\",\n" +
-                                          "     descr: \"Replace localhost with 127.0.0.1. Useful for services that don't recognize localhost as a domain name.\"},\n" +
-                                          "    {name: \"rootUrl\",\n" +
-                                          "     type: \"String\",\n" +
-                                          "     descr: \"Override the default ROOT_URL from the server environment. For example: \\\"`http://foo.example.com`\\\"\"\n" +
-                                          "    }\n" +
-                                          "  ]\n" +
-                                          "};"));
+                                        "  id: \"meteor_absoluteurl\",\n" +
+                                        "  name: \"Meteor.absoluteUrl([path], [options])\",\n" +
+                                        "  locus: \"Anywhere\",\n" +
+                                        "  descr: [\"Generate an absolute URL pointing to the application. The server \"\n" +
+                                        "          + \"reads from the `ROOT_URL` environment variable to determine \"\n" +
+                                        "          + \"where it is running. This is taken care of automatically for \"\n" +
+                                        "          + \"apps deployed with `meteor deploy`, but must be provided when \"\n" +
+                                        "          + \"using `meteor bundle`.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"path\",\n" +
+                                        "     type: \"String\",\n" +
+                                        "     descr: 'A path to append to the root URL. Do not include a leading \"`/`\".'\n" +
+                                        "    }\n" +
+                                        "  ],\n" +
+                                        "  options: [\n" +
+                                        "    {name: \"secure\",\n" +
+                                        "     type: \"Boolean\",\n" +
+                                        "     descr: \"Create an HTTPS URL.\"\n" +
+                                        "    },\n" +
+                                        "    {name: \"replaceLocalhost\",\n" +
+                                        "     type: \"Boolean\",\n" +
+                                        "     descr: \"Replace localhost with 127.0.0.1. Useful for services that don't recognize localhost as a domain name.\"},\n" +
+                                        "    {name: \"rootUrl\",\n" +
+                                        "     type: \"String\",\n" +
+                                        "     descr: \"Override the default ROOT_URL from the server environment. For example: \\\"`http://foo.example.com`\\\"\"\n" +
+                                        "    }\n" +
+                                        "  ]\n" +
+                                        "};"));
   }
 
   @Test
@@ -246,13 +247,43 @@ public class TypeScriptStubTest {
   public void testDocs() throws IOException {
     String content = new String(Files.readAllBytes(Paths.get("docs.txt")));
     Generator generator = new Generator();
+    generator.addModule(DEFAULT_MODULE);
     generator.build(content);
 
     assertResult(generator.getTypeScriptStub());
   }
 
+  @Test
+  public void testGenerateStubModule() {
+    assertResult(getSpaceText("Meteor", "Template.api.startup = {\n" +
+                                        "  id: \"meteor_startup\",\n" +
+                                        "  name: \"Meteor.startup(func)\",\n" +
+                                        "  locus: \"Anywhere\",\n" +
+                                        "  descr: [\"Run code when a client or a server starts.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"func\",\n" +
+                                        "     type: \"Function\",\n" +
+                                        "     descr: \"A function to run on startup.\"}\n" +
+                                        "  ]\n" +
+                                        "};\n" +
+                                        "Template.api.isClient = {\n" +
+                                        "  id: \"meteor_isclient\",\n" +
+                                        "  name: \"Meteor.isClient\",\n" +
+                                        "  locus: \"Anywhere\",\n" +
+                                        "  descr: [\"Boolean variable.  True if running in client environment.\"]\n" +
+                                        "};\n", true));
+  }
+
   private String getSpaceText(String spaceName, String raw) {
+    return getSpaceText(spaceName, raw, false);
+  }
+
+  private String getSpaceText(String spaceName, String raw, boolean addModule) {
     Generator generator = new Generator();
+    if (addModule) {
+      generator.addModule(DEFAULT_MODULE);
+    }
+
     generator.build(raw);
 
     Map<String, NameSpace> spaces = generator.getNameSpaces();

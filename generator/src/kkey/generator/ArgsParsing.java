@@ -6,35 +6,36 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import kkey.generator.blocks.ArgumentDeclaration;
 import kkey.generator.blocks.MethodParameterDeclaration;
+import kkey.generator.blocks.NameSpace;
 import kkey.generator.blocks.OptionsDeclaration;
 
 import java.util.*;
 
 public class ArgsParsing {
 
-  public static Collection<ArgumentDeclaration> getArgs(JsonElement element) {
+  public static Collection<ArgumentDeclaration> getArgs(JsonElement element, NameSpace nameSpace) {
     Collection<ArgumentDeclaration> result = new ArrayList<>();
     String fullName = Generator.getJSObjectMemberText(element, Generator.MEMBER_NAME);
     if (fullName.endsWith("()")) {
       return result;
     }
     List<String> argsFromName = argsFromName(fullName);
-    LinkedHashMap<String, ArgumentDeclaration> directArgs = getArgsFromField(element, new HashSet<>(argsFromName));
+    LinkedHashMap<String, ArgumentDeclaration> directArgs = getArgsFromField(element, new HashSet<>(argsFromName), nameSpace);
 
     if (directArgs.isEmpty()) {
       for (String name : argsFromName) {
         if (isOption(name)) {
-          result.add(getOptions(element, isRequired(name)));
+          result.add(getOptions(element, isRequired(name), nameSpace));
         }
         else {
-          result.add(new MethodParameterDeclaration(getRealName(name), "any", "", "", isRequired(name)));
+          result.add(new MethodParameterDeclaration(getRealName(name), "any", "", "", isRequired(name), nameSpace));
         }
       }
     }
     else {
       for (String name : argsFromName) {
         if (isOption(name)) {
-          result.add(getOptions(element, isRequired(name)));
+          result.add(getOptions(element, isRequired(name), nameSpace));
         }
         else {
           MethodParameterDeclaration e = (MethodParameterDeclaration)directArgs.get(getRealName(name));
@@ -50,7 +51,9 @@ public class ArgsParsing {
     return result;
   }
 
-  public static LinkedHashMap<String, ArgumentDeclaration> getArgsFromField(JsonElement element, Collection<String> argsNames) {
+  public static LinkedHashMap<String, ArgumentDeclaration> getArgsFromField(JsonElement element,
+                                                                            Collection<String> argsNames,
+                                                                            NameSpace nameSpace) {
     LinkedHashMap<String, ArgumentDeclaration> result = new LinkedHashMap<>();
 
     JsonElement args = element.getAsJsonObject().get("args");
@@ -70,7 +73,7 @@ public class ArgsParsing {
       MethodParameterDeclaration methodParameterDeclaration = new MethodParameterDeclaration(name,
                                                                                              ParsingUtils.parseType(rawType),
                                                                                              rawType,
-                                                                                             descrText);
+                                                                                             descrText, nameSpace);
       methodParameterDeclaration.setRequired(!argsNames.contains("[" + name + "]"));
       methodParameterDeclaration.setVarArgs(name.contains("..."));
 
@@ -91,10 +94,10 @@ public class ArgsParsing {
     return name.equals("options") || name.equals("[options]");
   }
 
-  public static ArgumentDeclaration getOptions(JsonElement element, boolean isRequired) {
+  public static ArgumentDeclaration getOptions(JsonElement element, boolean isRequired, NameSpace nameSpace) {
     JsonElement options = element.getAsJsonObject().get("options");
 
-    OptionsDeclaration declaration = new OptionsDeclaration(isRequired);
+    OptionsDeclaration declaration = new OptionsDeclaration(isRequired, nameSpace);
     if (options == null) {
       return declaration;
     }
@@ -112,7 +115,7 @@ public class ArgsParsing {
                                                                 ParsingUtils.parseType(rawType),
                                                                 rawType,
                                                                 Generator.getJSObjectMemberText(jsonElement, "descr"),
-                                                                false));
+                                                                false, nameSpace));
       }
     }
 

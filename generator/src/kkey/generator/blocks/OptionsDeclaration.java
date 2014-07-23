@@ -11,8 +11,8 @@ public class OptionsDeclaration extends ArgumentDeclaration {
 
   private List<ArgumentDeclaration> list = new ArrayList<>();
 
-  public OptionsDeclaration(boolean isRequired) {
-    super("options", "any", "Options", "", isRequired);
+  public OptionsDeclaration(boolean isRequired, NameSpace nameSpace) {
+    super("options", "any", "Options", "", isRequired, nameSpace);
   }
 
   public void addParameter(ArgumentDeclaration declaration) {

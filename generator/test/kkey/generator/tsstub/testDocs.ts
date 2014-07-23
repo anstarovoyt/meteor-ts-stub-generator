@@ -281,14 +281,14 @@ interface IUI {
 declare var UI:IUI;
 
 
-interface IMeteor {
+declare module IMeteor {
 
     /**
      * Boolean variable.  True if running in client environment.
      *
      * @locus Anywhere
      */
-    isClient:boolean;
+    var isClient:boolean;
 
 
     /**
@@ -296,7 +296,7 @@ interface IMeteor {
      *
      * @locus Anywhere
      */
-    isServer:boolean;
+    var isServer:boolean;
 
 
     /**
@@ -306,7 +306,7 @@ interface IMeteor {
      *
      * @param {Function} func - A function to run on startup.
      */
-    startup(func:Function):void;
+    function startup(func:Function):void;
 
 
     /**
@@ -317,7 +317,7 @@ interface IMeteor {
      * @param {String} [path] - A path to append to the root URL. Do not include a leading "`/`".
      * @param {Options} [options]
      */
-    absoluteUrl(path?:string,
+    function absoluteUrl(path?:string,
                 options?:{
                     secure?:boolean;
                     replaceLocalhost?:boolean;
@@ -330,7 +330,7 @@ interface IMeteor {
      *
      * @locus Anywhere
      */
-    settings:any;
+    var settings:any;
 
 
     /**
@@ -338,7 +338,7 @@ interface IMeteor {
      *
      * @locus Anywhere
      */
-    release:string;
+    var release:string;
 
 
     /**
@@ -349,7 +349,7 @@ interface IMeteor {
      * @param {String} name - Name of the record set.  If `null`, the set has no name, and the record set is automatically sent to all connected clients.
      * @param {Function} func - Function called on the server each time a client subscribes.  Inside the function, `this` is the publish handler object, described below.  If the client passed arguments to `subscribe`, the function is called with the same arguments.
      */
-    publish(name:string, func:Function):string;
+    function publish(name:string, func:Function):string;
 
 
     /**
@@ -361,7 +361,7 @@ interface IMeteor {
      * @param {Any} [arg1, arg2, ...] - Optional arguments passed to publisher function on server.
      * @param {Function or Object} [callbacks] - Optional. May include `onError` and `onReady` callbacks. If a function is passed instead of an object, it is interpreted as an `onReady` callback.
      */
-    subscribe(name:string, ...args:any[]):any;
+    function subscribe(name:string, ...args:any[]):any;
 
 
     /**
@@ -371,7 +371,7 @@ interface IMeteor {
      *
      * @param {Object} methods - Dictionary whose keys are method names and values are functions.
      */
-    methods(methods:any):any;
+    function methods(methods:any):any;
 
 
     /**
@@ -383,7 +383,7 @@ interface IMeteor {
      * @param {EJSON} param1, param2, ... - Optional method arguments
      * @param {Function} [asyncCallback] - Optional callback, which is called asynchronously with the error or result after the method is complete. If not provided, the method runs synchronously if possible (see below).
      */
-    call(name:string, ...params:any[]):any;
+    function call(name:string, ...params:any[]):any;
 
 
     /**
@@ -396,7 +396,7 @@ interface IMeteor {
      * @param {Options} [options]
      * @param {Function} [asyncCallback] - Optional callback; same semantics as in [`Meteor.call`](#meteor_call).
      */
-    apply(name:string,
+    function apply(name:string,
           params:any,
           options?:{
               wait?:boolean;
@@ -410,7 +410,7 @@ interface IMeteor {
      *
      * @locus Client
      */
-    status():any;
+    function status():any;
 
 
     /**
@@ -419,7 +419,7 @@ interface IMeteor {
      *
      * @locus Client
      */
-    reconnect():void;
+    function reconnect():void;
 
 
     /**
@@ -427,7 +427,7 @@ interface IMeteor {
      *
      * @locus Client
      */
-    disconnect():void;
+    function disconnect():void;
 
 
     /**
@@ -437,7 +437,7 @@ interface IMeteor {
      *
      * @param {function} callback - The function to call when a new DDP connection is established.
      */
-    onConnection(callback:Function):any;
+    function onConnection(callback:Function):any;
 
 
     /**
@@ -445,7 +445,7 @@ interface IMeteor {
      *
      * @locus Anywhere but publish functions
      */
-    user():any;
+    function user():any;
 
 
     /**
@@ -453,7 +453,7 @@ interface IMeteor {
      *
      * @locus Anywhere but publish functions
      */
-    userId():any;
+    function userId():any;
 
 
     /**
@@ -461,7 +461,7 @@ interface IMeteor {
      *
      * @locus Anywhere
      */
-    users:any;
+    var users:any;
 
 
     /**
@@ -469,7 +469,7 @@ interface IMeteor {
      *
      * @locus Client
      */
-    loggingIn():any;
+    function loggingIn():any;
 
 
     /**
@@ -479,7 +479,7 @@ interface IMeteor {
      *
      * @param {Function} [callback] - Optional callback. Called with no arguments on success, or with a single `Error` argument on failure.
      */
-    logout(callback?:Function):any;
+    function logout(callback?:Function):any;
 
 
     /**
@@ -489,7 +489,7 @@ interface IMeteor {
      *
      * @param {Function} [callback] - Optional callback. Called with no arguments on success, or with a single `Error` argument on failure.
      */
-    logoutOtherClients(callback?:Function):any;
+    function logoutOtherClients(callback?:Function):any;
 
 
     /**
@@ -501,7 +501,7 @@ interface IMeteor {
      * @param {String} password - The user's password. This is __not__ sent in plain text over the wire &mdash; it is secured with [SRP](http://en.wikipedia.org/wiki/Secure_Remote_Password_protocol).
      * @param {Function} [callback] - Optional callback. Called with no arguments on success, or with a single `Error` argument on failure.
      */
-    loginWithPassword(user:any, password:string, callback?:Function):any;
+    function loginWithPassword(user:any, password:string, callback?:Function):any;
 
 
     /**
@@ -512,7 +512,7 @@ interface IMeteor {
      * @param {Function} func - The function to run
      * @param {Number} delay - Number of milliseconds to wait before calling function
      */
-    setTimeout(func:Function, delay:Number):any;
+    function setTimeout(func:Function, delay:Number):any;
 
 
     /**
@@ -523,7 +523,7 @@ interface IMeteor {
      * @param {Function} func - The function to run
      * @param {Number} delay - Number of milliseconds to wait between each function call.
      */
-    setInterval(func:Function, delay:Number):any;
+    function setInterval(func:Function, delay:Number):any;
 
 
     /**
@@ -533,7 +533,7 @@ interface IMeteor {
      *
      * @param {Number} id - The handle returned by `Meteor.setTimeout`
      */
-    clearTimeout(id:Number):any;
+    function clearTimeout(id:Number):any;
 
 
     /**
@@ -543,11 +543,10 @@ interface IMeteor {
      *
      * @param {Number} id - The handle returned by `Meteor.setInterval`
      */
-    clearInterval(id:Number):any;
+    function clearInterval(id:Number):any;
 
 }
 
-declare var Meteor:IMeteor;
 
 
 interface IAssets {

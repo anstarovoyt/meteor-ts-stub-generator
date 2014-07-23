@@ -18,8 +18,9 @@ public class MethodDeclaration extends MemberDeclaration {
   private final List<ArgumentDeclaration> myArgs = new ArrayList<>();
   private boolean hasOptions;
 
-  public MethodDeclaration(String name, String type, String description, String scope) {
-    super(name, type, description, scope);
+
+  public MethodDeclaration(String name, String type, String description, String scope, NameSpace nameSpace) {
+    super(name, type, description, scope, nameSpace);
   }
 
   public void addArg(ArgumentDeclaration declaration) {
@@ -50,7 +51,6 @@ public class MethodDeclaration extends MemberDeclaration {
   @Override
   protected String fullDeclaration() {
     StringBuilder result = new StringBuilder();
-    result.append(INDENT);
     result.append(getName());
     result.append("(");
 
@@ -73,6 +73,12 @@ public class MethodDeclaration extends MemberDeclaration {
     result.append(")");
 
     return result.toString();
+  }
+
+
+  @Override
+  protected String getKeyWords() {
+    return myNameSpace.isModule() ? "function " : "";
   }
 
   @Override

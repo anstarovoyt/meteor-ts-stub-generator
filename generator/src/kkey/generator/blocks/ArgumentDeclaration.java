@@ -20,8 +20,8 @@ public class ArgumentDeclaration extends Declaration {
   private boolean myIsRequired;
   private String myRawType;
 
-  public ArgumentDeclaration(String name, String type, String rawType, String description, boolean isRequired) {
-    super(name, type, description);
+  public ArgumentDeclaration(String name, String type, String rawType, String description, boolean isRequired, NameSpace nameSpace) {
+    super(name, type, description, nameSpace);
     myIsRequired = isRequired;
     myRawType = rawType;
   }

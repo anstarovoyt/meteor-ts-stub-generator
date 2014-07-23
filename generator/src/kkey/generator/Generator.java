@@ -12,9 +12,7 @@ import javax.script.ScriptException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +35,7 @@ public class Generator {
 
   private Map<String, NameSpace> myNameSpaces = new HashMap<>();
   private Map<String, String> fullNameToType = new HashMap<>();
+  private Set<String> modules = new HashSet<>();
 
   public Generator() {
     ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -91,7 +90,8 @@ public class Generator {
             FieldDeclaration fieldDeclaration = new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
                                                                      getMethodOrFieldType(element, fullName),
                                                                      getJSObjectMemberText(element, MEMBER_DESCR),
-                                                                     getJSObjectMemberText(element, MEMBER_SCOPE));
+                                                                     getJSObjectMemberText(element, MEMBER_SCOPE),
+                                                                     nameSpace);
             nameSpace.addDeclaration(fieldDeclaration);
             continue;
           }
@@ -145,9 +145,10 @@ public class Generator {
     MethodDeclaration methodDeclaration = new MethodDeclaration(ParsingUtils.parseFunctionName(fullName),
                                                                 getMethodOrFieldType(element, fullName),
                                                                 getJSObjectMemberText(element, MEMBER_DESCR),
-                                                                getJSObjectMemberText(element, MEMBER_SCOPE));
+                                                                getJSObjectMemberText(element, MEMBER_SCOPE),
+                                                                nameSpace);
     nameSpace.addDeclaration(methodDeclaration);
-    methodDeclaration.addAllArgs(ArgsParsing.getArgs(element));
+    methodDeclaration.addAllArgs(ArgsParsing.getArgs(element, nameSpace));
   }
 
   private void initFunctions(TemplateSplitter splitter) {
@@ -183,7 +184,7 @@ public class Generator {
   private NameSpace getNameSpace(String name) {
     NameSpace nameSpace = myNameSpaces.get(name);
     if (nameSpace == null) {
-      nameSpace = new NameSpace(name);
+      nameSpace = new NameSpace(name, isModule(name));
       myNameSpaces.put(name, nameSpace);
     }
 
@@ -197,5 +198,13 @@ public class Generator {
     }
 
     return result.toString();
+  }
+
+  private boolean isModule(String nameOfNameSpace) {
+    return modules.contains(nameOfNameSpace);
+  }
+
+  public void addModule(String module) {
+    modules.add(module);
   }
 }

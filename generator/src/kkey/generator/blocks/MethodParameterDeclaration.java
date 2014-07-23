@@ -9,13 +9,13 @@ public class MethodParameterDeclaration extends ArgumentDeclaration {
   private List<MethodParameterDeclaration> myMergedParameters = new ArrayList<>();
 
 
-  public MethodParameterDeclaration(String name, String type, String rawType, String description, boolean isRequired) {
-    super(name, type, rawType, description, isRequired);
+  public MethodParameterDeclaration(String name, String type, String rawType, String description, boolean isRequired, NameSpace nameSpace) {
+    super(name, type, rawType, description, isRequired, nameSpace);
     this.myIsVarArgs = false;
   }
 
-  public MethodParameterDeclaration(String name, String type, String rawType, String description) {
-    this(name, type, rawType, description, true);
+  public MethodParameterDeclaration(String name, String type, String rawType, String description, NameSpace nameSpace) {
+    this(name, type, rawType, description, true, nameSpace);
   }
 
   public boolean isVarArgs() {

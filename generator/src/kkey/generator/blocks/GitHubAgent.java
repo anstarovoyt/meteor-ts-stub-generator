@@ -53,9 +53,6 @@ public class GitHubAgent {
 
   public static void printFile(String content, String version) {
     try {
-      if (!version.startsWith("0.8")) {
-        return;
-      }
       Generator generator = new Generator();
       generator.build(content);
 
