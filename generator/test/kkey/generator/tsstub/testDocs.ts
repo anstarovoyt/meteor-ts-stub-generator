@@ -265,6 +265,138 @@ declare module Meteor {
 }
 
 
+    interface Collection {
+
+        /**
+         * Find the documents in a collection that match the selector.
+         *
+         * @locus Anywhere
+         *
+         * @param {Mongo selector (Object or String)} selector - The query
+         * @param {Options} [options]
+         */
+        find(selector:any,
+             options?:{
+                 sort?:any;
+                 skip?:Number;
+                 limit?:Number;
+                 fields?:any;
+                 reactive?:boolean;
+                 transform?:Function
+             }):any;
+
+
+        /**
+         * Finds the first document that matches the selector, as ordered by sort and skip options.
+         *
+         * @locus Anywhere
+         *
+         * @param {Mongo selector (Object or String)} selector - The query
+         * @param {Options} [options]
+         */
+        findOne(selector:any,
+                options?:{
+                    sort?:any;
+                    skip?:Number;
+                    fields?:any;
+                    reactive?:boolean;
+                    transform?:Function
+                }):any;
+
+
+        /**
+         * Insert a document in the collection.  Returns its unique _id.
+         *
+         * @locus Anywhere
+         *
+         * @param {Object} doc - The document to insert. May not yet have an _id attribute, in which case Meteor will generate one for you.
+         * @param {Function} [callback] - Optional.  If present, called with an error object as the first argument and, if no error, the _id as the second.
+         */
+        insert(doc:any, callback?:Function):any;
+
+
+        /**
+         * Modify one or more documents in the collection. Returns the number of affected documents.
+         *
+         * @locus Anywhere
+         *
+         * @param {Mongo selector, or object id} selector - Specifies which documents to modify
+         * @param {Mongo modifier} modifier - Specifies how to modify the documents
+         * @param {Options} [options]
+         * @param {Function} [callback] - Optional.  If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.
+         */
+        update(selector:any,
+               modifier:any,
+               options?:{
+                   multi?:boolean;
+                   upsert?:boolean
+               },
+               callback?:Function):any;
+
+
+        /**
+         * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified)  and `insertedId` (the unique _id of the document that was inserted, if any).
+         *
+         * @locus Anywhere
+         *
+         * @param {Mongo selector, or object id} selector - Specifies which documents to modify
+         * @param {Mongo modifier} modifier - Specifies how to modify the documents
+         * @param {Options} [options]
+         * @param {Function} [callback] - Optional.  If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.
+         */
+        upsert(selector:any,
+               modifier:any,
+               options?:{
+                   multi?:boolean
+               },
+               callback?:Function):any;
+
+
+        /**
+         * Remove documents from the collection
+         *
+         * @locus Anywhere
+         *
+         * @param {Mongo selector, or object id} selector - Specifies which documents to remove
+         * @param {Function} [callback] - Optional.  If present, called with an error object as its argument.
+         */
+        remove(selector:any, callback?:Function):any;
+
+
+        /**
+         * Allow users to write directly to this collection from client code, subject to limitations you define.
+         *
+         * @locus Server
+         *
+         * @param {Options} options
+         */
+        allow(options:{
+                  insert?:Function;
+                  update?:Function;
+                  remove?:Function;
+                  fetch?:any;
+                  transform?:Function
+              }):any;
+
+
+        /**
+         * Override `allow` rules.
+         *
+         * @locus Server
+         *
+         * @param {Options} options
+         */
+        deny(options:{
+                 insert?:Function;
+                 update?:Function;
+                 remove?:Function;
+                 fetch?:String[];
+                 transform?:Function
+             }):any;
+
+    }
+
+
 
 interface IEJSON {
 
@@ -392,7 +524,7 @@ interface IDDP {
 declare var DDP:IDDP;
 
 
-interface ICollection {
+interface Collection {
 
     /**
      * Find the documents in a collection that match the selector.
@@ -523,7 +655,6 @@ interface ICollection {
 
 }
 
-declare var Collection:ICollection;
 
 
 interface IRandom {

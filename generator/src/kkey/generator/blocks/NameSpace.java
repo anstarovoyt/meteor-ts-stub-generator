@@ -19,6 +19,10 @@ public class NameSpace {
 
   private final Set<NameSpace> subNameSpaces = new LinkedHashSet<>();
 
+  public boolean isGenerateVariable() {
+    return myGenerateVariable;
+  }
+
   private boolean myGenerateVariable;
 
   public void setGenerateVariable(boolean generateVariable) {
@@ -91,7 +95,8 @@ public class NameSpace {
     if (subNameSpaces.isEmpty()) return;
 
     for (NameSpace space : subNameSpaces) {
-
+      result.append("\n\n");
+      result.append(space.toString(DocUtils.INDENT));
     }
   }
 
@@ -100,7 +105,7 @@ public class NameSpace {
   }
 
   private String getInterfaceName() {
-    return (isModule() ? "" : "I") + myName;
+    return (isModule() || !isGenerateVariable() ? "" : "I") + myName;
   }
 
   @Override

@@ -83,7 +83,8 @@ public class Generator {
         NameSpace nameSpace = null;
         if (rawSpace != null) {
           nameSpace = getNameSpace(rawSpace);
-        } else {
+        }
+        else {
           //try get predefined
           nameSpace = getPredefinedSpace(fullName);
         }
@@ -220,6 +221,7 @@ public class Generator {
   public NameSpace getPredefinedSpace(String fullName) {
     if (fullName.startsWith("<em>collection</em>")) {
       NameSpace collection = getNameSpace("Collection");
+      collection.setGenerateVariable(false);
       getNameSpace("Meteor").addSubNameSpace(collection);
       return collection;
     }

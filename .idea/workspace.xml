@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0f673bd-ed5e-47d6-9369-4248d65ce023" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testGenerateStubIndented.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/ArgumentDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/ArgumentDeclaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/Declaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/Declaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/DocUtils.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/DocUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MemberDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MemberDeclaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodDeclaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/test/kkey/generator/TypeScriptStubTest.java" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/TypeScriptStubTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testGenerateStubModule.ts" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testGenerateStubModule.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="meteor-ts-stub-generator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Generator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/Generator.java">
+      <file leaf-file-name="testDocs.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37810385" vertical-offset="3199" max-vertical-offset="4085">
-              <caret line="202" column="37" selection-start-line="202" selection-start-column="37" selection-end-line="202" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.18284424" vertical-offset="4854" max-vertical-offset="22762">
+              <caret line="264" column="1" selection-start-line="264" selection-start-column="1" selection-end-line="264" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -70,7 +58,6 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/ParsingUtils.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testGenerateStubModule.ts" />
-        <option value="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/Declaration.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/ArgumentDeclaration.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MemberDeclaration.java" />
@@ -78,10 +65,11 @@
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodParameterDeclaration.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/DocUtils.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/ArgsParsing.java" />
-        <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/TypeScriptStubTest.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testGenerateStubIndented.ts" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/Generator.java" />
+        <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java" />
+        <option value="$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts" />
       </list>
     </option>
   </component>
@@ -810,12 +798,12 @@
       <workItem from="1406125892921" duration="57000" />
       <workItem from="1406125951676" duration="817000" />
       <workItem from="1406126931969" duration="2717000" />
-      <workItem from="1406130181520" duration="2633000" />
+      <workItem from="1406130181520" duration="2842000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6394000" />
+    <option name="totallyTimeSpent" value="6603000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1414" extended-state="0" />
@@ -937,14 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/ArgumentDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39887005" vertical-offset="293" max-vertical-offset="1178">
-          <caret line="40" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/MethodDeclaration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.033898305" vertical-offset="806" max-vertical-offset="1691">
@@ -965,14 +945,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06433409" vertical-offset="0" max-vertical-offset="886">
           <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/GitHubAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.072234765" vertical-offset="501" max-vertical-offset="1387">
-          <caret line="23" column="23" selection-start-line="3" selection-start-column="7" selection-end-line="14" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1033,26 +1005,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.30812642" vertical-offset="1204" max-vertical-offset="2090">
-          <caret line="61" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testGenerateStubIndented.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4503386" vertical-offset="0" max-vertical-offset="886">
           <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8713318" vertical-offset="19387" max-vertical-offset="20273">
-          <caret line="1061" column="27" selection-start-line="1061" selection-start-column="27" selection-end-line="1061" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1065,10 +1021,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/GitHubAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.072234765" vertical-offset="501" max-vertical-offset="1387">
+          <caret line="23" column="23" selection-start-line="3" selection-start-column="7" selection-end-line="14" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/ArgumentDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39954853" vertical-offset="292" max-vertical-offset="1178">
+          <caret line="40" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/Generator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37810385" vertical-offset="3199" max-vertical-offset="4085">
-          <caret line="202" column="37" selection-start-line="202" selection-start-column="37" selection-end-line="202" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.7426637" vertical-offset="3218" max-vertical-offset="4123">
+          <caret line="224" column="38" selection-start-line="204" selection-start-column="38" selection-end-line="204" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4853273" vertical-offset="1261" max-vertical-offset="2147">
+          <caret line="105" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/tsstub/testDocs.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18284424" vertical-offset="4854" max-vertical-offset="22762">
+          <caret line="264" column="1" selection-start-line="264" selection-start-column="1" selection-end-line="264" selection-end-column="1" />
           <folding />
         </state>
       </provider>
