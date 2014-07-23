@@ -1,3 +1,10 @@
+interface ITemplate {
+
+}
+
+declare var Template:ITemplate;
+
+
 declare module Meteor {
 
     /**

@@ -10,20 +10,27 @@ public class NameSpace {
 
   private final String myName;
   private final Collection<Declaration> myDeclarations = new ArrayList<>();
+  private final boolean myIsModule;
+  private boolean myGenerateVariable;
+  private boolean isSub = false;
+  private final Set<NameSpace> subNameSpaces = new LinkedHashSet<>();
 
-  public boolean isModule() {
-    return myIsModule;
+  public boolean isSub() {
+    return isSub;
   }
 
-  private final boolean myIsModule;
+  public void setSub(boolean isSub) {
+    this.isSub = isSub;
+  }
 
-  private final Set<NameSpace> subNameSpaces = new LinkedHashSet<>();
 
   public boolean isGenerateVariable() {
     return myGenerateVariable;
   }
 
-  private boolean myGenerateVariable;
+  public boolean isModule() {
+    return myIsModule;
+  }
 
   public void setGenerateVariable(boolean generateVariable) {
     this.myGenerateVariable = generateVariable;
@@ -79,6 +86,8 @@ public class NameSpace {
       isFirst = false;
     }
 
+    appendChildNameSpace(result);
+
     result.append("\n\n").append(indent).append("}\n");
 
     if (myGenerateVariable && !myIsModule) {
@@ -86,7 +95,6 @@ public class NameSpace {
       result.append(myName).append(":").append(getInterfaceName()).append(";");
     }
 
-    appendChildNameSpace(result);
 
     return result.toString();
   }

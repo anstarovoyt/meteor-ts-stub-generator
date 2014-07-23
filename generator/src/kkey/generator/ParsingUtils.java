@@ -23,10 +23,11 @@ public class ParsingUtils {
     types.put("bool", "boolean");
     types.put("Array of Strings", "String[]");
     types.put("Void", "Void");
+    types.put("MeteorCursor", "MeteorCursor");
 
     predefinedTypes.put("Meteor.isClient", "boolean");
     predefinedTypes.put("Meteor.isServer", "boolean");
-
+    predefinedTypes.put("<em>collection</em>.find(selector, [options])", "MeteorCursor");
   }
 
 
@@ -45,7 +46,7 @@ public class ParsingUtils {
 
   public static String parseNameSpace(String fullName) {
     //has tag -> cannot process from this place
-    if (fullName.matches(".*(<.*>).*")){
+    if (fullName.matches(".*(<.*>).*")) {
       return null;
     }
 

@@ -204,7 +204,9 @@ public class Generator {
   public String getTypeScriptStub() {
     StringJoiner result = new StringJoiner("\n\n\n");
     for (NameSpace space : myNameSpaces.values()) {
-      result.add(space.toString());
+      if (!space.isSub()) {
+        result.add(space.toString());
+      }
     }
 
     return result.toString();
@@ -222,8 +224,15 @@ public class Generator {
     if (fullName.startsWith("<em>collection</em>")) {
       NameSpace collection = getNameSpace("Collection");
       collection.setGenerateVariable(false);
+      collection.setSub(true);
       getNameSpace("Meteor").addSubNameSpace(collection);
       return collection;
+    }
+
+    if (fullName.startsWith("<em>cursor</em>")) {
+      NameSpace cursor = getNameSpace("MeteorCursor");
+      cursor.setGenerateVariable(false);
+      return cursor;
     }
 
     return null;

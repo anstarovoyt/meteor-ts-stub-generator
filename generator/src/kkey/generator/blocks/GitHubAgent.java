@@ -38,7 +38,7 @@ public class GitHubAgent {
       if (refAsString.startsWith(REFS_TAGS_RELEASE) && isCompletedNumber(refAsString)) {
         String exactRelease = refAsString.substring(REFS_TAGS_RELEASE.length());
         String[] split = exactRelease.split("\\.");
-        if (Integer.parseInt(split[1]) < 8) {
+        if (Integer.parseInt(split[1]) < 8 || Integer.parseInt(split[2]) < 2) {
           continue;
         }
         System.out.println(exactRelease);
@@ -54,11 +54,18 @@ public class GitHubAgent {
   public static void printFile(String content, String version) {
     try {
       Generator generator = new Generator();
+      generator.addModule("Meteor");
+      generator.getNameSpaces().put("Template", new NameSpace("Template", false));
+
       generator.build(content);
 
-
       Path path = Paths.get("stubs/meteor-v" + version + ".d.ts");
+      if (Files.exists(path)) {
+        Files.delete(path);
+      }
+
       Path file = Files.createFile(path);
+
       OutputStream stream = Files.newOutputStream(file);
       stream.write(generator.getTypeScriptStub().getBytes());
     }
