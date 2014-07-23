@@ -34,9 +34,9 @@ public class ArgumentDeclaration extends Declaration {
     myIsRequired = isRequired;
   }
 
-  public String getArgumentJSDoc() {
+  public String getArgumentJSDoc(String indent) {
     String descriptionPart = Strings.isNullOrEmpty(getDescription()) ? "" : " - " + getDescription();
-    descriptionPart = descriptionPart.replace("\n", DocUtils.newDocLine("") + " ");
+    descriptionPart = descriptionPart.replace("\n", DocUtils.newDocLine("", indent) + " ");
     String rawTypePart = Strings.isNullOrEmpty(getRawType()) ? "" : "{" + getRawType() + "} ";
     return "@param " + rawTypePart + coverWithRequired(getFixedName()) + descriptionPart;
   }

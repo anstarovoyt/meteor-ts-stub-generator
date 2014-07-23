@@ -49,12 +49,12 @@ public class MethodDeclaration extends MemberDeclaration {
   }
 
   @Override
-  protected String fullDeclaration() {
+  protected String fullDeclaration(String indent) {
     StringBuilder result = new StringBuilder();
     result.append(getName());
     result.append("(");
 
-    String addIndent = new String(new char[getName().length() + 1]).replace("\0", " ");
+    String addIndent = new String(new char[getName().length() + 1]).replace("\0", " ") + indent;
     String adjustedIndent = INDENT + addIndent;
     if (!myArgs.isEmpty()) {
       String joinString = ", ";
@@ -82,13 +82,13 @@ public class MethodDeclaration extends MemberDeclaration {
   }
 
   @Override
-  protected String docPart() {
-    if (myArgs.isEmpty()) return super.docPart();
+  protected String docPart(String indent) {
+    if (myArgs.isEmpty()) return super.docPart(indent);
 
     StringBuilder result = new StringBuilder();
-    result.append(newDocLine(""));
+    result.append(newDocLine("", indent));
     for (ArgumentDeclaration arg : myArgs) {
-      result.append(newDocLine(arg.getArgumentJSDoc()));
+      result.append(newDocLine(arg.getArgumentJSDoc(indent), indent));
     }
 
     return result.toString();

@@ -25,4 +25,8 @@ public class Declaration {
   public String getDescription() {
     return myDescription;
   }
+
+  public String toString(String indent) {
+    return toString();
+  }
 }

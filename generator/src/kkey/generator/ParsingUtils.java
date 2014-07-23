@@ -9,6 +9,7 @@ public class ParsingUtils {
 
   public static final HashMap<String, String> types = new HashMap<>();
   public static final HashMap<String, String> predefinedTypes = new HashMap<>();
+  public static final HashMap<String, String> predefinedNames = new HashMap<>();
 
   static {
     types.put("Function", "Function");
@@ -25,6 +26,7 @@ public class ParsingUtils {
 
     predefinedTypes.put("Meteor.isClient", "boolean");
     predefinedTypes.put("Meteor.isServer", "boolean");
+
   }
 
 

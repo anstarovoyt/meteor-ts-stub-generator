@@ -33,7 +33,7 @@ public class Generator {
     return myNameSpaces;
   }
 
-  private Map<String, NameSpace> myNameSpaces = new HashMap<>();
+  private Map<String, NameSpace> myNameSpaces = new LinkedHashMap<>();
   private Map<String, String> fullNameToType = new HashMap<>();
   private Set<String> modules = new HashSet<>();
 
@@ -79,8 +79,17 @@ public class Generator {
             continue;
           }
         }
+
+        NameSpace nameSpace = null;
         if (rawSpace != null) {
-          NameSpace nameSpace = getNameSpace(rawSpace);
+          nameSpace = getNameSpace(rawSpace);
+        } else {
+          //try get predefined
+          nameSpace = getPredefinedSpace(fullName);
+        }
+
+        if (nameSpace != null) {
+
           if (ParsingUtils.isField(fullName)) {
             if (fullName.startsWith("Template.<em>myTemplate</em>")) {
               logger.warning("Skipped (field for undefined property) " + fullName);
@@ -192,7 +201,7 @@ public class Generator {
   }
 
   public String getTypeScriptStub() {
-    StringJoiner result = new StringJoiner("\n\n");
+    StringJoiner result = new StringJoiner("\n\n\n");
     for (NameSpace space : myNameSpaces.values()) {
       result.add(space.toString());
     }
@@ -206,5 +215,15 @@ public class Generator {
 
   public void addModule(String module) {
     modules.add(module);
+  }
+
+  public NameSpace getPredefinedSpace(String fullName) {
+    if (fullName.startsWith("<em>collection</em>")) {
+      NameSpace collection = getNameSpace("Collection");
+      getNameSpace("Meteor").addSubNameSpace(collection);
+      return collection;
+    }
+
+    return null;
   }
 }

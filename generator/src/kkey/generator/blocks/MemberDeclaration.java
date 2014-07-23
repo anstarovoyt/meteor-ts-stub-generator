@@ -15,28 +15,28 @@ public class MemberDeclaration extends Declaration {
   }
 
   @Override
-  public String toString() {
-    return getDocs()  + INDENT + getKeyWords() + fullDeclaration() + ":" + getType() + ";";
+  public String toString(String indent) {
+    return getDocs(indent) + indent + INDENT + getKeyWords() + fullDeclaration(indent) + ":" + getType() + ";";
   }
 
   protected String getKeyWords() {
     return "";
   }
 
-  protected String getDocs() {
-    return startDoc() +
-           newDocLine(getDescription().replace("\n", DocUtils.newDocLine("") + " ")) +
-           newDocLine("") +
-           (Strings.isNullOrEmpty(myScope) ? "" : newDocLine(LOCUS + " " + myScope)) +
-           docPart() +
-           closeDoc();
+  protected String getDocs(String indent) {
+    return startDoc(indent) +
+           newDocLine(getDescription().replace("\n", DocUtils.newDocLine("", indent) + " "), indent) +
+           newDocLine("", indent) +
+           (Strings.isNullOrEmpty(myScope) ? "" : newDocLine(LOCUS + " " + myScope, indent)) +
+           docPart(indent) +
+           closeDoc(indent);
   }
 
-  protected String docPart() {
+  protected String docPart(String indent) {
     return "";
   }
 
-  protected String fullDeclaration() {
+  protected String fullDeclaration(String indent) {
     return getName();
   }
 }

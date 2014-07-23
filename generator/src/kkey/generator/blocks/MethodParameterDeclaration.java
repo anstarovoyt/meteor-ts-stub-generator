@@ -47,11 +47,11 @@ public class MethodParameterDeclaration extends ArgumentDeclaration {
   }
 
   @Override
-  public String getArgumentJSDoc() {
+  public String getArgumentJSDoc(String indent) {
     StringBuilder result = new StringBuilder();
-    result.append(super.getArgumentJSDoc());
+    result.append(super.getArgumentJSDoc(indent));
     for (MethodParameterDeclaration parameter : myMergedParameters) {
-      result.append(DocUtils.newDocLine(parameter.getArgumentJSDoc()));
+      result.append(DocUtils.newDocLine(parameter.getArgumentJSDoc(indent), indent));
     }
 
     return result.toString();

@@ -1,5 +1,6 @@
 package kkey.generator;
 
+import kkey.generator.blocks.DocUtils;
 import kkey.generator.blocks.NameSpace;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -274,11 +275,32 @@ public class TypeScriptStubTest {
                                         "};\n", true));
   }
 
-  private String getSpaceText(String spaceName, String raw) {
+  @Test
+  public void testGenerateStubIndented() {
+    assertResult(getSpaceText("Meteor", "Template.api.startup = {\n" +
+                                        "  id: \"meteor_startup\",\n" +
+                                        "  name: \"Meteor.startup(func)\",\n" +
+                                        "  locus: \"Anywhere\",\n" +
+                                        "  descr: [\"Run code when a client or a server starts.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"func\",\n" +
+                                        "     type: \"Function\",\n" +
+                                        "     descr: \"A function to run on startup.\"}\n" +
+                                        "  ]\n" +
+                                        "};\n" +
+                                        "Template.api.isClient = {\n" +
+                                        "  id: \"meteor_isclient\",\n" +
+                                        "  name: \"Meteor.isClient\",\n" +
+                                        "  locus: \"Anywhere\",\n" +
+                                        "  descr: [\"Boolean variable.  True if running in client environment.\"]\n" +
+                                        "};\n").toString(DocUtils.INDENT));
+  }
+
+  private NameSpace getSpaceText(String spaceName, String raw) {
     return getSpaceText(spaceName, raw, false);
   }
 
-  private String getSpaceText(String spaceName, String raw, boolean addModule) {
+  private NameSpace getSpaceText(String spaceName, String raw, boolean addModule) {
     Generator generator = new Generator();
     if (addModule) {
       generator.addModule(DEFAULT_MODULE);
@@ -287,13 +309,17 @@ public class TypeScriptStubTest {
     generator.build(raw);
 
     Map<String, NameSpace> spaces = generator.getNameSpaces();
-    return spaces.get(spaceName).toString();
+    return spaces.get(spaceName);
+  }
+
+  private void assertResult(NameSpace text) {
+    assertResult(text.toString());
   }
 
   private void assertResult(String text) {
     try {
       String content = new String(Files.readAllBytes(Paths.get("generator/test/kkey/generator/tsstub/" + name.getMethodName() + ".ts")));
-      Assert.assertEquals(content.trim(), text.trim());
+      Assert.assertEquals(content, text.toString().replaceAll("\\s+$", ""));
     }
     catch (IOException e) {
       throw new RuntimeException(e);

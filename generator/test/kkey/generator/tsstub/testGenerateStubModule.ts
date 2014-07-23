@@ -1,4 +1,4 @@
-declare module IMeteor {
+declare module Meteor {
 
     /**
      * Run code when a client or a server starts.

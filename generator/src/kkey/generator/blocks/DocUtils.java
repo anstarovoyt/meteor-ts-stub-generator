@@ -5,16 +5,16 @@ public class DocUtils {
   public static final String INDENT = "    ";
 
 
-  public static String startDoc() {
-    return INDENT + "/**";
+  public static String startDoc(String indent) {
+    return indent + INDENT + "/**";
   }
 
-  public static String closeDoc() {
-    return '\n' + INDENT + " */\n";
+  public static String closeDoc(String indent) {
+    return '\n' + indent + INDENT + " */\n";
   }
 
-  public static String newDocLine(String text) {
+  public static String newDocLine(String text, String indent) {
     String actualText = text.isEmpty() ? "" : " " + text;
-    return "\n" + INDENT + " *" + actualText;
+    return "\n" + indent + INDENT + " *" + actualText;
   }
 }
