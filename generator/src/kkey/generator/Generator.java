@@ -62,7 +62,9 @@ public class Generator {
     for (Map.Entry<String, String> s : splitter.getResult().entrySet()) {
       try {
         JsonElement element = getJsonElement(s);
-        String fullName = getJSObjectMemberText(element, MEMBER_NAME);
+        String realFullName = getJSObjectMemberText(element, MEMBER_NAME);
+        String fullName = fixFullName(realFullName);
+
 
         String rawSpace = ParsingUtils.parseNameSpace(fullName);
         if (ParsingUtils.isFunction(fullName)) {
@@ -70,7 +72,7 @@ public class Generator {
           if (methodName.indexOf('.') != methodName.lastIndexOf('.')) {
             //initialize second namespace
 
-            if (fullName.startsWith("new ") || fullName.startsWith("Template.<em>myTemplate</em>")) {
+            if (fullName.startsWith("new ")) {
               logger.warning("Skipped (function for undefined property) " + fullName);
               continue;
             }
@@ -80,23 +82,14 @@ public class Generator {
           }
         }
 
-        NameSpace nameSpace = null;
-        if (rawSpace != null) {
+        NameSpace nameSpace = getPredefinedSpace(realFullName);
+        if (nameSpace == null && rawSpace != null) {
           nameSpace = getNameSpace(rawSpace);
-        }
-        else {
-          //try get predefined
-          nameSpace = getPredefinedSpace(fullName);
         }
 
         if (nameSpace != null) {
 
           if (ParsingUtils.isField(fullName)) {
-            if (fullName.startsWith("Template.<em>myTemplate</em>")) {
-              logger.warning("Skipped (field for undefined property) " + fullName);
-              continue;
-            }
-
             FieldDeclaration fieldDeclaration = new FieldDeclaration(ParsingUtils.parseFieldName(fullName),
                                                                      getMethodOrFieldType(element, fullName),
                                                                      getJSObjectMemberText(element, MEMBER_DESCR),
@@ -220,6 +213,11 @@ public class Generator {
     modules.add(module);
   }
 
+
+  public String fixFullName(String fullName) {
+    return fullName.replace("Template.<em>myTemplate</em>", "MeteorTemplate");
+  }
+
   public NameSpace getPredefinedSpace(String fullName) {
     if (fullName.startsWith("<em>collection</em>")) {
       NameSpace collection = getNameSpace("Collection");
@@ -233,6 +231,12 @@ public class Generator {
       NameSpace cursor = getNameSpace("MeteorCursor");
       cursor.setGenerateVariable(false);
       return cursor;
+    }
+
+    if (fullName.startsWith("Template.<em>myTemplate</em>")) {
+      NameSpace template = getNameSpace("MeteorTemplate");
+      template.setGenerateVariable(false);
+      return template;
     }
 
     return null;

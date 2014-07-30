@@ -222,7 +222,7 @@ declare module Meteor {
      * @locus Client
      *
      * @param {Object or String} user - Either a string interpreted as a username or an email; or an object with a single key: `email`, `username` or `id`.
-     * @param {String} password - The user's password. This is __not__ sent in plain text over the wire &mdash; it is secured with [SRP](http://en.wikipedia.org/wiki/Secure_Remote_Password_protocol).
+     * @param {String} password - The user's password.
      * @param {Function} [callback] - Optional callback. Called with no arguments on success, or with a single `Error` argument on failure.
      */
     function loginWithPassword(user:any, password:string, callback?:Function):any;
@@ -1092,7 +1092,7 @@ interface IUI {
 
 
     /**
-     * The [component object](#templates_api) representing your `<body>` tag.
+     * The [template object](#templates_api) representing your `<body>` tag.
      *
      * @locus Client
      */
@@ -1121,15 +1121,25 @@ interface IUI {
 
 
     /**
-     * Inserts an instantiated component into the DOM and calls its [`rendered`](#template_rendered) callback.
+     * Inserts a rendered template into the DOM and calls its [`rendered`](#template_rendered) callback.
      *
      * @locus Client
      *
-     * @param {Instantiated component object} instantiatedComponent - The return value from `UI.render` or `UI.renderWithData`.
+     * @param {Rendered template object} renderedTemplate - The return value from `UI.render` or `UI.renderWithData`.
      * @param {DOM Node} parentNode - The node that will be the parent of the rendered template.
      * @param {DOM Node} [nextNode] - If provided, must be a child of <em>parentNode</em>; the template will be inserted before this node. If not provided, the template will be inserted as the last child.
      */
-    insert(instantiatedComponent:any, parentNode:any, nextNode?:any):any;
+    insert(renderedTemplate:any, parentNode:any, nextNode?:any):any;
+
+
+    /**
+     * Removes a rendered template from the DOM and destroys it, calling the [`destroyed`](#template_destroyed) callback and stopping the logic that reactively updates the template.
+     *
+     * @locus Client
+     *
+     * @param {Rendered template object} renderedTemplate - The return value from `UI.render` or `UI.renderWithData`.
+     */
+    remove(renderedTemplate:any):any;
 
 
     /**

@@ -296,6 +296,55 @@ public class TypeScriptStubTest {
                                         "};\n").toString(DocUtils.INDENT));
   }
 
+  @Test
+  public void testGenerateStubTemplate() {
+    assertResult(getSpaceText("MeteorTemplate", "Template.api.template_rendered = {\n" +
+                                        "  id: \"template_rendered\",\n" +
+                                        "  name: \"Template.<em>myTemplate</em>.rendered = function ( ) { ... }\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Provide a callback when an instance of a template is rendered.\"]\n" +
+                                        "};\n" +
+                                        "\n" +
+                                        "Template.api.template_created = {\n" +
+                                        "  id: \"template_created\",\n" +
+                                        "  name: \"Template.<em>myTemplate</em>.created = function ( ) { ... }\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Provide a callback when an instance of a template is created.\"]\n" +
+                                        "};\n" +
+                                        "\n" +
+                                        "Template.api.template_destroyed = {\n" +
+                                        "  id: \"template_destroyed\",\n" +
+                                        "  name: \"Template.<em>myTemplate</em>.destroyed = function ( ) { ... }\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Provide a callback when an instance of a template is destroyed.\"]\n" +
+                                        "};\n" +
+                                        "\n" +
+                                        "Template.api.template_events = {\n" +
+                                        "  id: \"template_events\",\n" +
+                                        "  name: \"Template.<em>myTemplate</em>.events(eventMap)\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Specify event handlers for this template.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"eventMap\",\n" +
+                                        "     type: \"Event map\",\n" +
+                                        "     type_link: \"eventmaps\",\n" +
+                                        "     descr: \"Event handlers to associate with this template.\"}\n" +
+                                        "  ]\n" +
+                                        "};\n" +
+                                        "\n" +
+                                        "Template.api.template_helpers = {\n" +
+                                        "  id: \"template_helpers\",\n" +
+                                        "  name: \"Template.<em>myTemplate</em>.helpers(helpers)\",\n" +
+                                        "  locus: \"Client\",\n" +
+                                        "  descr: [\"Specify template helpers available to this template.\"],\n" +
+                                        "  args: [\n" +
+                                        "    {name: \"helpers\",\n" +
+                                        "     type: \"Object\",\n" +
+                                        "     descr: \"Dictionary of helper functions by name.\"}\n" +
+                                        "  ]\n" +
+                                        "};"));
+  }
+
   private NameSpace getSpaceText(String spaceName, String raw) {
     return getSpaceText(spaceName, raw, false);
   }

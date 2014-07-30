@@ -1022,6 +1022,55 @@ interface IHTTP {
 declare var HTTP:IHTTP;
 
 
+interface MeteorTemplate {
+
+    /**
+     * Provide a callback when an instance of a template is rendered.
+     *
+     * @locus Client
+     */
+    rendered:any;
+
+
+    /**
+     * Provide a callback when an instance of a template is created.
+     *
+     * @locus Client
+     */
+    created:any;
+
+
+    /**
+     * Provide a callback when an instance of a template is destroyed.
+     *
+     * @locus Client
+     */
+    destroyed:any;
+
+
+    /**
+     * Specify event handlers for this template.
+     *
+     * @locus Client
+     *
+     * @param {Event map} eventMap - Event handlers to associate with this template.
+     */
+    events(eventMap:any):any;
+
+
+    /**
+     * Specify template helpers available to this template.
+     *
+     * @locus Client
+     *
+     * @param {Object} helpers - Dictionary of helper functions by name.
+     */
+    helpers(helpers:any):any;
+
+}
+
+
+
 interface IUI {
 
     /**
@@ -1041,6 +1090,27 @@ interface IUI {
      * @locus Client
      */
     body:any;
+
+
+    /**
+     * Executes a template's logic.
+     *
+     * @locus Client
+     *
+     * @param {Template} template - The particular template to evaluate.
+     */
+    render(template:any):any;
+
+
+    /**
+     * Executes a template's logic with a data context. Otherwise identical to `UI.render`.
+     *
+     * @locus Client
+     *
+     * @param {Template} template - The particular template to evaluate.
+     * @param {Object} data - The data context that will be used when evaluating the template.
+     */
+    renderWithData(template:any, data:any):any;
 
 
     /**
