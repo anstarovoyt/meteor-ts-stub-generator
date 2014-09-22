@@ -1,4 +1,4 @@
-package kkey.generator;
+package kkey.generator.oldImpl;
 
 
 import com.google.gson.JsonArray;
@@ -33,12 +33,30 @@ public class ArgsParsing {
       }
     }
     else {
+
+      ArrayList list = new ArrayList<>(directArgs.values());
+      int index = -1;
       for (String name : argsFromName) {
+        index++;
         if (isOption(name)) {
           result.add(getOptions(element, isRequired(name), nameSpace));
         }
         else {
-          MethodParameterDeclaration e = (MethodParameterDeclaration)directArgs.get(getRealName(name));
+          String realName = getRealName(name);
+          MethodParameterDeclaration e = (MethodParameterDeclaration)directArgs.get(realName);
+          if (e == null) {
+            assert list.size() == argsFromName.size();
+            //have to try use index
+            e = (MethodParameterDeclaration)list.get(index);
+            if (!ParsingUtils.isValidIdentifier(e.getName())) {
+              if (ParsingUtils.isValidIdentifier(realName)) {
+                e.setName(realName);
+              }
+            }
+          }
+          if (!e.isVarArgs() && !ParsingUtils.isValidIdentifier(e.getName())) {
+            throw new RuntimeException("Incorrect identifier for parameter" + e.getName());
+          }
           result.add(e);
           if (e.isVarArgs()) {
             //other should be merged

@@ -1,14 +1,17 @@
 package kkey.generator.blocks;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Declaration {
-  private final String myName;
+  public void setName(String name) {
+    myName = name;
+  }
+
+  private String myName;
   private final String myType;
   protected final NameSpace myNameSpace;
   private final String myDescription;
 
   public Declaration(String name, String type, String description, NameSpace nameSpace) {
-    myName = name;
+    myName = name.trim();
     myType = type;
     myDescription = description;
     myNameSpace = nameSpace;

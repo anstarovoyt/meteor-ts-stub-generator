@@ -1,4 +1,4 @@
-package kkey.generator;
+package kkey.generator.oldImpl;
 
 
 import com.google.gson.JsonElement;
@@ -84,5 +84,9 @@ public class ParsingUtils {
     }
 
     return "any";
+  }
+
+  public static boolean isValidIdentifier(String name) {
+    return !name.chars().anyMatch(i -> !Character.isJavaIdentifierStart((char)i));
   }
 }

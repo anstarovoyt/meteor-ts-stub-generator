@@ -1,4 +1,4 @@
-package kkey.generator;
+package kkey.generator.oldImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;

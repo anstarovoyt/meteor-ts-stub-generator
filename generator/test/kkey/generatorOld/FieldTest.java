@@ -1,9 +1,10 @@
-package kkey.generator;
+package kkey.generatorOld;
 
 
 import kkey.generator.blocks.Declaration;
 import kkey.generator.blocks.FieldDeclaration;
 import kkey.generator.blocks.NameSpace;
+import kkey.generator.oldImpl.Generator;
 import org.junit.Assert;
 import org.junit.Test;
 

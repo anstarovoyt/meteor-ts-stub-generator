@@ -1,7 +1,9 @@
-package kkey.generator;
+package kkey.generatorOld;
 
 
 import kkey.generator.blocks.*;
+import kkey.generator.oldImpl.ArgsParsing;
+import kkey.generator.oldImpl.Generator;
 import org.junit.Assert;
 import org.junit.Test;
 

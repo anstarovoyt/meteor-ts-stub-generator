@@ -3,7 +3,7 @@ package kkey.generator.blocks;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import kkey.generator.Generator;
+import kkey.generator.oldImpl.Generator;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.InputStreamReader;
@@ -20,6 +20,7 @@ public class GitHubAgent {
 
   public static final JsonParser JSON_PARSER = new JsonParser();
   public static final String REFS_TAGS_RELEASE = "refs/tags/release/";
+  public static final String START_STRING = "METEOR@";
 
   public static void main(String[] args) throws Exception {
     getReleaseToUrl();
@@ -35,14 +36,21 @@ public class GitHubAgent {
     for (JsonElement element : parse.getAsJsonArray()) {
       JsonElement ref = element.getAsJsonObject().get("ref");
       String refAsString = ref.getAsString();
+      boolean hasStart = false;
+      if (refAsString.startsWith(REFS_TAGS_RELEASE + START_STRING)) {
+        refAsString = REFS_TAGS_RELEASE + refAsString.substring(REFS_TAGS_RELEASE.length() + START_STRING.length());
+        hasStart = true;
+      }
       if (refAsString.startsWith(REFS_TAGS_RELEASE) && isCompletedNumber(refAsString)) {
         String exactRelease = refAsString.substring(REFS_TAGS_RELEASE.length());
+
+        System.out.println(exactRelease);
         String[] split = exactRelease.split("\\.");
-        if (Integer.parseInt(split[1]) < 8 || Integer.parseInt(split[2]) < 2) {
+        if (Integer.parseInt(split[1]) < 9) {
           continue;
         }
         System.out.println(exactRelease);
-        URL urlToSource = new URL(SOURCE_URL + exactRelease);
+        URL urlToSource = new URL(SOURCE_URL + (hasStart ? START_STRING : "") + exactRelease);
         URLConnection connToSource = urlToSource.openConnection();
         JsonElement parseSource = JSON_PARSER.parse(new InputStreamReader(connToSource.getInputStream()));
         byte[] contents = DatatypeConverter.parseBase64Binary(parseSource.getAsJsonObject().get("content").getAsString());

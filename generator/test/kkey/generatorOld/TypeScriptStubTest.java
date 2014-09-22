@@ -1,7 +1,8 @@
-package kkey.generator;
+package kkey.generatorOld;
 
 import kkey.generator.blocks.DocUtils;
 import kkey.generator.blocks.NameSpace;
+import kkey.generator.oldImpl.Generator;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -297,6 +298,23 @@ public class TypeScriptStubTest {
   }
 
   @Test
+  public void testGenerateStubWithDifferentDirectNameAndArgName() {
+    assertResult(getSpaceText("Package", "Template.api.pack_onTest={\n" +
+                                        "  id: \"pack_onTest\",\n" +
+                                        "  name: \"Package.onTest(f)\",\n" +
+                                        "  locus: \"package.js\",\n" +
+                                        "  descr: [\"Define dependencies and expose package methods for unit tests.\"],\n" +
+                                        "  args: [\n" +
+                                        "   {name: \"function (api)\",\n" +
+                                        "    type: \"Function\",\n" +
+                                        "    descr: \"Function, taking in the package control 'api' object, \" +\n" +
+                                        "\"which keeps track of dependencies and exports.\"\n" +
+                                        "   },\n" +
+                                        "  ]\n" +
+                                        "};\n"));
+  }
+
+  @Test
   public void testGenerateStubTemplate() {
     assertResult(getSpaceText("MeteorTemplate", "Template.api.template_rendered = {\n" +
                                         "  id: \"template_rendered\",\n" +
@@ -358,7 +376,9 @@ public class TypeScriptStubTest {
     generator.build(raw);
 
     Map<String, NameSpace> spaces = generator.getNameSpaces();
-    return spaces.get(spaceName);
+    NameSpace space = spaces.get(spaceName);
+    assert space != null;
+    return space;
   }
 
   private void assertResult(NameSpace text) {
@@ -367,8 +387,8 @@ public class TypeScriptStubTest {
 
   private void assertResult(String text) {
     try {
-      String content = new String(Files.readAllBytes(Paths.get("generator/test/kkey/generator/tsstub/" + name.getMethodName() + ".ts")));
-      Assert.assertEquals(content, text.toString().replaceAll("\\s+$", ""));
+      String content = new String(Files.readAllBytes(Paths.get("generator/test/kkey/generatorOld/tsstub/" + name.getMethodName() + ".ts")));
+      Assert.assertEquals(content, text.replaceAll("\\s+$", ""));
     }
     catch (IOException e) {
       throw new RuntimeException(e);
