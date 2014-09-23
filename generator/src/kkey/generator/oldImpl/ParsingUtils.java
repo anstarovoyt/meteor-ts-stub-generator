@@ -9,7 +9,6 @@ public class ParsingUtils {
 
   public static final HashMap<String, String> types = new HashMap<>();
   public static final HashMap<String, String> predefinedTypes = new HashMap<>();
-  public static final HashMap<String, String> predefinedNames = new HashMap<>();
 
   static {
     types.put("Function", "Function");
@@ -86,7 +85,32 @@ public class ParsingUtils {
     return "any";
   }
 
+  public static String getTypeByFields(String longName, String desc, String rawType) {
+    if (rawType != null && !rawType.isEmpty()) {
+      return parseType(rawType);
+    }
+
+    if (desc != null && desc.startsWith("Boolean")) {
+      return parseType("Boolean");
+    }
+
+    if (predefinedTypes.containsKey(longName)) {
+      return parseType(predefinedTypes.get(longName));
+    }
+
+    return "any";
+  }
+
   public static boolean isValidIdentifier(String name) {
+    if (name.contains("#")) {
+      String[] split = name.split("#");
+      return isExactValidIdentifier(split[0]) && isExactValidIdentifier(split[1]);
+    }
+
+    return isExactValidIdentifier(name);
+  }
+
+  public static boolean isExactValidIdentifier(String name) {
     return !name.chars().anyMatch(i -> !Character.isJavaIdentifierStart((char)i));
   }
 }

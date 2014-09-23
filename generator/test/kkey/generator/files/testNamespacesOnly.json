@@ -1,0 +1,1040 @@
+{
+  "Accounts": {
+    "kind": "namespace",
+    "summary": "The namespace for all accounts-related methods.",
+    "longname": "Accounts",
+    "emailTemplates": {
+      "summary": "Options to customize emails sent from the Accounts system.",
+      "longname": "Accounts.emailTemplates",
+      "kind": "member",
+      "memberof": "Accounts",
+      "locus": "Anywhere"
+    },
+    "config": {
+      "summary": "Set global accounts options.",
+      "params": [{"type": {"names": ["Object"]}, "name": "options"}],
+      "longname": "Accounts.config",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>New users with an email address will receive an address verification email.</p>",
+          "name": "sendVerificationEmail"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>Calls to <a href=\"#accounts_createuser\"><code>createUser</code></a> from the client will be rejected. In addition, if you are using <a href=\"#accountsui\">accounts-ui</a>, the &quot;Create account&quot; link will not be available.</p>",
+          "name": "forbidClientAccountCreation"
+        },
+        {
+          "type": {
+            "names": [
+              "String",
+              "function"
+            ]
+          },
+          "description": "<p>If set to a string, only allows new users if the domain part of their email address matches the string. If set to a function, only allows new users if the function returns true.  The function is passed the full email address of the proposed new user.  Works with password-based sign-in and external services that expose email addresses (Google, Facebook, GitHub). All existing users still can log in after enabling this option. Example: <code>Accounts.config({ restrictCreationByEmailDomain: 'school.edu' })</code>.</p>",
+          "name": "restrictCreationByEmailDomain"
+        },
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>The number of days from when a user logs in until their token expires and they are logged out. Defaults to 90. Set to <code>null</code> to disable login expiration.</p>",
+          "name": "loginExpirationInDays"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>When using the <code>oauth-encryption</code> package, the 16 byte key using to encrypt sensitive account credentials in the database, encoded in base64.  This option may only be specifed on the server.  See packages/oauth-encryption/README.md for details.</p>",
+          "name": "oauthSecretKey"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "validateLoginAttempt": {
+      "summary": "Validate login attempts.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Called whenever a login is attempted (either successful or unsuccessful).  A login can be aborted by returning a falsy value or throwing an exception.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.validateLoginAttempt",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "onLogin": {
+      "summary": "Register a callback to be called after a login attempt succeeds.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>The callback to be called when login is successful.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.onLogin",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "onLoginFailure": {
+      "summary": "Register a callback to be called after a login attempt fails.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>The callback to be called after the login has failed.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.onLoginFailure",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "onCreateUser": {
+      "summary": "Customize new user creation.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Called whenever a new user is created. Return the new user object, or throw an <code>Error</code> to abort the creation.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.onCreateUser",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "validateNewUser": {
+      "summary": "Set restrictions on new user creation.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Called whenever a new user is created. Takes the new user object, and returns true to allow the creation or false to abort.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.validateNewUser",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "createUser": {
+      "summary": "Create a new user.",
+      "params": [
+        {"type": {"names": ["Object"]}, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Client only, optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.createUser",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [
+        {"type": {"names": ["String"]}, "description": "<p>A unique name for this user.</p>", "name": "username"},
+        {"type": {"names": ["String"]}, "description": "<p>The user's email address.</p>", "name": "email"},
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The user's password. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "password"
+        },
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>The user's profile, typically including the <code>name</code> field.</p>",
+          "name": "profile"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "changePassword": {
+      "summary": "Change the current user's password. Must be logged in.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The user's current password. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "oldPassword"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>A new password for the user. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "newPassword"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.changePassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Client"
+    },
+    "forgotPassword": {
+      "summary": "Request a forgot password email.",
+      "params": [
+        {"type": {"names": ["Object"]}, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.forgotPassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The email address to send a password reset link.</p>",
+          "name": "email"
+        }
+      ],
+      "locus": "Client"
+    },
+    "resetPassword": {
+      "summary": "Reset the password for a user using a token received in email. Logs the user in afterwards.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The token retrieved from the reset password URL.</p>", "name": "token"},
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>A new password for the user. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "newPassword"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.resetPassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Client"
+    },
+    "verifyEmail": {
+      "summary": "Marks the user's email address as verified. Logs the user in afterwards.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The token retrieved from the verification URL.</p>", "name": "token"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.verifyEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Client"
+    },
+    "setPassword": {
+      "summary": "Forcibly change the password for a user.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to update.</p>", "name": "userId"},
+        {"type": {"names": ["String"]}, "description": "<p>A new password for the user.</p>", "name": "newPassword"}
+      ],
+      "longname": "Accounts.setPassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "sendResetPasswordEmail": {
+      "summary": "Send an email with a link the user can use to reset their password.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to send email to.</p>", "name": "userId"},
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional. Which address of the user's to send the email to. This address must be in the user's <code>emails</code> list. Defaults to the first email in the list.</p>",
+          "name": "email"
+        }
+      ],
+      "longname": "Accounts.sendResetPasswordEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "sendEnrollmentEmail": {
+      "summary": "Send an email with a link the user can use to set their initial password.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to send email to.</p>", "name": "userId"},
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional. Which address of the user's to send the email to. This address must be in the user's <code>emails</code> list. Defaults to the first email in the list.</p>",
+          "name": "email"
+        }
+      ],
+      "longname": "Accounts.sendEnrollmentEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "sendVerificationEmail": {
+      "summary": "Send an email with a link the user can use verify their email address.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to send email to.</p>", "name": "userId"},
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional. Which address of the user's to send the email to. This address must be in the user's <code>emails</code> list. Defaults to the first unverified email in the list.</p>",
+          "name": "email"
+        }
+      ],
+      "longname": "Accounts.sendVerificationEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    }
+  },
+  "EJSON": {
+    "kind": "namespace",
+    "summary": "Namespace for EJSON functions",
+    "longname": "EJSON",
+    "newBinary": {
+      "summary": "Allocate a new buffer of binary data that EJSON can serialize.",
+      "params": [{"type": {"names": ["Number"]}, "description": "<p>The number of bytes of binary data to allocate.</p>", "name": "size"}],
+      "longname": "EJSON.newBinary",
+      "kind": "member",
+      "memberof": "EJSON",
+      "locus": "Anywhere"
+    },
+    "addType": {
+      "summary": "Add a custom datatype to EJSON.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>A tag for your custom type; must be unique among custom data types defined in your project, and must match the result of your type's <code>typeName</code> method.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>A function that deserializes a JSON-compatible value into an instance of your type.  This should match the serialization performed by your type's <code>toJSONValue</code> method.</p>",
+          "name": "factory"
+        }
+      ],
+      "longname": "EJSON.addType",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "toJSONValue": {
+      "summary": "Serialize an EJSON-compatible value into its plain JSON representation.",
+      "params": [{"type": {"names": ["EJSON"]}, "description": "<p>A value to serialize to plain JSON.</p>", "name": "val"}],
+      "longname": "EJSON.toJSONValue",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "fromJSONValue": {
+      "summary": "Deserialize an EJSON value from its plain JSON representation.",
+      "params": [{"type": {"names": ["JSONCompatible"]}, "description": "<p>A value to deserialize into EJSON.</p>", "name": "val"}],
+      "longname": "EJSON.fromJSONValue",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "stringify": {
+      "summary": "Serialize a value to a string.\n\nFor EJSON values, the serialization fully represents the value. For non-EJSON values, serializes the same way as `JSON.stringify`.",
+      "params": [
+        {"type": {"names": ["EJSON"]}, "description": "<p>A value to stringify.</p>", "name": "val"},
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "EJSON.stringify",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [
+        {
+          "type": {
+            "names": [
+              "Boolean",
+              "Integer",
+              "String"
+            ]
+          },
+          "description": "<p>Indents objects and arrays for easy readability.  When <code>true</code>, indents by 2 spaces; when an integer, indents by that number of spaces; and when a string, uses the string as the indentation pattern.</p>",
+          "name": "indent"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>When <code>true</code>, stringifies keys in an object in sorted order.</p>",
+          "name": "canonical"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "parse": {
+      "summary": "Parse a string into an EJSON value. Throws an error if the string is not valid EJSON.",
+      "params": [{"type": {"names": ["String"]}, "description": "<p>A string to parse into an EJSON value.</p>", "name": "str"}],
+      "longname": "EJSON.parse",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "isBinary": {
+      "summary": "Returns true if `x` is a buffer of binary data, as returned from [`EJSON.newBinary`](#ejson_new_binary).",
+      "params": [{"type": {"names": ["Object"]}, "description": "<p>The variable to check.</p>", "name": "x"}],
+      "longname": "EJSON.isBinary",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "equals": {
+      "summary": "Return true if `a` and `b` are equal to each other.  Return false otherwise.  Uses the `equals` method on `a` if present, otherwise performs a deep comparison.",
+      "params": [
+        {"type": {"names": ["EJSON"]}, "name": "a"},
+        {"type": {"names": ["EJSON"]}, "name": "b"},
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "EJSON.equals",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>Compare in key sensitive order, if supported by the JavaScript implementation.  For example, <code>{a: 1, b: 2}</code> is equal to <code>{b: 2, a: 1}</code> only when <code>keyOrderSensitive</code> is <code>false</code>.  The default is <code>false</code>.</p>",
+          "name": "keyOrderSensitive"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "clone": {
+      "summary": "Return a deep copy of `val`.",
+      "params": [{"type": {"names": ["EJSON"]}, "description": "<p>A value to copy.</p>", "name": "val"}],
+      "longname": "EJSON.clone",
+      "kind": "function",
+      "memberof": "EJSON",
+      "options": [],
+      "locus": "Anywhere"
+    }
+  },
+  "Meteor": {
+    "summary": "The Meteor namespace",
+    "kind": "namespace",
+    "longname": "Meteor",
+    "users": {
+      "summary": "A [Mongo.Collection](#collections) containing user documents.",
+      "longname": "Meteor.users",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isClient": {
+      "summary": "Boolean variable.  True if running in client environment.",
+      "longname": "Meteor.isClient",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isServer": {
+      "summary": "Boolean variable.  True if running in server environment.",
+      "longname": "Meteor.isServer",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "settings": {
+      "summary": "`Meteor.settings` contains deployment-specific configuration options. You can initialize settings by passing the `--settings` option (which takes the name of a file containing JSON data) to `meteor run` or `meteor deploy`. When running your server directly (e.g. from a bundle), you instead specify settings by putting the JSON directly into the `METEOR_SETTINGS` environment variable. If you don't provide any settings, `Meteor.settings` will be an empty object.  If the settings object contains a key named `public`, then `Meteor.settings.public` will be available on the client as well as the server.  All other properties of `Meteor.settings` are only defined on the server.",
+      "longname": "Meteor.settings",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isCordova": {
+      "summary": "Boolean variable.  True if running in a Cordova mobile environment.",
+      "longname": "Meteor.isCordova",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "release": {
+      "summary": "`Meteor.release` is a string containing the name of the [release](#meteorupdate) with which the project was built (for example, `\"1.2.3\"`). It is `undefined` if the project was built using a git checkout of Meteor.",
+      "longname": "Meteor.release",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "userId": {
+      "summary": "Get the current user id, or `null` if no user is logged in. A reactive data source.",
+      "longname": "Meteor.userId",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "params": [],
+      "locus": "Anywhere but publish functions"
+    },
+    "loggingIn": {
+      "summary": "True if a login method (such as `Meteor.loginWithPassword`, `Meteor.loginWithFacebook`, or `Accounts.createUser`) is currently in progress. A reactive data source.",
+      "longname": "Meteor.loggingIn",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "user": {
+      "summary": "Get the current user record, or `null` if no user is logged in. A reactive data source.",
+      "longname": "Meteor.user",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "params": [],
+      "locus": "Anywhere but publish functions"
+    },
+    "logout": {
+      "summary": "Log the user out.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.logout",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Client"
+    },
+    "logoutOtherClients": {
+      "summary": "Log out other clients logged in as the current user, but does not log out the client that calls this function.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.logoutOtherClients",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Client"
+    },
+    "loginWith<ExternalService>": {
+      "memberof": "Meteor",
+      "kind": "function",
+      "summary": "Log the user in using an external service.",
+      "params": [
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.loginWith<ExternalService>",
+      "options": [
+        {
+          "type": {"names": ["Array.<String>"]},
+          "description": "<p>A list of permissions to request from the user.</p>",
+          "name": "requestPermissions"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>If true, asks the user for permission to act on their behalf when offline. This stores an additional offline token in the <code>services</code> field of the user document. Currently only supported with Google.</p>",
+          "name": "requestOfflineToken"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>If true, forces the user to approve the app's permissions, even if previously approved. Currently only supported with Google.</p>",
+          "name": "forceApprovalPrompt"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>An email address that the external service will use to pre-fill the login prompt. Currently only supported with Meteor developer accounts.</p>",
+          "name": "userEmail"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Login style (&quot;popup&quot; or &quot;redirect&quot;, defaults to the login service configuration).  The &quot;popup&quot; style opens the login page in a separate popup window, which is generally preferred because the Meteor application doesn't need to be reloaded.  The &quot;redirect&quot; style redirects the Meteor application's window to the login page, and the login service provider redirects back to the Meteor application which is then reloaded.  The &quot;redirect&quot; style can be used in situations where a popup window can't be opened, such as in a mobile UIWebView.  The &quot;redirect&quot; style however relies on session storage which isn't available in Safari private mode, so the &quot;popup&quot; style will be forced if session storage can't be used.</p>",
+          "name": "loginStyle"
+        }
+      ],
+      "locus": "Client"
+    },
+    "loginWithPassword": {
+      "summary": "Log the user in with a password.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "Object",
+              "String"
+            ]
+          },
+          "description": "<p>Either a string interpreted as a username or an email; or an object with a single key: <code>email</code>, <code>username</code> or <code>id</code>.</p>",
+          "name": "user"
+        },
+        {"type": {"names": ["String"]}, "description": "<p>The user's password.</p>", "name": "password"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.loginWithPassword",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Client"
+    },
+    "subscribe": {
+      "memberof": "Meteor",
+      "summary": "Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Name of the subscription.  Matches the name of the server's <code>publish()</code> call.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["Any"]},
+          "optional": true,
+          "description": "<p>Optional arguments passed to publisher function on server.</p>",
+          "name": "arg1, arg2..."
+        },
+        {
+          "type": {
+            "names": [
+              "function",
+              "Object"
+            ]
+          },
+          "optional": true,
+          "description": "<p>Optional. May include <code>onError</code> and <code>onReady</code> callbacks. If a function is passed instead of an object, it is interpreted as an <code>onReady</code> callback.</p>",
+          "name": "callbacks"
+        }
+      ],
+      "longname": "Meteor.subscribe",
+      "kind": "function",
+      "options": [],
+      "locus": "Client"
+    },
+    "call": {
+      "memberof": "Meteor",
+      "summary": "Invokes a method passing any number of arguments.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>Name of method to invoke</p>", "name": "name"},
+        {"type": {"names": ["EJSONable"]}, "optional": true, "description": "<p>Optional method arguments</p>", "name": "arg1, arg2..."},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback, which is called asynchronously with the error or result after the method is complete. If not provided, the method runs synchronously if possible (see below).</p>",
+          "name": "asyncCallback"
+        }
+      ],
+      "longname": "Meteor.call",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "apply": {
+      "memberof": "Meteor",
+      "summary": "Invoke a method passing an array of arguments.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>Name of method to invoke</p>", "name": "name"},
+        {"type": {"names": ["Array.<EJSONable>"]}, "description": "<p>Method arguments</p>", "name": "args"},
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback; same semantics as in <a href=\"#meteor_call\"><code>Meteor.call</code></a>.</p>",
+          "name": "asyncCallback"
+        }
+      ],
+      "longname": "Meteor.apply",
+      "kind": "function",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>(Client only) If true, don't send this method until all previous method calls have completed, and don't send any subsequent method calls until this one is completed.</p>",
+          "name": "wait"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>(Client only) This callback is invoked with the error or result of the method (just like <code>asyncCallback</code>) as soon as the error or result is available. The local cache may not yet reflect the writes performed by the method.</p>",
+          "name": "onResultReceived"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "status": {
+      "summary": "Get the current connection status. A reactive data source.",
+      "memberof": "Meteor",
+      "longname": "Meteor.status",
+      "kind": "function",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "reconnect": {
+      "summary": "Force an immediate reconnection attempt if the client is not connected to the server.\n\n  This method does nothing if the client is already connected.",
+      "memberof": "Meteor",
+      "longname": "Meteor.reconnect",
+      "kind": "function",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "disconnect": {
+      "summary": "Disconnect the client from the server.",
+      "memberof": "Meteor",
+      "longname": "Meteor.disconnect",
+      "kind": "function",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "onConnection": {
+      "summary": "Register a callback to be called when a new DDP connection is made to the server.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>The function to call when a new DDP connection is established.</p>",
+          "name": "callback"
+        }
+      ],
+      "memberof": "Meteor",
+      "longname": "Meteor.onConnection",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    },
+    "publish": {
+      "summary": "Publish a record set.",
+      "memberof": "Meteor",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Name of the record set.  If <code>null</code>, the set has no name, and the record set is automatically sent to all connected clients.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Function called on the server each time a client subscribes.  Inside the function, <code>this</code> is the publish handler object, described below.  If the client passed arguments to <code>subscribe</code>, the function is called with the same arguments.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Meteor.publish",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    },
+    "methods": {
+      "summary": "Defines functions that can be invoked over the network by clients.",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>Dictionary whose keys are method names and values are functions.</p>",
+          "name": "methods"
+        }
+      ],
+      "memberof": "Meteor",
+      "longname": "Meteor.methods",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "wrapAsync": {
+      "memberof": "Meteor",
+      "summary": "Wrap a function that takes a callback function as its final parameter so that the wrapper function can be used either synchronously (without passing a callback) or asynchronously (when a callback is passed). If a callback is provided, the environment captured when the original function was called will be restored in the callback.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>A function that takes a callback as its final parameter</p>",
+          "name": "func"
+        },
+        {
+          "type": {"names": ["Object"]},
+          "optional": true,
+          "description": "<p>Optional <code>this</code> object against which the original function will be invoked</p>",
+          "name": "context"
+        }
+      ],
+      "longname": "Meteor.wrapAsync",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "startup": {
+      "summary": "Run code when a client or a server starts.",
+      "params": [{"type": {"names": ["function"]}, "description": "<p>A function to run on startup.</p>", "name": "func"}],
+      "longname": "Meteor.startup",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "setTimeout": {
+      "memberof": "Meteor",
+      "summary": "Call a function in the future after waiting for a specified delay.",
+      "params": [
+        {"type": {"names": ["function"]}, "description": "<p>The function to run</p>", "name": "func"},
+        {"type": {"names": ["Number"]}, "description": "<p>Number of milliseconds to wait before calling function</p>", "name": "delay"}
+      ],
+      "longname": "Meteor.setTimeout",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "setInterval": {
+      "memberof": "Meteor",
+      "summary": "Call a function repeatedly, with a time delay between calls.",
+      "params": [
+        {"type": {"names": ["function"]}, "description": "<p>The function to run</p>", "name": "func"},
+        {"type": {"names": ["Number"]}, "description": "<p>Number of milliseconds to wait between each function call.</p>", "name": "delay"}
+      ],
+      "longname": "Meteor.setInterval",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "clearInterval": {
+      "memberof": "Meteor",
+      "summary": "Cancel a repeating function call scheduled by `Meteor.setInterval`.",
+      "params": [
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>The handle returned by <code>Meteor.setInterval</code></p>",
+          "name": "id"
+        }
+      ],
+      "longname": "Meteor.clearInterval",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "clearTimeout": {
+      "memberof": "Meteor",
+      "summary": "Cancel a function call scheduled by `Meteor.setTimeout`.",
+      "params": [
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>The handle returned by <code>Meteor.setTimeout</code></p>",
+          "name": "id"
+        }
+      ],
+      "longname": "Meteor.clearTimeout",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "absoluteUrl": {
+      "summary": "Generate an absolute URL pointing to the application. The server reads from the `ROOT_URL` environment variable to determine where it is running. This is taken care of automatically for apps deployed with `meteor deploy`, but must be provided when using `meteor bundle`.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>A path to append to the root URL. Do not include a leading &quot;<code>/</code>&quot;.</p>",
+          "name": "path"
+        },
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "Meteor.absoluteUrl",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [
+        {"type": {"names": ["Boolean"]}, "description": "<p>Create an HTTPS URL.</p>", "name": "secure"},
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>Replace localhost with 127.0.0.1. Useful for services that don't recognize localhost as a domain name.</p>",
+          "name": "replaceLocalhost"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Override the default ROOT_URL from the server environment. For example: &quot;<code>http://foo.example.com</code>&quot;</p>",
+          "name": "rootUrl"
+        }
+      ],
+      "locus": "Anywhere"
+    }
+  },
+  "Assets": {
+    "summary": "The namespace for Assets functions, lives in the bundler.",
+    "kind": "namespace",
+    "longname": "Assets",
+    "getText": {
+      "summary": "Retrieve the contents of the static server asset as a UTF8-encoded string.",
+      "memberof": "Assets",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The path of the asset, relative to the application's <code>private</code> subdirectory.</p>",
+          "name": "assetPath"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback, which is called asynchronously with the error or result after the function is complete. If not provided, the function runs synchronously.</p>",
+          "name": "asyncCallback"
+        }
+      ],
+      "longname": "Assets.getText",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    },
+    "getBinary": {
+      "summary": "Retrieve the contents of the static server asset as an [EJSON Binary](#ejson_new_binary).",
+      "memberof": "Assets",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The path of the asset, relative to the application's <code>private</code> subdirectory.</p>",
+          "name": "assetPath"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback, which is called asynchronously with the error or result after the function is complete. If not provided, the function runs synchronously.</p>",
+          "name": "asyncCallback"
+        }
+      ],
+      "longname": "Assets.getBinary",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    }
+  },
+  "Package": {
+    "summary": "The Package object in package.js",
+    "kind": "namespace",
+    "longname": "Package",
+    "locus": "package.js",
+    "describe": {
+      "summary": "Provide basic package information.",
+      "memberof": "Package",
+      "params": [{"type": {"names": ["Object"]}, "name": "options"}],
+      "longname": "Package.describe",
+      "kind": "function",
+      "options": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>A concise 1-2 sentence description of the package, required for publication.</p>",
+          "name": "summary"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The <a href=\"http://www.semver.org\">semver</a> version for your package. If no version is specified, defaults to <code>0.0.0</code>. You need to specify a version to publish to the package server.</p>",
+          "name": "version"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Optional name override. By default, the package name comes from the name of its directory.</p>",
+          "name": "name"
+        },
+        {"type": {"names": ["String"]}, "description": "<p>Optional Git URL to the source repository.</p>", "name": "git"}
+      ],
+      "locus": "package.js"
+    },
+    "onUse": {
+      "summary": "Define package dependencies and expose package methods.",
+      "memberof": "Package",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>A function that takes in the package control 'api' object, which keeps track of dependencies and exports.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Package.onUse",
+      "kind": "function",
+      "options": [],
+      "locus": "package.js"
+    },
+    "onTest": {
+      "summary": "Define dependencies and expose package methods for unit tests.",
+      "memberof": "Package",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>A function that takes in the package control 'api' object, which keeps track of dependencies and exports.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Package.onTest",
+      "kind": "function",
+      "options": [],
+      "locus": "package.js"
+    }
+  },
+  "Npm": {
+    "kind": "namespace",
+    "summary": "The Npm object in package.js and package source files.",
+    "longname": "Npm",
+    "depends": {
+      "summary": "Specify which [NPM](https://www.npmjs.org/) packages\nyour Meteor package depends on.",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>An object where the keys are package\nnames and the values are version numbers in string form.\nYou can only depend on exact versions of NPM packages. Example:</p>\n<pre class=\"prettyprint source lang-js\"><code>Npm.depends({moment: &quot;2.8.3&quot;});</code></pre>",
+          "name": "dependencies"
+        }
+      ],
+      "memberof": "Npm",
+      "longname": "Npm.depends",
+      "kind": "function",
+      "options": [],
+      "locus": "package.js"
+    },
+    "require": {
+      "summary": "Require a package that was specified using\n`Npm.depends()`.",
+      "params": [{"type": {"names": ["String"]}, "description": "<p>The name of the package to require.</p>", "name": "name"}],
+      "memberof": "Npm",
+      "longname": "Npm.require",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    }
+  },
+  "Cordova": {
+    "kind": "namespace",
+    "summary": "The Cordova object in package.js.",
+    "longname": "Cordova",
+    "depends": {
+      "summary": "Specify which [Cordova / PhoneGap](http://cordova.apache.org/)\nplugins your Meteor package depends on.\n\nPlugins are installed from\n[plugins.cordova.io](http://plugins.cordova.io/), so the plugins and\nversions specified must exist there. Alternatively, the version\ncan be replaced with a GitHub tarball URL as described in the\n[Cordova / PhoneGap](https://github.com/meteor/meteor/wiki/Meteor-Cordova-Phonegap-integration#meteor-packages-with-cordovaphonegap-dependencies)\npage of the Meteor wiki on GitHub.",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>An object where the keys are plugin\nnames and the values are version numbers or GitHub tarball URLs\nin string form.\nExample:</p>\n<pre class=\"prettyprint source lang-js\"><code>Cordova.depends({\n  &quot;org.apache.cordova.camera&quot;: &quot;0.3.0&quot;\n});</code></pre><p>Alternatively, with a GitHub URL:</p>\n<pre class=\"prettyprint source lang-js\"><code>Cordova.depends({\n  &quot;org.apache.cordova.camera&quot;:\n    &quot;https://github.com/apache/cordova-plugin-camera/tarball/d84b875c&quot;\n});</code></pre>",
+          "name": "dependencies"
+        }
+      ],
+      "memberof": "Cordova",
+      "longname": "Cordova.depends",
+      "kind": "function",
+      "options": [],
+      "locus": "package.js"
+    }
+  }
+}

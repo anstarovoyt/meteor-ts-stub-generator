@@ -1,5 +1,7 @@
 package kkey.generator.blocks;
 
+import com.google.common.collect.Sets;
+
 import java.util.*;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -10,10 +12,15 @@ public class NameSpace {
 
   private final String myName;
   private final Collection<Declaration> myDeclarations = new ArrayList<>();
-  private final boolean myIsModule;
+
+  public void setModule(boolean isModule) {
+    myIsModule = isModule;
+  }
+
+  private boolean myIsModule;
   private boolean myGenerateVariable;
   private boolean isSub = false;
-  private final Set<NameSpace> subNameSpaces = new LinkedHashSet<>();
+  private final HashMap<String, NameSpace> subNameSpaces = new LinkedHashMap<>();
 
   public boolean isSub() {
     return isSub;
@@ -102,7 +109,7 @@ public class NameSpace {
   private void appendChildNameSpace(StringBuilder result) {
     if (subNameSpaces.isEmpty()) return;
 
-    for (NameSpace space : subNameSpaces) {
+    for (NameSpace space : subNameSpaces.values()) {
       result.append("\n\n");
       result.append(space.toString(DocUtils.INDENT));
     }
@@ -112,7 +119,7 @@ public class NameSpace {
     return myIsModule ? "declare module" : "interface";
   }
 
-  private String getInterfaceName() {
+  public String getInterfaceName() {
     return (isModule() || !isGenerateVariable() ? "" : "I") + myName;
   }
 
@@ -130,10 +137,14 @@ public class NameSpace {
   }
 
   public void addSubNameSpace(NameSpace space) {
-    subNameSpaces.add(space);
+    subNameSpaces.put(space.getName(), space);
   }
 
   public Set<NameSpace> getSubNameSpaces() {
-    return subNameSpaces;
+    return Sets.newLinkedHashSet(subNameSpaces.values());
+  }
+
+  public NameSpace getSub(String name) {
+    return subNameSpaces.get(name);
   }
 }

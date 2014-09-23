@@ -1,0 +1,62 @@
+{
+  "Meteor": {
+    "summary": "The Meteor namespace",
+    "kind": "namespace",
+    "longname": "Meteor",
+
+    "subscribeWithVargsLast": {
+      "memberof": "Meteor",
+      "summary": "Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Name of the subscription.  Matches the name of the server's <code>publish()</code> call.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["Any"]},
+          "optional": true,
+          "description": "<p>Optional arguments passed to publisher function on server.</p>",
+          "name": "arg1, arg2..."
+        }
+      ],
+      "longname": "Meteor.subscribe",
+      "kind": "function",
+      "options": [],
+      "locus": "Client"
+    },
+    "subscribe": {
+      "memberof": "Meteor",
+      "summary": "Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Name of the subscription.  Matches the name of the server's <code>publish()</code> call.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["Any"]},
+          "optional": true,
+          "description": "<p>Optional arguments passed to publisher function on server.</p>",
+          "name": "arg1, arg2..."
+        },
+        {
+          "type": {
+            "names": [
+              "function",
+              "Object"
+            ]
+          },
+          "optional": true,
+          "description": "<p>Optional. May include <code>onError</code> and <code>onReady</code> callbacks. If a function is passed instead of an object, it is interpreted as an <code>onReady</code> callback.</p>",
+          "name": "callbacks"
+        }
+      ],
+      "longname": "Meteor.subscribe",
+      "kind": "function",
+      "options": [],
+      "locus": "Client"
+    }
+  }
+
+}

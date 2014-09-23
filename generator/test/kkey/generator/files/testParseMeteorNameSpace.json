@@ -1,0 +1,475 @@
+{
+  "Meteor": {
+    "summary": "The Meteor namespace",
+    "kind": "namespace",
+    "longname": "Meteor",
+    "users": {
+      "summary": "A [Mongo.Collection](#collections) containing user documents.",
+      "longname": "Meteor.users",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isClient": {
+      "summary": "Boolean variable.  True if running in client environment.",
+      "longname": "Meteor.isClient",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isServer": {
+      "summary": "Boolean variable.  True if running in server environment.",
+      "longname": "Meteor.isServer",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "settings": {
+      "summary": "`Meteor.settings` contains deployment-specific configuration options. You can initialize settings by passing the `--settings` option (which takes the name of a file containing JSON data) to `meteor run` or `meteor deploy`. When running your server directly (e.g. from a bundle), you instead specify settings by putting the JSON directly into the `METEOR_SETTINGS` environment variable. If you don't provide any settings, `Meteor.settings` will be an empty object.  If the settings object contains a key named `public`, then `Meteor.settings.public` will be available on the client as well as the server.  All other properties of `Meteor.settings` are only defined on the server.",
+      "longname": "Meteor.settings",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isCordova": {
+      "summary": "Boolean variable.  True if running in a Cordova mobile environment.",
+      "longname": "Meteor.isCordova",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "release": {
+      "summary": "`Meteor.release` is a string containing the name of the [release](#meteorupdate) with which the project was built (for example, `\"1.2.3\"`). It is `undefined` if the project was built using a git checkout of Meteor.",
+      "longname": "Meteor.release",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "userId": {
+      "summary": "Get the current user id, or `null` if no user is logged in. A reactive data source.",
+      "longname": "Meteor.userId",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "params": [],
+      "locus": "Anywhere but publish functions"
+    },
+    "loggingIn": {
+      "summary": "True if a login method (such as `Meteor.loginWithPassword`, `Meteor.loginWithFacebook`, or `Accounts.createUser`) is currently in progress. A reactive data source.",
+      "longname": "Meteor.loggingIn",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "user": {
+      "summary": "Get the current user record, or `null` if no user is logged in. A reactive data source.",
+      "longname": "Meteor.user",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "params": [],
+      "locus": "Anywhere but publish functions"
+    },
+    "logout": {
+      "summary": "Log the user out.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.logout",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Client"
+    },
+    "logoutOtherClients": {
+      "summary": "Log out other clients logged in as the current user, but does not log out the client that calls this function.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.logoutOtherClients",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Client"
+    },
+    "loginWith<ExternalService>": {
+      "memberof": "Meteor",
+      "kind": "function",
+      "summary": "Log the user in using an external service.",
+      "params": [
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.loginWith<ExternalService>",
+      "options": [
+        {
+          "type": {"names": ["Array.<String>"]},
+          "description": "<p>A list of permissions to request from the user.</p>",
+          "name": "requestPermissions"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>If true, asks the user for permission to act on their behalf when offline. This stores an additional offline token in the <code>services</code> field of the user document. Currently only supported with Google.</p>",
+          "name": "requestOfflineToken"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>If true, forces the user to approve the app's permissions, even if previously approved. Currently only supported with Google.</p>",
+          "name": "forceApprovalPrompt"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>An email address that the external service will use to pre-fill the login prompt. Currently only supported with Meteor developer accounts.</p>",
+          "name": "userEmail"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Login style (&quot;popup&quot; or &quot;redirect&quot;, defaults to the login service configuration).  The &quot;popup&quot; style opens the login page in a separate popup window, which is generally preferred because the Meteor application doesn't need to be reloaded.  The &quot;redirect&quot; style redirects the Meteor application's window to the login page, and the login service provider redirects back to the Meteor application which is then reloaded.  The &quot;redirect&quot; style can be used in situations where a popup window can't be opened, such as in a mobile UIWebView.  The &quot;redirect&quot; style however relies on session storage which isn't available in Safari private mode, so the &quot;popup&quot; style will be forced if session storage can't be used.</p>",
+          "name": "loginStyle"
+        }
+      ],
+      "locus": "Client"
+    },
+    "loginWithPassword": {
+      "summary": "Log the user in with a password.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "Object",
+              "String"
+            ]
+          },
+          "description": "<p>Either a string interpreted as a username or an email; or an object with a single key: <code>email</code>, <code>username</code> or <code>id</code>.</p>",
+          "name": "user"
+        },
+        {"type": {"names": ["String"]}, "description": "<p>The user's password.</p>", "name": "password"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Meteor.loginWithPassword",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Client"
+    },
+    "subscribe": {
+      "memberof": "Meteor",
+      "summary": "Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Name of the subscription.  Matches the name of the server's <code>publish()</code> call.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["Any"]},
+          "optional": true,
+          "description": "<p>Optional arguments passed to publisher function on server.</p>",
+          "name": "arg1, arg2..."
+        },
+        {
+          "type": {
+            "names": [
+              "function",
+              "Object"
+            ]
+          },
+          "optional": true,
+          "description": "<p>Optional. May include <code>onError</code> and <code>onReady</code> callbacks. If a function is passed instead of an object, it is interpreted as an <code>onReady</code> callback.</p>",
+          "name": "callbacks"
+        }
+      ],
+      "longname": "Meteor.subscribe",
+      "kind": "function",
+      "options": [],
+      "locus": "Client"
+    },
+    "call": {
+      "memberof": "Meteor",
+      "summary": "Invokes a method passing any number of arguments.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>Name of method to invoke</p>", "name": "name"},
+        {"type": {"names": ["EJSONable"]}, "optional": true, "description": "<p>Optional method arguments</p>", "name": "arg1, arg2..."},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback, which is called asynchronously with the error or result after the method is complete. If not provided, the method runs synchronously if possible (see below).</p>",
+          "name": "asyncCallback"
+        }
+      ],
+      "longname": "Meteor.call",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "apply": {
+      "memberof": "Meteor",
+      "summary": "Invoke a method passing an array of arguments.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>Name of method to invoke</p>", "name": "name"},
+        {"type": {"names": ["Array.<EJSONable>"]}, "description": "<p>Method arguments</p>", "name": "args"},
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback; same semantics as in <a href=\"#meteor_call\"><code>Meteor.call</code></a>.</p>",
+          "name": "asyncCallback"
+        }
+      ],
+      "longname": "Meteor.apply",
+      "kind": "function",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>(Client only) If true, don't send this method until all previous method calls have completed, and don't send any subsequent method calls until this one is completed.</p>",
+          "name": "wait"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>(Client only) This callback is invoked with the error or result of the method (just like <code>asyncCallback</code>) as soon as the error or result is available. The local cache may not yet reflect the writes performed by the method.</p>",
+          "name": "onResultReceived"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "status": {
+      "summary": "Get the current connection status. A reactive data source.",
+      "memberof": "Meteor",
+      "longname": "Meteor.status",
+      "kind": "function",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "reconnect": {
+      "summary": "Force an immediate reconnection attempt if the client is not connected to the server.\n\n  This method does nothing if the client is already connected.",
+      "memberof": "Meteor",
+      "longname": "Meteor.reconnect",
+      "kind": "function",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "disconnect": {
+      "summary": "Disconnect the client from the server.",
+      "memberof": "Meteor",
+      "longname": "Meteor.disconnect",
+      "kind": "function",
+      "options": [],
+      "params": [],
+      "locus": "Client"
+    },
+    "onConnection": {
+      "summary": "Register a callback to be called when a new DDP connection is made to the server.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>The function to call when a new DDP connection is established.</p>",
+          "name": "callback"
+        }
+      ],
+      "memberof": "Meteor",
+      "longname": "Meteor.onConnection",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    },
+    "publish": {
+      "summary": "Publish a record set.",
+      "memberof": "Meteor",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Name of the record set.  If <code>null</code>, the set has no name, and the record set is automatically sent to all connected clients.</p>",
+          "name": "name"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Function called on the server each time a client subscribes.  Inside the function, <code>this</code> is the publish handler object, described below.  If the client passed arguments to <code>subscribe</code>, the function is called with the same arguments.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Meteor.publish",
+      "kind": "function",
+      "options": [],
+      "locus": "Server"
+    },
+    "methods": {
+      "summary": "Defines functions that can be invoked over the network by clients.",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>Dictionary whose keys are method names and values are functions.</p>",
+          "name": "methods"
+        }
+      ],
+      "memberof": "Meteor",
+      "longname": "Meteor.methods",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "wrapAsync": {
+      "memberof": "Meteor",
+      "summary": "Wrap a function that takes a callback function as its final parameter so that the wrapper function can be used either synchronously (without passing a callback) or asynchronously (when a callback is passed). If a callback is provided, the environment captured when the original function was called will be restored in the callback.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>A function that takes a callback as its final parameter</p>",
+          "name": "func"
+        },
+        {
+          "type": {"names": ["Object"]},
+          "optional": true,
+          "description": "<p>Optional <code>this</code> object against which the original function will be invoked</p>",
+          "name": "context"
+        }
+      ],
+      "longname": "Meteor.wrapAsync",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "startup": {
+      "summary": "Run code when a client or a server starts.",
+      "params": [{"type": {"names": ["function"]}, "description": "<p>A function to run on startup.</p>", "name": "func"}],
+      "longname": "Meteor.startup",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "setTimeout": {
+      "memberof": "Meteor",
+      "summary": "Call a function in the future after waiting for a specified delay.",
+      "params": [
+        {"type": {"names": ["function"]}, "description": "<p>The function to run</p>", "name": "func"},
+        {"type": {"names": ["Number"]}, "description": "<p>Number of milliseconds to wait before calling function</p>", "name": "delay"}
+      ],
+      "longname": "Meteor.setTimeout",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "setInterval": {
+      "memberof": "Meteor",
+      "summary": "Call a function repeatedly, with a time delay between calls.",
+      "params": [
+        {"type": {"names": ["function"]}, "description": "<p>The function to run</p>", "name": "func"},
+        {"type": {"names": ["Number"]}, "description": "<p>Number of milliseconds to wait between each function call.</p>", "name": "delay"}
+      ],
+      "longname": "Meteor.setInterval",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "clearInterval": {
+      "memberof": "Meteor",
+      "summary": "Cancel a repeating function call scheduled by `Meteor.setInterval`.",
+      "params": [
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>The handle returned by <code>Meteor.setInterval</code></p>",
+          "name": "id"
+        }
+      ],
+      "longname": "Meteor.clearInterval",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "clearTimeout": {
+      "memberof": "Meteor",
+      "summary": "Cancel a function call scheduled by `Meteor.setTimeout`.",
+      "params": [
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>The handle returned by <code>Meteor.setTimeout</code></p>",
+          "name": "id"
+        }
+      ],
+      "longname": "Meteor.clearTimeout",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "absoluteUrl": {
+      "summary": "Generate an absolute URL pointing to the application. The server reads from the `ROOT_URL` environment variable to determine where it is running. This is taken care of automatically for apps deployed with `meteor deploy`, but must be provided when using `meteor bundle`.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>A path to append to the root URL. Do not include a leading &quot;<code>/</code>&quot;.</p>",
+          "name": "path"
+        },
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "Meteor.absoluteUrl",
+      "kind": "function",
+      "memberof": "Meteor",
+      "options": [
+        {"type": {"names": ["Boolean"]}, "description": "<p>Create an HTTPS URL.</p>", "name": "secure"},
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>Replace localhost with 127.0.0.1. Useful for services that don't recognize localhost as a domain name.</p>",
+          "name": "replaceLocalhost"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Override the default ROOT_URL from the server environment. For example: &quot;<code>http://foo.example.com</code>&quot;</p>",
+          "name": "rootUrl"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "Error": {
+      "summary": "This class represents a symbolic error thrown by a method.",
+      "kind": "class",
+      "params": [
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>A numeric error code, likely similar to an HTTP code (eg, 404, 500).</p>",
+          "name": "error"
+        },
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional.  A short human-readable summary of the error, like 'Not Found'.</p>",
+          "name": "reason"
+        },
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional.  Additional information about the error, like a textual stack trace.</p>",
+          "name": "details"
+        }
+      ],
+      "longname": "Meteor.Error",
+      "memberof": "Meteor",
+      "options": [],
+      "locus": "Anywhere"
+    }
+  }
+}

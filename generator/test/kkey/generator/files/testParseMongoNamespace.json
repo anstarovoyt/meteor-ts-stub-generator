@@ -1,0 +1,360 @@
+{
+  "Mongo": {
+    "summary": "Namespace for MongoDB-related items",
+    "kind": "namespace",
+    "longname": "Mongo",
+    "Cursor#forEach": {
+      "summary": "Call `callback` once for each matching document, sequentially and synchronously.",
+      "kind": "function",
+      "memberof": "Mongo.Cursor",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.</p>",
+          "name": "callback"
+        },
+        {
+          "type": {"names": ["Any"]},
+          "optional": true,
+          "description": "<p>An object which will be the value of <code>this</code> inside <code>callback</code>.</p>",
+          "name": "thisArg"
+        }
+      ],
+      "longname": "Mongo.Cursor#forEach",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Cursor#map": {
+      "summary": "Map callback over all matching documents.  Returns an Array.",
+      "kind": "function",
+      "memberof": "Mongo.Cursor",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.</p>",
+          "name": "callback"
+        },
+        {
+          "type": {"names": ["Any"]},
+          "optional": true,
+          "description": "<p>An object which will be the value of <code>this</code> inside <code>callback</code>.</p>",
+          "name": "thisArg"
+        }
+      ],
+      "longname": "Mongo.Cursor#map",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Cursor#fetch": {
+      "summary": "Return all matching documents as an Array.",
+      "memberof": "Mongo.Cursor",
+      "kind": "function",
+      "longname": "Mongo.Cursor#fetch",
+      "options": [],
+      "params": [],
+      "locus": "Anywhere"
+    },
+    "Cursor#count": {
+      "summary": "Returns the number of documents that match a query.",
+      "memberof": "Mongo.Cursor",
+      "kind": "function",
+      "longname": "Mongo.Cursor#count",
+      "options": [],
+      "params": [],
+      "locus": "Anywhere"
+    },
+    "Cursor#observe": {
+      "summary": "Watch a query.  Receive callbacks as the result set changes.",
+      "memberof": "Mongo.Cursor",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>Functions to call to deliver the result set as it changes</p>",
+          "name": "callbacks"
+        }
+      ],
+      "longname": "Mongo.Cursor#observe",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Cursor#observeChanges": {
+      "summary": "Watch a query.  Receive callbacks as the result set changes.  Only the differences between the old and new documents are passed to the callbacks.",
+      "memberof": "Mongo.Cursor",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>Functions to call to deliver the result set as it changes</p>",
+          "name": "callbacks"
+        }
+      ],
+      "longname": "Mongo.Cursor#observeChanges",
+      "kind": "function",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Collection#insert": {
+      "summary": "Insert a document in the collection.  Returns its unique _id.",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "params": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>The document to insert. May not yet have an _id attribute, in which case Meteor will generate one for you.</p>",
+          "name": "doc"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional.  If present, called with an error object as the first argument and, if no error, the _id as the second.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Mongo.Collection#insert",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Collection#update": {
+      "summary": "Modify one or more documents in the collection. Returns the number of affected documents.",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "params": [
+        {"type": {"names": ["MongoSelector"]}, "description": "<p>Specifies which documents to modify</p>", "name": "selector"},
+        {"type": {"names": ["MongoModifier"]}, "description": "<p>Specifies how to modify the documents</p>", "name": "modifier"},
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional.  If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Mongo.Collection#update",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>True to modify all matching documents; false to only modify one of the matching documents (the default).</p>",
+          "name": "multi"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>True to insert a document if no matching documents are found.</p>",
+          "name": "upsert"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "Collection#find": {
+      "summary": "Find the documents in a collection that match the selector.",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "params": [
+        {
+          "type": {"names": ["MongoSelector"]},
+          "optional": true,
+          "description": "<p>A query describing the documents to find</p>",
+          "name": "selector"
+        },
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "Mongo.Collection#find",
+      "options": [
+        {"type": {"names": ["MongoSortSpecifier"]}, "description": "<p>Sort order (default: natural order)</p>", "name": "sort"},
+        {"type": {"names": ["Number"]}, "description": "<p>Number of results to skip at the beginning</p>", "name": "skip"},
+        {"type": {"names": ["Number"]}, "description": "<p>Maximum number of results to return</p>", "name": "limit"},
+        {"type": {"names": ["MongoFieldSpecifier"]}, "description": "<p>Dictionary of fields to return or exclude.</p>", "name": "fields"},
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>(Client only) Default <code>true</code>; pass <code>false</code> to disable reactivity</p>",
+          "name": "reactive"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Overrides <code>transform</code> on the  <a href=\"#collections\"><code>Collection</code></a> for this cursor.  Pass <code>null</code> to disable transformation.</p>",
+          "name": "transform"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "Collection#findOne": {
+      "summary": "Finds the first document that matches the selector, as ordered by sort and skip options.",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "params": [
+        {
+          "type": {"names": ["MongoSelector"]},
+          "optional": true,
+          "description": "<p>A query describing the documents to find</p>",
+          "name": "selector"
+        },
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "Mongo.Collection#findOne",
+      "options": [
+        {"type": {"names": ["MongoSortSpecifier"]}, "description": "<p>Sort order (default: natural order)</p>", "name": "sort"},
+        {"type": {"names": ["Number"]}, "description": "<p>Number of results to skip at the beginning</p>", "name": "skip"},
+        {"type": {"names": ["MongoFieldSpecifier"]}, "description": "<p>Dictionary of fields to return or exclude.</p>", "name": "fields"},
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>(Client only) Default true; pass false to disable reactivity</p>",
+          "name": "reactive"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Overrides <code>transform</code> on the <a href=\"#collections\"><code>Collection</code></a> for this cursor.  Pass <code>null</code> to disable transformation.</p>",
+          "name": "transform"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "Collection#remove": {
+      "summary": "Remove documents from the collection",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "params": [
+        {"type": {"names": ["MongoSelector"]}, "description": "<p>Specifies which documents to remove</p>", "name": "selector"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional.  If present, called with an error object as its argument.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Mongo.Collection#remove",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Collection#upsert": {
+      "summary": "Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified)  and `insertedId` (the unique _id of the document that was inserted, if any).",
+      "params": [
+        {"type": {"names": ["MongoSelector"]}, "description": "<p>Specifies which documents to modify</p>", "name": "selector"},
+        {"type": {"names": ["MongoModifier"]}, "description": "<p>Specifies how to modify the documents</p>", "name": "modifier"},
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional.  If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Mongo.Collection#upsert",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>True to modify all matching documents; false to only modify one of the matching documents (the default).</p>",
+          "name": "multi"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "Collection#allow": {
+      "summary": "Allow users to write directly to this collection from client code, subject to limitations you define.",
+      "params": [{"type": {"names": ["Object"]}, "name": "options"}],
+      "longname": "Mongo.Collection#allow",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "options": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Functions that look at a proposed modification to the database and return true if it should be allowed.</p>",
+          "name": "insert, update, remove"
+        },
+        {
+          "type": {"names": ["Array.<String>"]},
+          "description": "<p>Optional performance enhancement. Limits the fields that will be fetched from the database for inspection by your <code>update</code> and <code>remove</code> functions.</p>",
+          "name": "fetch"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Overrides <code>transform</code> on the  <a href=\"#collections\"><code>Collection</code></a>.  Pass <code>null</code> to disable transformation.</p>",
+          "name": "transform"
+        }
+      ],
+      "locus": "Server"
+    },
+    "Collection#deny": {
+      "summary": "Override `allow` rules.",
+      "params": [{"type": {"names": ["Object"]}, "name": "options"}],
+      "longname": "Mongo.Collection#deny",
+      "kind": "function",
+      "memberof": "Mongo.Collection",
+      "options": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Functions that look at a proposed modification to the database and return true if it should be denied, even if an <a href=\"#allow\">allow</a> rule says otherwise.</p>",
+          "name": "insert, update, remove"
+        },
+        {
+          "type": {"names": ["Array.<String>"]},
+          "description": "<p>Optional performance enhancement. Limits the fields that will be fetched from the database for inspection by your <code>update</code> and <code>remove</code> functions.</p>",
+          "name": "fetch"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Overrides <code>transform</code> on the  <a href=\"#collections\"><code>Collection</code></a>.  Pass <code>null</code> to disable transformation.</p>",
+          "name": "transform"
+        }
+      ],
+      "locus": "Server"
+    },
+    "Collection": {
+      "summary": "Constructor for a Collection",
+      "kind": "class",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The name of the collection.  If null, creates an unmanaged (unsynchronized) local collection.</p>",
+          "name": "name"
+        },
+        {"type": {"names": ["Object"]}, "optional": true, "name": "options"}
+      ],
+      "longname": "Mongo.Collection",
+      "memberof": "Mongo",
+      "options": [
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>The server connection that will manage this collection. Uses the default connection if not specified.  Pass the return value of calling <a href=\"#ddp_connect\"><code>DDP.connect</code></a> to specify a different server. Pass <code>null</code> to specify no connection. Unmanaged (<code>name</code> is null) collections cannot specify a connection.</p>",
+          "name": "connection"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The method of generating the <code>_id</code> fields of new documents in this collection.  Possible values:</p>\n<ul>\n<li><strong><code>'STRING'</code></strong>: random strings</li>\n<li><strong><code>'MONGO'</code></strong>:  random <a href=\"#mongo_object_id\"><code>Mongo.ObjectID</code></a> values</li>\n</ul>\n<p>The default id generation technique is <code>'STRING'</code>.</p>",
+          "name": "idGeneration"
+        },
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>An optional transformation function. Documents will be passed through this function before being returned from <code>fetch</code> or <code>findOne</code>, and before being passed to callbacks of <code>observe</code>, <code>map</code>, <code>forEach</code>, <code>allow</code>, and <code>deny</code>. Transforms are <em>not</em> applied for the callbacks of <code>observeChanges</code> or to cursors returned from publish functions.</p>",
+          "name": "transform"
+        }
+      ],
+      "locus": "Anywhere",
+      "instancename": "collection"
+    },
+    "ObjectID": {
+      "summary": "Create a Mongo-style `ObjectID`.  If you don't specify a `hexString`, the `ObjectID` will generated randomly (not using MongoDB's ID construction rules).",
+      "kind": "class",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>Optional.  The 24-character hexadecimal contents of the ObjectID to create</p>",
+          "name": "hexString"
+        }
+      ],
+      "longname": "Mongo.ObjectID",
+      "memberof": "Mongo",
+      "options": [],
+      "locus": "Anywhere"
+    },
+    "Cursor": {
+      "summary": "To create a cursor, use find. To access the documents in a cursor, use forEach, map, or fetch.",
+      "kind": "class",
+      "longname": "Mongo.Cursor",
+      "memberof": "Mongo",
+      "options": [],
+      "params": [],
+      "instancename": "cursor"
+    }
+  }
+}

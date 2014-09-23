@@ -1,0 +1,346 @@
+{
+  "Accounts": {
+    "kind": "namespace",
+    "summary": "The namespace for all accounts-related methods.",
+    "longname": "Accounts",
+    "ui": {
+      "summary": "Accounts UI",
+      "kind": "namespace",
+      "memberof": "Accounts",
+      "longname": "Accounts.ui",
+      "config": {
+        "summary": "Configure the behavior of [`{{> loginButtons}}`](#accountsui).",
+        "params": [{"type": {"names": ["Object"]}, "name": "options"}],
+        "longname": "Accounts.ui.config",
+        "kind": "function",
+        "memberof": "Accounts.ui",
+        "options": [
+          {
+            "type": {"names": ["Object"]},
+            "description": "<p>Which <a href=\"#requestpermissions\">permissions</a> to request from the user for each external service.</p>",
+            "name": "requestPermissions"
+          },
+          {
+            "type": {"names": ["Object"]},
+            "description": "<p>To ask the user for permission to act on their behalf when offline, map the relevant external service to <code>true</code>. Currently only supported with Google. See <a href=\"#meteor_loginwithexternalservice\">Meteor.loginWithExternalService</a> for more details.</p>",
+            "name": "requestOfflineToken"
+          },
+          {
+            "type": {"names": ["Boolean"]},
+            "description": "<p>If true, forces the user to approve the app's permissions, even if previously approved. Currently only supported with Google.</p>",
+            "name": "forceApprovalPrompt"
+          },
+          {
+            "type": {"names": ["String"]},
+            "description": "<p>Which fields to display in the user creation form. One of '<code>USERNAME_AND_EMAIL</code>', '<code>USERNAME_AND_OPTIONAL_EMAIL</code>', '<code>USERNAME_ONLY</code>', or '<code>EMAIL_ONLY</code>' (default).</p>",
+            "name": "passwordSignupFields"
+          }
+        ],
+        "locus": "Client"
+      }
+    },
+    "emailTemplates": {
+      "summary": "Options to customize emails sent from the Accounts system.",
+      "longname": "Accounts.emailTemplates",
+      "kind": "member",
+      "memberof": "Accounts",
+      "locus": "Anywhere"
+    },
+    "config": {
+      "summary": "Set global accounts options.",
+      "params": [{"type": {"names": ["Object"]}, "name": "options"}],
+      "longname": "Accounts.config",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>New users with an email address will receive an address verification email.</p>",
+          "name": "sendVerificationEmail"
+        },
+        {
+          "type": {"names": ["Boolean"]},
+          "description": "<p>Calls to <a href=\"#accounts_createuser\"><code>createUser</code></a> from the client will be rejected. In addition, if you are using <a href=\"#accountsui\">accounts-ui</a>, the &quot;Create account&quot; link will not be available.</p>",
+          "name": "forbidClientAccountCreation"
+        },
+        {
+          "type": {
+            "names": [
+              "String",
+              "function"
+            ]
+          },
+          "description": "<p>If set to a string, only allows new users if the domain part of their email address matches the string. If set to a function, only allows new users if the function returns true.  The function is passed the full email address of the proposed new user.  Works with password-based sign-in and external services that expose email addresses (Google, Facebook, GitHub). All existing users still can log in after enabling this option. Example: <code>Accounts.config({ restrictCreationByEmailDomain: 'school.edu' })</code>.</p>",
+          "name": "restrictCreationByEmailDomain"
+        },
+        {
+          "type": {"names": ["Number"]},
+          "description": "<p>The number of days from when a user logs in until their token expires and they are logged out. Defaults to 90. Set to <code>null</code> to disable login expiration.</p>",
+          "name": "loginExpirationInDays"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>When using the <code>oauth-encryption</code> package, the 16 byte key using to encrypt sensitive account credentials in the database, encoded in base64.  This option may only be specifed on the server.  See packages/oauth-encryption/README.md for details.</p>",
+          "name": "oauthSecretKey"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "validateLoginAttempt": {
+      "summary": "Validate login attempts.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Called whenever a login is attempted (either successful or unsuccessful).  A login can be aborted by returning a falsy value or throwing an exception.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.validateLoginAttempt",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "onLogin": {
+      "summary": "Register a callback to be called after a login attempt succeeds.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>The callback to be called when login is successful.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.onLogin",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "onLoginFailure": {
+      "summary": "Register a callback to be called after a login attempt fails.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>The callback to be called after the login has failed.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.onLoginFailure",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "onCreateUser": {
+      "summary": "Customize new user creation.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Called whenever a new user is created. Return the new user object, or throw an <code>Error</code> to abort the creation.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.onCreateUser",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "validateNewUser": {
+      "summary": "Set restrictions on new user creation.",
+      "params": [
+        {
+          "type": {"names": ["function"]},
+          "description": "<p>Called whenever a new user is created. Takes the new user object, and returns true to allow the creation or false to abort.</p>",
+          "name": "func"
+        }
+      ],
+      "longname": "Accounts.validateNewUser",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "createUser": {
+      "summary": "Create a new user.",
+      "params": [
+        {"type": {"names": ["Object"]}, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Client only, optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.createUser",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [
+        {"type": {"names": ["String"]}, "description": "<p>A unique name for this user.</p>", "name": "username"},
+        {"type": {"names": ["String"]}, "description": "<p>The user's email address.</p>", "name": "email"},
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The user's password. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "password"
+        },
+        {
+          "type": {"names": ["Object"]},
+          "description": "<p>The user's profile, typically including the <code>name</code> field.</p>",
+          "name": "profile"
+        }
+      ],
+      "locus": "Anywhere"
+    },
+    "changePassword": {
+      "summary": "Change the current user's password. Must be logged in.",
+      "params": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The user's current password. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "oldPassword"
+        },
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>A new password for the user. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "newPassword"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.changePassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Client"
+    },
+    "forgotPassword": {
+      "summary": "Request a forgot password email.",
+      "params": [
+        {"type": {"names": ["Object"]}, "name": "options"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.forgotPassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>The email address to send a password reset link.</p>",
+          "name": "email"
+        }
+      ],
+      "locus": "Client"
+    },
+    "resetPassword": {
+      "summary": "Reset the password for a user using a token received in email. Logs the user in afterwards.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The token retrieved from the reset password URL.</p>", "name": "token"},
+        {
+          "type": {"names": ["String"]},
+          "description": "<p>A new password for the user. This is <strong>not</strong> sent in plain text over the wire.</p>",
+          "name": "newPassword"
+        },
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.resetPassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Client"
+    },
+    "verifyEmail": {
+      "summary": "Marks the user's email address as verified. Logs the user in afterwards.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The token retrieved from the verification URL.</p>", "name": "token"},
+        {
+          "type": {"names": ["function"]},
+          "optional": true,
+          "description": "<p>Optional callback. Called with no arguments on success, or with a single <code>Error</code> argument on failure.</p>",
+          "name": "callback"
+        }
+      ],
+      "longname": "Accounts.verifyEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Client"
+    },
+    "setPassword": {
+      "summary": "Forcibly change the password for a user.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to update.</p>", "name": "userId"},
+        {"type": {"names": ["String"]}, "description": "<p>A new password for the user.</p>", "name": "newPassword"}
+      ],
+      "longname": "Accounts.setPassword",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "sendResetPasswordEmail": {
+      "summary": "Send an email with a link the user can use to reset their password.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to send email to.</p>", "name": "userId"},
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional. Which address of the user's to send the email to. This address must be in the user's <code>emails</code> list. Defaults to the first email in the list.</p>",
+          "name": "email"
+        }
+      ],
+      "longname": "Accounts.sendResetPasswordEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "sendEnrollmentEmail": {
+      "summary": "Send an email with a link the user can use to set their initial password.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to send email to.</p>", "name": "userId"},
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional. Which address of the user's to send the email to. This address must be in the user's <code>emails</code> list. Defaults to the first email in the list.</p>",
+          "name": "email"
+        }
+      ],
+      "longname": "Accounts.sendEnrollmentEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    },
+    "sendVerificationEmail": {
+      "summary": "Send an email with a link the user can use verify their email address.",
+      "params": [
+        {"type": {"names": ["String"]}, "description": "<p>The id of the user to send email to.</p>", "name": "userId"},
+        {
+          "type": {"names": ["String"]},
+          "optional": true,
+          "description": "<p>Optional. Which address of the user's to send the email to. This address must be in the user's <code>emails</code> list. Defaults to the first unverified email in the list.</p>",
+          "name": "email"
+        }
+      ],
+      "longname": "Accounts.sendVerificationEmail",
+      "kind": "function",
+      "memberof": "Accounts",
+      "options": [],
+      "locus": "Server"
+    }
+  }
+}

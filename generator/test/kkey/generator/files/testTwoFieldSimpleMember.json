@@ -1,0 +1,21 @@
+{
+  "Meteor": {
+    "summary": "The Meteor namespace",
+    "kind": "namespace",
+    "longname": "Meteor",
+    "isClient": {
+      "summary": "Boolean variable.  True if running in client environment.",
+      "longname": "Meteor.isClient",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    },
+    "isServer": {
+      "summary": "Boolean variable.  True if running in server environment.",
+      "longname": "Meteor.isServer",
+      "kind": "member",
+      "memberof": "Meteor",
+      "locus": "Anywhere"
+    }
+  }
+}
