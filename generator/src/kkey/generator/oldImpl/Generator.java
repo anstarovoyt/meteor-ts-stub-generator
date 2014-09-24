@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @SuppressWarnings("UnusedDeclaration")
+@Deprecated
 public class Generator {
   public static final String MEMBER_TYPE = "type";
   public static final String MEMBER_NAME = "name";

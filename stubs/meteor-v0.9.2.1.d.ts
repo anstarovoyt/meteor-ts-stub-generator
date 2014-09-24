@@ -207,151 +207,6 @@ declare module Accounts {
 
 
 
-declare module EJSON {
-
-    /**
-     * Allocate a new buffer of binary data that EJSON can serialize.
-     *
-     * @locus Anywhere
-     */
-    var newBinary:any;
-
-
-    /**
-     * Add a custom datatype to EJSON.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} name - <p>A tag for your custom type; must be unique among custom data types defined in your project, and must match the result of your type's <code>typeName</code> method.</p>
-     * @param {function} factory - <p>A function that deserializes a JSON-compatible value into an instance of your type.  This should match the serialization performed by your type's <code>toJSONValue</code> method.</p>
-     */
-    function addType(name:string, factory:Function):any;
-
-
-    /**
-     * Serialize an EJSON-compatible value into its plain JSON representation.
-     *
-     * @locus Anywhere
-     *
-     * @param {EJSON} val - <p>A value to serialize to plain JSON.</p>
-     */
-    function toJSONValue(val:any):any;
-
-
-    /**
-     * Deserialize an EJSON value from its plain JSON representation.
-     *
-     * @locus Anywhere
-     *
-     * @param {JSONCompatible} val - <p>A value to deserialize into EJSON.</p>
-     */
-    function fromJSONValue(val:any):any;
-
-
-    /**
-     * Serialize a value to a string.
-     * 
-     * For EJSON values, the serialization fully represents the value. For non-EJSON values, serializes the same way as `JSON.stringify`.
-     *
-     * @locus Anywhere
-     *
-     * @param {EJSON} val - <p>A value to stringify.</p>
-     * @param {Options} [options]
-     */
-    function stringify(val:any,
-              options?:{
-                  indent?:any;
-                  canonical?:boolean
-              }):any;
-
-
-    /**
-     * Parse a string into an EJSON value. Throws an error if the string is not valid EJSON.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} str - <p>A string to parse into an EJSON value.</p>
-     */
-    function parse(str:string):any;
-
-
-    /**
-     * Returns true if `x` is a buffer of binary data, as returned from [`EJSON.newBinary`](#ejson_new_binary).
-     *
-     * @locus Anywhere
-     *
-     * @param {Object} x - <p>The variable to check.</p>
-     */
-    function isBinary(x:any):any;
-
-
-    /**
-     * Return true if `a` and `b` are equal to each other.  Return false otherwise.  Uses the `equals` method on `a` if present, otherwise performs a deep comparison.
-     *
-     * @locus Anywhere
-     *
-     * @param {EJSON} a
-     * @param {EJSON} b
-     * @param {Options} [options]
-     */
-    function equals(a:any,
-           b:any,
-           options?:{
-               keyOrderSensitive?:boolean
-           }):any;
-
-
-    /**
-     * Return a deep copy of `val`.
-     *
-     * @locus Anywhere
-     *
-     * @param {EJSON} val - <p>A value to copy.</p>
-     */
-    function clone(val:any):any;
-
-    interface CustomType {
-
-        /**
-         * Return the tag used to identify this type.  This must match the tag used to register this type with [`EJSON.addType`](#ejson_add_type).
-         *
-         * @locus Anywhere
-         */
-        typeName():any;
-
-
-        /**
-         * Serialize this instance into a JSON-compatible value.
-         *
-         * @locus Anywhere
-         */
-        toJSONValue():any;
-
-
-        /**
-         * Return a value `r` such that `this.equals(r)` is true, and modifications to `r` do not affect `this` and vice versa.
-         *
-         * @locus Anywhere
-         */
-        clone():any;
-
-
-        /**
-         * Return `true` if `other` has a value equal to `this`; `false` otherwise.
-         *
-         * @locus Anywhere
-         *
-         * @param {Object} other - <p>Another object to compare this to.</p>
-         */
-        equals(other:any):any;
-
-    }
-
-
-}
-
-
-
 declare module Meteor {
 
     /**
@@ -384,14 +239,6 @@ declare module Meteor {
      * @locus Anywhere
      */
     var settings:any;
-
-
-    /**
-     * Boolean variable.  True if running in a Cordova mobile environment.
-     *
-     * @locus Anywhere
-     */
-    var isCordova:boolean;
 
 
     /**
@@ -459,49 +306,6 @@ declare module Meteor {
 
 
     /**
-     * Subscribe to a record set.  Returns a handle that provides `stop()` and `ready()` methods.
-     *
-     * @locus Client
-     *
-     * @param {String} name - <p>Name of the subscription.  Matches the name of the server's <code>publish()</code> call.</p>
-     * @param {Any} [arg1, arg2...] - <p>Optional arguments passed to publisher function on server.</p>
-     * @param {function or Object} [callbacks] - <p>Optional. May include <code>onError</code> and <code>onReady</code> callbacks. If a function is passed instead of an object, it is interpreted as an <code>onReady</code> callback.</p>
-     */
-    function subscribe(name:string, ...args:any[]):any;
-
-
-    /**
-     * Invokes a method passing any number of arguments.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} name - <p>Name of method to invoke</p>
-     * @param {EJSONable} [arg1, arg2...] - <p>Optional method arguments</p>
-     * @param {function} [asyncCallback] - <p>Optional callback, which is called asynchronously with the error or result after the method is complete. If not provided, the method runs synchronously if possible (see below).</p>
-     */
-    function call(name:string, ...args:any[]):any;
-
-
-    /**
-     * Invoke a method passing an array of arguments.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} name - <p>Name of method to invoke</p>
-     * @param {Array.<EJSONable>} args - <p>Method arguments</p>
-     * @param {Options} [options]
-     * @param {function} [asyncCallback] - <p>Optional callback; same semantics as in <a href="#meteor_call"><code>Meteor.call</code></a>.</p>
-     */
-    function apply(name:string,
-          args:any,
-          options?:{
-              wait?:boolean;
-              onResultReceived?:Function
-          },
-          asyncCallback?:Function):any;
-
-
-    /**
      * Get the current connection status. A reactive data source.
      *
      * @locus Client
@@ -556,17 +360,6 @@ declare module Meteor {
      * @param {Object} methods - <p>Dictionary whose keys are method names and values are functions.</p>
      */
     function methods(methods:any):any;
-
-
-    /**
-     * Wrap a function that takes a callback function as its final parameter so that the wrapper function can be used either synchronously (without passing a callback) or asynchronously (when a callback is passed). If a callback is provided, the environment captured when the original function was called will be restored in the callback.
-     *
-     * @locus Anywhere
-     *
-     * @param {function} func - <p>A function that takes a callback as its final parameter</p>
-     * @param {Object} [context] - <p>Optional <code>this</code> object against which the original function will be invoked</p>
-     */
-    function wrapAsync(func:Function, context?:any):any;
 
 
     /**
@@ -887,75 +680,6 @@ declare module Mongo {
 
 
 
-interface IAssets {
-
-    /**
-     * Retrieve the contents of the static server asset as a UTF8-encoded string.
-     *
-     * @locus Server
-     *
-     * @param {String} assetPath - <p>The path of the asset, relative to the application's <code>private</code> subdirectory.</p>
-     * @param {function} [asyncCallback] - <p>Optional callback, which is called asynchronously with the error or result after the function is complete. If not provided, the function runs synchronously.</p>
-     */
-    getText(assetPath:string, asyncCallback?:Function):any;
-
-
-    /**
-     * Retrieve the contents of the static server asset as an [EJSON Binary](#ejson_new_binary).
-     *
-     * @locus Server
-     *
-     * @param {String} assetPath - <p>The path of the asset, relative to the application's <code>private</code> subdirectory.</p>
-     * @param {function} [asyncCallback] - <p>Optional callback, which is called asynchronously with the error or result after the function is complete. If not provided, the function runs synchronously.</p>
-     */
-    getBinary(assetPath:string, asyncCallback?:Function):any;
-
-}
-
-declare var Assets:IAssets;
-
-
-interface IPackage {
-
-    /**
-     * Provide basic package information.
-     *
-     * @locus package.js
-     *
-     * @param {Options} options
-     */
-    describe(options:{
-                 summary?:string;
-                 version?:string;
-                 name?:string;
-                 git?:string
-             }):any;
-
-
-    /**
-     * Define package dependencies and expose package methods.
-     *
-     * @locus package.js
-     *
-     * @param {function} func - <p>A function that takes in the package control 'api' object, which keeps track of dependencies and exports.</p>
-     */
-    onUse(func:Function):any;
-
-
-    /**
-     * Define dependencies and expose package methods for unit tests.
-     *
-     * @locus package.js
-     *
-     * @param {function} func - <p>A function that takes in the package control 'api' object, which keeps track of dependencies and exports.</p>
-     */
-    onTest(func:Function):any;
-
-}
-
-declare var Package:IPackage;
-
-
 interface INpm {
 
     /**
@@ -1019,368 +743,6 @@ interface ICordova {
 }
 
 declare var Cordova:ICordova;
-
-
-interface TemplateMember {
-
-    /**
-     * Provide a callback when an instance of a template is created.
-     *
-     * @locus Client
-     */
-    created:any;
-
-
-    /**
-     * Provide a callback when an instance of a template is rendered.
-     *
-     * @locus Client
-     */
-    rendered:any;
-
-
-    /**
-     * Provide a callback when an instance of a template is destroyed.
-     *
-     * @locus Client
-     */
-    destroyed:any;
-
-
-    /**
-     * Specify template helpers available to this template.
-     *
-     * @locus Client
-     *
-     * @param {Object} helpers - <p>Dictionary of helper functions by name.</p>
-     */
-    helpers(helpers:any):any;
-
-
-    /**
-     * Specify event handlers for this template.
-     *
-     * @locus Client
-     *
-     * @param {EventMap} eventMap - <p>Event handlers to associate with this template.</p>
-     */
-    events(eventMap:any):any;
-
-}
-
-
-
-declare module Blaze {
-
-    /**
-     * The View corresponding to the current template helper, event handler, callback, or autorun.  If there isn't one, `null`.
-     *
-     * @locus Client
-     */
-    var currentView:any;
-
-
-    /**
-     * Constructs a View that renders content with a data context.
-     *
-     * @locus Client
-     *
-     * @param {Object or function} data - <p>An object to use as the data context, or a function returning such an object.  If a function is provided, it will be reactively re-run.</p>
-     * @param {function} contentFunc - <p>A Function that returns <a href="#renderable_content"><em>renderable content</em></a>.</p>
-     */
-    function With(data:any, contentFunc:Function):any;
-
-
-    /**
-     * Constructs a View that renders content conditionally.
-     *
-     * @locus Client
-     *
-     * @param {function} conditionFunc - <p>A function to reactively re-run.  Whether the result is truthy or falsy determines whether <code>contentFunc</code> or <code>elseFunc</code> is shown.  An empty array is considered falsy.</p>
-     * @param {function} contentFunc - <p>A Function that returns <a href="#renderable_content"><em>renderable content</em></a>.</p>
-     * @param {function} [elseFunc] - <p>Optional.  A Function that returns <a href="#renderable_content"><em>renderable content</em></a>.  If no <code>elseFunc</code> is supplied, no content is shown in the &quot;else&quot; case.</p>
-     */
-    function If(conditionFunc:Function, contentFunc:Function, elseFunc?:Function):any;
-
-
-    /**
-     * An inverted [`Blaze.If`](#blaze_if).
-     *
-     * @locus Client
-     *
-     * @param {function} conditionFunc - <p>A function to reactively re-run.  If the result is falsy, <code>contentFunc</code> is shown, otherwise <code>elseFunc</code> is shown.  An empty array is considered falsy.</p>
-     * @param {function} contentFunc - <p>A Function that returns <a href="#renderable_content"><em>renderable content</em></a>.</p>
-     * @param {function} [elseFunc] - <p>Optional.  A Function that returns <a href="#renderable_content"><em>renderable content</em></a>.  If no <code>elseFunc</code> is supplied, no content is shown in the &quot;else&quot; case.</p>
-     */
-    function Unless(conditionFunc:Function, contentFunc:Function, elseFunc?:Function):any;
-
-
-    /**
-     * Constructs a View that renders `contentFunc` for each item in a sequence.
-     *
-     * @locus Client
-     *
-     * @param {function} argFunc - <p>A function to reactively re-run.  The function may return a Cursor, an array, null, or undefined.</p>
-     * @param {function} contentFunc - <p>A Function that returns <a href="#renderable_content"><em>renderable content</em></a>.</p>
-     * @param {function} [elseFunc] - <p>Optional.  A Function that returns <a href="#renderable_content"><em>renderable content</em></a> to display in the case when there are no items to display.</p>
-     */
-    function Each(argFunc:Function, contentFunc:Function, elseFunc?:Function):any;
-
-
-    /**
-     * Returns true if `value` is a template object like `Template.myTemplate`.
-     *
-     * @locus Client
-     *
-     * @param {Any} value - <p>The value to test.</p>
-     */
-    function isTemplate(value:any):any;
-
-
-    /**
-     * Renders a template or View to DOM nodes and inserts it into the DOM, returning a rendered [View](#blaze_view) which can be passed to [`Blaze.remove`](#blaze_remove).
-     *
-     * @locus Client
-     *
-     * @param {Template or Blaze.View} templateOrView - <p>The template (e.g. <code>Template.myTemplate</code>) or View object to render.  If a template, a View object is <a href="#template_constructview">constructed</a>.  If a View, it must be an unrendered View, which becomes a rendered View and is returned.</p>
-     * @param {DOMNode} parentNode - <p>The node that will be the parent of the rendered template.  It must be an Element node.</p>
-     * @param {DOMNode} [nextNode] - <p>Optional. If provided, must be a child of <em>parentNode</em>; the template will be inserted before this node. If not provided, the template will be inserted as the last child of parentNode.</p>
-     * @param {Blaze.View} [parentView] - <p>Optional. If provided, it will be set as the rendered View's <a href="#view_parentview"><code>parentView</code></a>.</p>
-     */
-    function render(templateOrView:any, parentNode:any, nextNode?:any, parentView?:any):any;
-
-
-    /**
-     * Renders a template or View to DOM nodes with a data context.  Otherwise identical to `Blaze.render`.
-     *
-     * @locus Client
-     *
-     * @param {Template or Blaze.View} templateOrView - <p>The template (e.g. <code>Template.myTemplate</code>) or View object to render.</p>
-     * @param {Object or function} data - <p>The data context to use, or a function returning a data context.  If a function is provided, it will be reactively re-run.</p>
-     * @param {DOMNode} parentNode - <p>The node that will be the parent of the rendered template.  It must be an Element node.</p>
-     * @param {DOMNode} [nextNode] - <p>Optional. If provided, must be a child of <em>parentNode</em>; the template will be inserted before this node. If not provided, the template will be inserted as the last child of parentNode.</p>
-     * @param {Blaze.View} [parentView] - <p>Optional. If provided, it will be set as the rendered View's <a href="#view_parentview"><code>parentView</code></a>.</p>
-     */
-    function renderWithData(templateOrView:any, data:any, parentNode:any, nextNode?:any, parentView?:any):any;
-
-
-    /**
-     * Removes a rendered View from the DOM, stopping all reactive updates and event listeners on it.
-     *
-     * @locus Client
-     *
-     * @param {Blaze.View} renderedView - <p>The return value from <code>Blaze.render</code> or <code>Blaze.renderWithData</code>.</p>
-     */
-    function remove(renderedView:any):any;
-
-
-    /**
-     * Renders a template or View to a string of HTML.
-     *
-     * @locus Client
-     *
-     * @param {Template or Blaze.View} templateOrView - <p>The template (e.g. <code>Template.myTemplate</code>) or View object from which to generate HTML.</p>
-     */
-    function toHTML(templateOrView:any):any;
-
-
-    /**
-     * Renders a template or View to HTML with a data context.  Otherwise identical to `Blaze.toHTML`.
-     *
-     * @locus Client
-     *
-     * @param {Template or Blaze.View} templateOrView - <p>The template (e.g. <code>Template.myTemplate</code>) or View object from which to generate HTML.</p>
-     * @param {Object or function} data - <p>The data context to use, or a function returning a data context.</p>
-     */
-    function toHTMLWithData(templateOrView:any, data:any):any;
-
-
-    /**
-     * Returns the current data context, or the data context that was used when rendering a particular DOM element or View from a Meteor template.
-     *
-     * @locus Client
-     *
-     * @param {DOMElement or Blaze.View} [elementOrView] - <p>Optional.  An element that was rendered by a Meteor, or a View.</p>
-     */
-    function getData(elementOrView?:any):any;
-
-
-    /**
-     * Gets either the current View, or the View enclosing the given DOM element.
-     *
-     * @locus Client
-     *
-     * @param {DOMElement} [element] - <p>Optional.  If specified, the View enclosing <code>element</code> is returned.</p>
-     */
-    function getView(element?:any):any;
-
-
-    /**
-     * Constructor for a Template, which is used to construct Views with particular name and content.
-     *
-     * @locus Client
-     *
-     * @param {String} [viewName] - <p>Optional.  A name for Views constructed by this Template.  See <a href="#view_name"><code>view.name</code></a>.</p>
-     * @param {function} renderFunction - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  This function is used as the <code>renderFunction</code> for Views constructed by this Template.</p>
-     */
-    function Template(viewName?:string, renderFunction:Function):any;
-
-
-    /**
-     * Constructor for a View, which represents a reactive region of DOM.
-     *
-     * @locus Client
-     *
-     * @param {String} [name] - <p>Optional.  A name for this type of View.  See <a href="#view_name"><code>view.name</code></a>.</p>
-     * @param {function} renderFunction - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  In this function, <code>this</code> is bound to the View.</p>
-     */
-    function View(name?:string, renderFunction:Function):View;
-
-    interface TemplateInstance {
-
-        /**
-         * The data context of this instance's latest invocation.
-         *
-         * @locus Client
-         */
-        data:any;
-
-
-        /**
-         * The [View](#blaze_view) object for this invocation of the template.
-         *
-         * @locus Client
-         */
-        view:any;
-
-
-        /**
-         * The first top-level DOM node in this template instance.
-         *
-         * @locus Client
-         */
-        firstNode:any;
-
-
-        /**
-         * The last top-level DOM node in this template instance.
-         *
-         * @locus Client
-         */
-        lastNode:any;
-
-
-        /**
-         * Find all elements matching `selector` in this template instance, and return them as a JQuery object.
-         *
-         * @locus Client
-         *
-         * @param {String} selector - <p>The CSS selector to match, scoped to the template contents.</p>
-         */
-        $(selector:string):any;
-
-
-        /**
-         * Find all elements matching `selector` in this template instance.
-         *
-         * @locus Client
-         *
-         * @param {String} selector - <p>The CSS selector to match, scoped to the template contents.</p>
-         */
-        findAll(selector:string):any;
-
-
-        /**
-         * Find one element matching `selector` in this template instance.
-         *
-         * @locus Client
-         *
-         * @param {String} selector - <p>The CSS selector to match, scoped to the template contents.</p>
-         */
-        find(selector:string):any;
-
-
-        /**
-         * A version of [Tracker.autorun](#tracker_autorun) that is stopped when the template is destroyed.
-         *
-         * @locus Client
-         *
-         * @param {function} runFunc - <p>The function to run. It receives one argument: a Tracker.Computation object.</p>
-         */
-        autorun(runFunc:Function):any;
-
-    }
-
-
-    interface View {
-
-    }
-
-
-}
-
-
-
-interface ITemplate {
-
-    /**
-     * The [template object](#templates_api) representing your `<body>` tag.
-     *
-     * @locus Client
-     */
-    body:any;
-
-
-    /**
-     * The [template instance](#template_inst) corresponding to the current template helper, event handler, callback, or autorun.  If there isn't one, `null`.
-     *
-     * @locus Client
-     */
-    instance():Blaze.TemplateInstance;
-
-
-    /**
-     * Returns the data context of the current helper, or the data context of the template that declares the current event handler or callback.  Establishes a reactive dependency on the result.
-     *
-     * @locus Client
-     */
-    currentData():any;
-
-
-    /**
-     * Accesses other data contexts that enclose the current data context.
-     *
-     * @locus Client
-     *
-     * @param {Integer} numLevels - <p>The number of levels beyond the current data context to look.</p>
-     */
-    parentData(numLevels:any):any;
-
-
-    /**
-     * Defines a [helper function](#template_helpers) which can be used from all templates.
-     *
-     * @locus Client
-     *
-     * @param {String} name - <p>The name of the helper function you are defining.</p>
-     * @param {function} func - <p>The helper function itself.</p>
-     */
-    registerHelper(name:string, func:Function):any;
-
-
-    /**
-     * Choose a template to include dynamically, by name.
-     *
-     * @locus Templates
-     *
-     * @param {String} template - <p>The name of the template to include.</p>
-     * @param {Object} [data] - <p>Optional. The data context in which to include the template.</p>
-     */
-    dynamic(template:string, data?:any):any;
-
-}
-
-declare var Template:ITemplate;
 
 
 interface MethodInvocationMember {
@@ -1520,6 +882,114 @@ interface SubscriptionMember {
 
 }
 
+
+
+interface IEJSON {
+
+    /**
+     * Allocate a new buffer of binary data that EJSON can serialize.
+     *
+     * @locus Anywhere
+     */
+    newBinary:any;
+
+
+    /**
+     * Add a custom datatype to EJSON.
+     *
+     * @locus Anywhere
+     *
+     * @param {String} name - <p>A tag for your custom type; must be unique among custom data types defined in your project, and must match the result of your type's <code>typeName</code> method.</p>
+     * @param {function} factory - <p>A function that deserializes a JSON-compatible value into an instance of your type.  This should match the serialization performed by your type's <code>toJSONValue</code> method.</p>
+     */
+    addType(name:string, factory:Function):any;
+
+
+    /**
+     * Serialize an EJSON-compatible value into its plain JSON representation.
+     *
+     * @locus Anywhere
+     *
+     * @param {EJSON} val - <p>A value to serialize to plain JSON.</p>
+     */
+    toJSONValue(val:any):any;
+
+
+    /**
+     * Deserialize an EJSON value from its plain JSON representation.
+     *
+     * @locus Anywhere
+     *
+     * @param {JSONCompatible} val - <p>A value to deserialize into EJSON.</p>
+     */
+    fromJSONValue(val:any):any;
+
+
+    /**
+     * Serialize a value to a string.
+     * 
+     * For EJSON values, the serialization fully represents the value. For non-EJSON values, serializes the same way as `JSON.stringify`.
+     *
+     * @locus Anywhere
+     *
+     * @param {EJSON} val - <p>A value to stringify.</p>
+     * @param {Options} [options]
+     */
+    stringify(val:any,
+              options?:{
+                  indent?:any;
+                  canonical?:boolean
+              }):any;
+
+
+    /**
+     * Parse a string into an EJSON value. Throws an error if the string is not valid EJSON.
+     *
+     * @locus Anywhere
+     *
+     * @param {String} str - <p>A string to parse into an EJSON value.</p>
+     */
+    parse(str:string):any;
+
+
+    /**
+     * Returns true if `x` is a buffer of binary data, as returned from [`EJSON.newBinary`](#ejson_new_binary).
+     *
+     * @locus Anywhere
+     *
+     * @param {Object} x - <p>The variable to check.</p>
+     */
+    isBinary(x:any):any;
+
+
+    /**
+     * Return true if `a` and `b` are equal to each other.  Return false otherwise.  Uses the `equals` method on `a` if present, otherwise performs a deep comparison.
+     *
+     * @locus Anywhere
+     *
+     * @param {EJSON} a
+     * @param {EJSON} b
+     * @param {Options} [options]
+     */
+    equals(a:any,
+           b:any,
+           options?:{
+               keyOrderSensitive?:boolean
+           }):any;
+
+
+    /**
+     * Return a deep copy of `val`.
+     *
+     * @locus Anywhere
+     *
+     * @param {EJSON} val - <p>A value to copy.</p>
+     */
+    clone(val:any):any;
+
+}
+
+declare var EJSON:IEJSON;
 
 
 declare module Tracker {
@@ -1690,23 +1160,6 @@ declare module Tracker {
 
 
 
-interface IMatch {
-
-    /**
-     * Returns true if the value matches the pattern.
-     *
-     * @locus Anywhere
-     *
-     * @param {Any} value - <p>The value to check</p>
-     * @param {MatchPattern} pattern - <p>The pattern to match <code>value</code> against</p>
-     */
-    test(value:any, pattern:any):any;
-
-}
-
-declare var Match:IMatch;
-
-
 interface IDDP {
 
     /**
@@ -1721,34 +1174,6 @@ interface IDDP {
 }
 
 declare var DDP:IDDP;
-
-
-interface IEmail {
-
-    /**
-     * Send an email. Throws an `Error` on failure to contact mail server
-     * or if mail server returns an error. All fields should match
-     * [RFC5322](http://tools.ietf.org/html/rfc5322) specification.
-     *
-     * @locus Server
-     *
-     * @param {Options} options
-     */
-    send(options:{
-             from?:string;
-             to?:any;
-             cc?:any;
-             bcc?:any;
-             replyTo?:any;
-             subject?:string;
-             text?:string;
-             html?:string;
-             headers?:any
-         }):any;
-
-}
-
-declare var Email:IEmail;
 
 
 interface IHTTP {
@@ -1776,54 +1201,6 @@ interface IHTTP {
              followRedirects?:boolean
          },
          asyncCallback?:Function):any;
-
-
-    /**
-     * Send an HTTP `GET` request. Equivalent to calling [`HTTP.call`](#http_call) with "GET" as the first argument.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} url - <p>The URL to which the request should be sent.</p>
-     * @param {Object} [callOptions] - <p>Options passed on to <a href="#http_call"><code>HTTP.call</code></a>.</p>
-     * @param {function} [asyncCallback] - <p>Callback that is called when the request is completed. Required on the client.</p>
-     */
-    get(url:string, callOptions?:any, asyncCallback?:Function):any;
-
-
-    /**
-     * Send an HTTP `POST` request. Equivalent to calling [`HTTP.call`](#http_call) with "POST" as the first argument.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} url - <p>The URL to which the request should be sent.</p>
-     * @param {Object} [callOptions] - <p>Options passed on to <a href="#http_call"><code>HTTP.call</code></a>.</p>
-     * @param {function} [asyncCallback] - <p>Callback that is called when the request is completed. Required on the client.</p>
-     */
-    post(url:string, callOptions?:any, asyncCallback?:Function):any;
-
-
-    /**
-     * Send an HTTP `PUT` request. Equivalent to calling [`HTTP.call`](#http_call) with "PUT" as the first argument.
-     *
-     * @locus Anywhere
-     *
-     * @param {String} url - <p>The URL to which the request should be sent.</p>
-     * @param {Object} [callOptions] - <p>Options passed on to <a href="#http_call"><code>HTTP.call</code></a>.</p>
-     * @param {function} [asyncCallback] - <p>Callback that is called when the request is completed. Required on the client.</p>
-     */
-    put(url:string, callOptions?:any, asyncCallback?:Function):any;
-
-
-    /**
-     * Send an HTTP `DELETE` request. Equivalent to calling [`HTTP.call`](#http_call) with "DELETE" as the first argument. (Named `del` to avoid conflic with the Javascript keyword `delete`)
-     *
-     * @locus Anywhere
-     *
-     * @param {String} url - <p>The URL to which the request should be sent.</p>
-     * @param {Object} [callOptions] - <p>Options passed on to <a href="#http_call"><code>HTTP.call</code></a>.</p>
-     * @param {function} [asyncCallback] - <p>Callback that is called when the request is completed. Required on the client.</p>
-     */
-    del(url:string, callOptions?:any, asyncCallback?:Function):any;
 
 }
 
@@ -1877,76 +1254,3 @@ interface ISession {
 }
 
 declare var Session:ISession;
-
-
-interface PackageAPIMember {
-
-    /**
-     * Depend on package `packagename`.
-     *
-     * @locus package.js
-     *
-     * @param {String or Array.<String>} packageNames - <p>Packages being depended on.
-     * Package names may be suffixed with an @version tag.</p>
-     * <p>In general, you must specify a package's version (e.g.,
-     * <code>'accounts@1.0.0'</code> to use version 1.0.0 or a higher
-     * compatible version (ex: 1.0.1, 1.5.0, etc.)  of the
-     * <code>accounts</code> package). If you are sourcing core
-     * packages from a Meteor release with <code>versionsFrom</code>, you may leave
-     * off version names for core packages.</p>
-     * @param {String} [architecture] - <p>If you only use the package on the
-     * server (or the client), you can pass in the second argument (e.g.,
-     * <code>'server'</code> or <code>'client'</code>) to specify what architecture the package is
-     * used with.</p>
-     * @param {Options} [options]
-     */
-    use(packageNames:any,
-        architecture?:string,
-        options?:{
-            weak?:boolean;
-            unordered?:boolean
-        }):any;
-
-
-    /**
-     * Give users of this package access to another package (by passing  in the string `packagename`) or a collection of packages (by passing in an  array of strings [`packagename1`, `packagename2`]
-     *
-     * @locus package.js
-     *
-     * @param {String or Array.<String>} packageSpecs - <p>Name of a package, or array of package names, with an optional @version component for each.</p>
-     */
-    imply(packageSpecs:any):any;
-
-
-    /**
-     * Specify the source code for your package.
-     *
-     * @locus package.js
-     *
-     * @param {String or Array.<String>} filename - <p>Name of the source file, or array of strings of source file names.</p>
-     * @param {String} [architecture] - <p>If you only want to export the file on the server (or the client), you can pass in the second argument (e.g., 'server' or 'client') to specify what architecture the file is used with.</p>
-     */
-    addFiles(filename:any, architecture?:string):any;
-
-
-    /**
-     * Use versions of core packages from a release. Unless provided, all packages will default to the versions released along with `meteorversion`. This will save you from having to figure out the exact versions of the core packages you want to use. For example, if the newest release of meteor is METEOR@0.9.0 and it uses jquery@1.0.0, you can use `api.versionsFrom('METEOR@0.9.0')`. If your package uses jQuery, it will automatically depend on jQuery 1.0.0 when it is published.
-     *
-     * @locus package.js
-     *
-     * @param {String} meteorRelease - <p>Specification of a release: track@version. Just 'version' (ex: <code>&quot;0.9.0&quot;</code>) is sufficient if using the default release track</p>
-     */
-    versionsFrom(meteorRelease:string):any;
-
-
-    /**
-     * Export package-level variables in your package. The specified variables (declared without `var` in the source code) will be available to packages that use this package.
-     *
-     * @locus package.js
-     *
-     * @param {String} exportedObject - <p>Name of the object.</p>
-     * @param {String} [architecture] - <p>If you only want to export the object on the server (or the client), you can pass in the second argument (e.g., 'server' or 'client') to specify what architecture the export is used with.</p>
-     */
-    export(exportedObject:string, architecture?:string):any;
-
-}

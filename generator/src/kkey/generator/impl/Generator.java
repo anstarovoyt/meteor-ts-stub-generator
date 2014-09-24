@@ -31,8 +31,6 @@ public class Generator {
 
   private Map<String, NameSpace> myNameSpaces = new LinkedHashMap<>();
 
-  private Set<String> modules = new HashSet<>();
-
   //private final ScriptEngine myEngine;
 
   public Generator() {
@@ -51,7 +49,7 @@ public class Generator {
   private NameSpace getNameSpace(String name) {
     NameSpace nameSpace = myNameSpaces.get(name);
     if (nameSpace == null) {
-      nameSpace = new NameSpace(name, isModule(name));
+      nameSpace = new NameSpace(name, false);
       myNameSpaces.put(name, nameSpace);
     }
 
@@ -73,14 +71,6 @@ public class Generator {
     return myNameSpaces;
   }
 
-  private boolean isModule(String nameOfNameSpace) {
-    return modules.contains(nameOfNameSpace);
-  }
-
-  public void addModule(String module) {
-    modules.add(module);
-  }
-
   public void process(String rawValueWithJson, boolean isJSON) {
     assert isJSON;
     JsonElement parse = JSON_PARSER.parse(rawValueWithJson);
@@ -90,23 +80,43 @@ public class Generator {
       JsonElement element = entry.getValue();
       JsonObject jsonObject = element.getAsJsonObject();
       String kind = getString(jsonObject, KIND_PROPERTY);
-      if (kind == null || PredefinedTypes.isGlobalNS(entry.getKey())) {
-        if (Character.isUpperCase(entry.getKey().charAt(0)) && ParsingUtils.isExactValidIdentifier(entry.getKey())) {
+      String name = entry.getKey();
+      if (kind == null || PredefinedTypes.isGlobalNS(name)) {
+        if (Character.isUpperCase(name.charAt(0)) && ParsingUtils.isExactValidIdentifier(name)) {
           kind = NAMESPACE;
         }
         else {
-          logger.warning("Kind is null " + entry.getKey());
+          logger.warning("Kind is null " + name);
         }
       }
 
-      if (!NAMESPACE.equals(kind)) {
-        logger.warning("It is not namespace:" + entry.getKey() + " kind " + kind);
+      if ((MEMBER_PROPERTY_VALUE.equals(kind) || FUNCTION_PROPERTY_VALUE.equals(kind))
+          && name.contains("#")
+          && PredefinedTypes.isPlainMember(name.substring(0, name.indexOf('#')))) {
+
+        processPlainMember(name, jsonObject);
+
         continue;
       }
 
-      NameSpace space = getNameSpace(entry.getKey());
+      if (!NAMESPACE.equals(kind)) {
+        logger.warning("It is not namespace:" + name + " kind " + kind);
+        continue;
+      }
+
+      NameSpace space = getNameSpace(name);
       processNameSpace(space, jsonObject);
     }
+  }
+
+  private void processPlainMember(String name,  JsonObject jsonObject) {
+    String[] strings = name.split("#");
+    String namespaceName = strings[0];
+    String memberName = strings[1];
+
+    NameSpace space = getNameSpace(namespaceName + "Member");
+    space.setGenerateVariable(false);
+    new MemberProcessor(memberName, jsonObject, space).processDeclaration();
   }
 
   protected void processNameSpace(NameSpace space, JsonObject namespaceObject) {

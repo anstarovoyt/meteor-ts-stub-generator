@@ -52,7 +52,7 @@ public class ArgsProcessor {
       for (String name : rawName.split(",")) {
         if (Strings.isNullOrEmpty(rawName)) continue;
 
-        optionsDeclaration.addParameter(getSimpleParameter(name.trim(), optionParam));
+        optionsDeclaration.addParameter(getSimpleParameter(name.trim(), optionParam, true));
       }
     });
 
@@ -60,11 +60,11 @@ public class ArgsProcessor {
   }
 
 
-  private MethodParameterDeclaration getSimpleParameter(String name, JsonObject jsonObject) {
+  private MethodParameterDeclaration getSimpleParameter(String name, JsonObject jsonObject, boolean allOptional) {
     String description = Generator.getString(jsonObject, "description");
     String typeForDescription = getDescriptionArgType(jsonObject);
     String typeForSignature = getTypeForSignature(jsonObject);
-    boolean isRequired = isRequired(jsonObject);
+    boolean isRequired = isRequired(jsonObject) && !allOptional;
     return new MethodParameterDeclaration(name,
                                           typeForSignature,
                                           typeForDescription,
@@ -90,7 +90,7 @@ public class ArgsProcessor {
         continue;
       }
 
-      MethodParameterDeclaration parameter = getSimpleParameter(name, jsonObject);
+      MethodParameterDeclaration parameter = getSimpleParameter(name, jsonObject, false);
       parameter.setVarArgs(isVarArgs);
       if (merger == null) {
         myDeclaration.addArg(parameter);

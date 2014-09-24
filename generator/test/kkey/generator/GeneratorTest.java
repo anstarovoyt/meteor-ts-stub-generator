@@ -73,6 +73,12 @@ public class GeneratorTest {
     doTestJSON();
   }
 
+  @Test
+  public void testSubString() {
+    String str = "var a = {subName};";
+    Assert.assertEquals("{subName}", str.substring(str.indexOf('{'), str.indexOf('}') +1));
+  }
+
   private String getText(String ext) throws IOException {
     return new String(Files.readAllBytes(Paths.get("generator/test/kkey/generator/files/" + name.getMethodName() + ext)));
   }

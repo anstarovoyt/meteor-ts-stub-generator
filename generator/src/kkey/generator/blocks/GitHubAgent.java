@@ -3,7 +3,7 @@ package kkey.generator.blocks;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import kkey.generator.oldImpl.Generator;
+import kkey.generator.impl.Generator;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.InputStreamReader;
@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
 public class GitHubAgent {
   public static final String TAG_URL = "https://api.github.com/repos/meteor/meteor/git/refs/tags";
-  public static final String SOURCE_URL = "https://api.github.com/repos/meteor/meteor/contents/docs/client/api.js?ref=release/";
+  public static final String SOURCE_URL = "https://api.github.com/repos/meteor/meteor/contents/docs/client/data.js?ref=release/";
 
   public static final JsonParser JSON_PARSER = new JsonParser();
   public static final String REFS_TAGS_RELEASE = "refs/tags/release/";
@@ -46,10 +46,11 @@ public class GitHubAgent {
 
         System.out.println(exactRelease);
         String[] split = exactRelease.split("\\.");
-        if (Integer.parseInt(split[1]) < 9) {
+        int parseS = Integer.parseInt(split[1]);
+        if (parseS < 9 || (parseS == 9 && Integer.parseInt(split[2]) <= 1)) {
           continue;
         }
-        System.out.println(exactRelease);
+        System.out.println("will really process " + exactRelease);
         URL urlToSource = new URL(SOURCE_URL + (hasStart ? START_STRING : "") + exactRelease);
         URLConnection connToSource = urlToSource.openConnection();
         JsonElement parseSource = JSON_PARSER.parse(new InputStreamReader(connToSource.getInputStream()));
@@ -62,10 +63,10 @@ public class GitHubAgent {
   public static void printFile(String content, String version) {
     try {
       Generator generator = new Generator();
-      generator.addModule("Meteor");
-      generator.getNameSpaces().put("Template", new NameSpace("Template", false));
 
-      generator.build(content);
+      String json = content.substring(content.indexOf('{'), content.lastIndexOf('}') + 1);
+
+      generator.process(json, true);
 
       Path path = Paths.get("stubs/meteor-v" + version + ".d.ts");
       if (Files.exists(path)) {

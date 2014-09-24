@@ -3,7 +3,6 @@ package kkey.generator.impl;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import kkey.generator.blocks.NameSpace;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -13,8 +12,8 @@ public class PredefinedTypes {
   private static final Set<String> HAS_IMPLICITY_CONSTRUCTOR = Sets.newHashSet();
   private static final Set<String> SKIPPED_FUNCTION = Sets.newHashSet();
 
-  private static final Set<String> NOT_GENERATE_VALUE = Sets.newHashSet();
   private static final Set<String> GLOBAL_NS = Sets.newHashSet();
+  private static final Set<String> PLAIN_MEMBERS = Sets.newHashSet();
 
   static {
     TYPES.put("Mongo.Collection#find", "Cursor");
@@ -26,9 +25,12 @@ public class PredefinedTypes {
 
     SKIPPED_FUNCTION.add("Tracker.Computation");
 
-    NOT_GENERATE_VALUE.add("Template");
+    GLOBAL_NS.add("Template");
 
-   GLOBAL_NS.add("Template");
+    PLAIN_MEMBERS.add("Template");
+    PLAIN_MEMBERS.add("MethodInvocation");
+    PLAIN_MEMBERS.add("PackageAPI");
+    PLAIN_MEMBERS.add("Subscription");
   }
 
   public static String getType(String fullName) {
@@ -46,4 +48,9 @@ public class PredefinedTypes {
   public static boolean isGlobalNS(String name) {
     return GLOBAL_NS.contains(name);
   }
+  public static boolean isPlainMember(String name) {
+    return PLAIN_MEMBERS.contains(name);
+  }
+
+
 }
