@@ -74,6 +74,11 @@ public class GeneratorTest {
   }
 
   @Test
+  public void test094() {
+    doTestJSON();
+  }
+
+  @Test
   public void testSubString() {
     String str = "var a = {subName};";
     Assert.assertEquals("{subName}", str.substring(str.indexOf('{'), str.indexOf('}') +1));

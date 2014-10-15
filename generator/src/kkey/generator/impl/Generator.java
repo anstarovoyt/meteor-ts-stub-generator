@@ -24,7 +24,7 @@ public class Generator {
   public static final String LONGNAME_PROPERTY = "longname";
 
   public static final Set<String> IGNORED_PROPERTIES =
-    Sets.newHashSet("kind", "summary", "longname", "locus", "memberof", "options", "params", "instancename");
+    Sets.newHashSet("kind", "summary", "longname", "locus", "memberof", "options", "params", "instancename", "name", "scope");
 
   public static final Set<String> SIMPLE_MEMBERS = Sets.newHashSet("function", "member");
   public static final String CLASS_PROPERTY_VALUE = "class";
