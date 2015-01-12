@@ -31,21 +31,6 @@ public class Generator {
 
   private Map<String, NameSpace> myNameSpaces = new LinkedHashMap<>();
 
-  //private final ScriptEngine myEngine;
-
-  public Generator() {
-    //ScriptEngineManager engineManager = new ScriptEngineManager();
-    //myEngine = engineManager.getEngineByName("nashorn");
-    //
-    //try {
-    //  myEngine.eval("var Meteor = {};\n Meteor.release = 'something';");
-    //}
-    //catch (ScriptException e) {
-    //  logger.log(Level.SEVERE, "error init", e);
-    //  throw new RuntimeException(e);
-    //}
-  }
-
   private NameSpace getNameSpace(String name) {
     NameSpace nameSpace = myNameSpaces.get(name);
     if (nameSpace == null) {
@@ -99,17 +84,53 @@ public class Generator {
         continue;
       }
 
+      if ((MEMBER_PROPERTY_VALUE.equals(kind) || FUNCTION_PROPERTY_VALUE.equals(kind)) && name.contains(".")) {
+        String[] split = name.split("\\.");
+        if (split.length > 1 && isFieldOrFunction(jsonObject) && ParsingUtils.isValidIdentifier(split[1])) {
+          NameSpace space = split.length == 2 ? getNameSpace(split[0]) : tryGetSubNameSpace(name);
+          new MemberProcessor(split[split.length - 1], jsonObject, space).processDeclaration();
+          continue;
+        }
+      }
+
+      if (isClass(jsonObject) && name.contains(".")) {
+        String[] split = name.split("\\.");
+        processClassDefinedInNameSpace(getNameSpace(split[0]), split[1], jsonObject);
+        continue;
+      }
+
+
       if (!NAMESPACE.equals(kind)) {
         logger.warning("It is not namespace:" + name + " kind " + kind);
         continue;
       }
 
-      NameSpace space = getNameSpace(name);
+      NameSpace space;
+      if (name.contains(".")) {
+        space = tryGetSubNameSpace(name);
+      }
+      else {
+        space = getNameSpace(name);
+      }
       processNameSpace(space, jsonObject);
     }
   }
 
-  private void processPlainMember(String name,  JsonObject jsonObject) {
+  private NameSpace tryGetSubNameSpace(String name) {
+    NameSpace space;
+    String[] split = name.split("\\.");
+    String subNameSpace = split[1];
+    if (PredefinedTypes.isGlobalNS(subNameSpace)) {
+      space = getNameSpace(subNameSpace);
+    }
+    else {
+      space = getAndInitSubNameSpace(getNameSpace(split[0]), subNameSpace);
+      space.setGenerateVariable(true);
+    }
+    return space;
+  }
+
+  private void processPlainMember(String name, JsonObject jsonObject) {
     String[] strings = name.split("#");
     String namespaceName = strings[0];
     String memberName = strings[1];
@@ -131,18 +152,7 @@ public class Generator {
 
 
       if (isClass(value)) {
-        if (PredefinedTypes.isGlobalNS(entry.getKey())) {
-          getNameSpace(entry.getKey());
-        }
-        else {
-          NameSpace subSpace = getAndInitSubNameSpace(space, entry.getKey());
-          subSpace.setGenerateVariable(false);
-        }
-
-        //constructor exists(!)
-        if (isDefined(value) || PredefinedTypes.hasImplConstructor(getFullName(value))) {
-          new MemberProcessor(entry.getKey(), value, space, true).processDeclaration();
-        }
+        processClassDefinedInNameSpace(space, entry.getKey(), value);
       }
       else if (isFieldOrFunction(value) && !PredefinedTypes.isSkippedFunction(getFullName(value))) {
         if (ParsingUtils.isValidIdentifier(entry.getKey())) {
@@ -164,6 +174,21 @@ public class Generator {
     }
   }
 
+  private void processClassDefinedInNameSpace(NameSpace space, String className, JsonObject value) {
+    if (PredefinedTypes.isGlobalNS(className)) {
+      getNameSpace(className);
+    }
+    else {
+      NameSpace subSpace = getAndInitSubNameSpace(space, className);
+      subSpace.setGenerateVariable(false);
+    }
+
+    //constructor exists(!)
+    if (isDefined(value) || PredefinedTypes.hasImplConstructor(getFullName(value))) {
+      new MemberProcessor(className, value, space, true).processDeclaration();
+    }
+  }
+
   private boolean isInnerNamespace(JsonObject obj) {
     String kind = Generator.getString(obj, KIND_PROPERTY);
     return kind != null && NAMESPACE.equals(kind);
@@ -178,6 +203,7 @@ public class Generator {
 
   public static String getString(JsonObject obj, String name) {
     JsonElement kindObject = obj.get(name);
+    //assert !(kindObject != null && !kindObject.isJsonPrimitive());
     return kindObject == null ? null : kindObject.getAsString();
   }
 

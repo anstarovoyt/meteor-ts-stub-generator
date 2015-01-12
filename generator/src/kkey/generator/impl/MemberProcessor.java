@@ -1,12 +1,15 @@
 package kkey.generator.impl;
 
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import kkey.generator.blocks.FieldDeclaration;
 import kkey.generator.blocks.MemberDeclaration;
 import kkey.generator.blocks.MethodDeclaration;
 import kkey.generator.blocks.NameSpace;
 import kkey.generator.oldImpl.ParsingUtils;
+
+import java.util.Map;
 
 import static kkey.generator.impl.Generator.*;
 
@@ -101,7 +104,15 @@ public class MemberProcessor {
   }
 
   public String getRawType() {
-    return getString(myDef, TYPE_PROPERTY);
+    JsonElement typeElement = myDef.get(TYPE_PROPERTY);
+    if (typeElement == null) return null;
+    if (typeElement.isJsonPrimitive()) return getString(myDef, TYPE_PROPERTY);
+
+    for (Map.Entry<String, JsonElement> entry : typeElement.getAsJsonObject().entrySet()) {
+      if ("names".equals(entry.getKey())) return entry.getValue().getAsString();
+    }
+
+    return null;
   }
 
   public String getLongName() {

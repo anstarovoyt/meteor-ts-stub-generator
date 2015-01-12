@@ -47,7 +47,8 @@ public class GitHubAgent {
         System.out.println(exactRelease);
         String[] split = exactRelease.split("\\.");
         int parseS = Integer.parseInt(split[1]);
-        if (parseS < 9 || (parseS == 9 && Integer.parseInt(split[2]) <= 1)) {
+        int parseStart = Integer.parseInt(split[0]);
+        if (parseStart == 0) {
           continue;
         }
         System.out.println("will really process " + exactRelease);
