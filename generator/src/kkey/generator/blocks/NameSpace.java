@@ -116,7 +116,8 @@ public class NameSpace {
   }
 
   private String getDeclare() {
-    return myIsModule ? "declare module" : "interface";
+    if (myIsModule) return "declare module";
+    return isSub ? "class" : "interface";
   }
 
   public String getInterfaceName() {

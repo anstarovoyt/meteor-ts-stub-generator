@@ -48,11 +48,13 @@ public class GitHubAgent {
         String[] split = exactRelease.split("\\.");
         int parseS = Integer.parseInt(split[1]);
         int parseStart = Integer.parseInt(split[0]);
-        if (parseStart == 0) {
+        int parseLast = split.length > 2 ? Integer.parseInt(split[2]) : 0;
+        if (parseStart == 0 || (parseStart == 1 && parseS == 0 && parseLast < 4)) {
           continue;
         }
         System.out.println("will really process " + exactRelease);
         URL urlToSource = new URL(SOURCE_URL + (hasStart ? START_STRING : "") + exactRelease);
+        System.out.println(urlToSource);
         URLConnection connToSource = urlToSource.openConnection();
         JsonElement parseSource = JSON_PARSER.parse(new InputStreamReader(connToSource.getInputStream()));
         byte[] contents = DatatypeConverter.parseBase64Binary(parseSource.getAsJsonObject().get("content").getAsString());

@@ -25,14 +25,33 @@ public class MethodDeclaration extends MemberDeclaration {
 
   public void addArg(ArgumentDeclaration declaration) {
     checkOption(declaration);
+
+    if (explOptional()) {
+      declaration.setRequired(false);
+    }
+
     myArgs.add(declaration);
   }
 
   public void addAllArgs(Collection<ArgumentDeclaration> args) {
+    boolean optional = explOptional();
     for (ArgumentDeclaration arg : args) {
       checkOption(arg);
+      if (optional) {
+        arg.setRequired(false);
+      }
     }
     myArgs.addAll(args);
+  }
+
+  private boolean explOptional() {
+    if(myArgs.size() > 0) {
+      ArgumentDeclaration last = myArgs.get(myArgs.size() - 1);
+      if (!last.isRequired()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private void checkOption(ArgumentDeclaration arg) {

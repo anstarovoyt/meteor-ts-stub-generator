@@ -271,7 +271,7 @@ declare module Accounts {
 
     }
 
-    declare var ui:Iui;
+    var ui:Iui;
 
 }
 
@@ -479,7 +479,7 @@ declare module Blaze {
      * @param {String} [viewName] - <p>Optional.  A name for Views constructed by this Template.  See <a href="#view_name"><code>view.name</code></a>.</p>
      * @param {function} renderFunction - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  This function is used as the <code>renderFunction</code> for Views constructed by this Template.</p>
      */
-    function Template(viewName?:string, renderFunction:Function):any;
+    function Template(viewName?:string, renderFunction?:Function):any;
 
 
     /**
@@ -502,7 +502,7 @@ declare module Blaze {
      * @param {String} [name] - <p>Optional.  A name for this type of View.  See <a href="#view_name"><code>view.name</code></a>.</p>
      * @param {function} renderFunction - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  In this function, <code>this</code> is bound to the View.</p>
      */
-    function View(name?:string, renderFunction:Function):View;
+    function View(name?:string, renderFunction?:Function):View;
 
 
     /**
@@ -1490,21 +1490,6 @@ interface MethodInvocationMember {
 
 declare module Mongo {
 
-    /**
-     * Constructor for a Collection
-     *
-     * @locus Anywhere
-     *
-     * @param {String} name - <p>The name of the collection.  If null, creates an unmanaged (unsynchronized) local collection.</p>
-     * @param {Options} [options]
-     */
-    function Collection(name:string,
-               options?:{
-                   connection?:any;
-                   idGeneration?:string;
-                   transform?:Function
-               }):Collection;
-
 
     /**
      * Create a Mongo-style `ObjectID`.  If you don't specify a `hexString`, the `ObjectID` will generated randomly (not using MongoDB's ID construction rules).
@@ -1515,7 +1500,22 @@ declare module Mongo {
      */
     function ObjectID(hexString:string):ObjectID;
 
-    interface Collection {
+    class Collection {
+
+        /**
+         * Constructor for a Collection
+         *
+         * @locus Anywhere
+         *
+         * @param {String} name - <p>The name of the collection.  If null, creates an unmanaged (unsynchronized) local collection.</p>
+         * @param {Options} [options]
+         */
+        constructor(name:string,
+                    options?:{
+                        connection?:any;
+                        idGeneration?:string;
+                        transform?:Function
+                    });
 
         /**
          * Allow users to write directly to this collection from client code, subject to limitations you define.
