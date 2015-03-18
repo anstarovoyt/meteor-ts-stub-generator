@@ -62,6 +62,10 @@ public class NameSpace {
     myName = name;
     myGenerateVariable = true;
     myIsModule = isModule;
+
+    if ("Meteor".equals(name)) {
+      addDeclaration(new TypeAliasMemberDeclaration("Collection", "Mongo.Collection", "@Deprecated", this));
+    }
   }
 
   public void addDeclaration(Declaration declaration) {
@@ -98,6 +102,8 @@ public class NameSpace {
     result.append("\n\n").append(indent).append("}\n");
 
     if (myGenerateVariable && !myIsModule) {
+
+
       result.append("\n").append(indent).append("declare var ");
       result.append(myName).append(":").append(getInterfaceName()).append(";");
     }

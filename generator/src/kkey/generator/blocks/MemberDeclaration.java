@@ -16,7 +16,7 @@ public class MemberDeclaration extends Declaration {
 
   @Override
   public String toString(String indent) {
-    return getDocs(indent) + indent + INDENT + getKeyWords() + fullDeclaration(indent) + ":" + getType() + ";";
+    return getDocs(indent) + indent + INDENT + getKeyWords() + fullDeclaration(indent)  + (getType() == null ? "" : ( ":" + getType())) + ";";
   }
 
   protected String getKeyWords() {
