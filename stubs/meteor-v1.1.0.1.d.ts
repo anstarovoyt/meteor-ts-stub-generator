@@ -271,7 +271,7 @@ declare module Accounts {
 
     }
 
-    declare var ui:Iui;
+    var ui:Iui;
 
 }
 
@@ -477,9 +477,9 @@ declare module Blaze {
      * @locus Client
      *
      * @param {String} [viewName] - <p>Optional.  A name for Views constructed by this Template.  See <a href="#view_name"><code>view.name</code></a>.</p>
-     * @param {function} renderFunction - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  This function is used as the <code>renderFunction</code> for Views constructed by this Template.</p>
+     * @param {function} [renderFunction] - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  This function is used as the <code>renderFunction</code> for Views constructed by this Template.</p>
      */
-    function Template(viewName?:string, renderFunction:Function):any;
+    function Template(viewName?:string, renderFunction?:Function):any;
 
 
     /**
@@ -500,9 +500,9 @@ declare module Blaze {
      * @locus Client
      *
      * @param {String} [name] - <p>Optional.  A name for this type of View.  See <a href="#view_name"><code>view.name</code></a>.</p>
-     * @param {function} renderFunction - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  In this function, <code>this</code> is bound to the View.</p>
+     * @param {function} [renderFunction] - <p>A function that returns <a href="#renderable_content"><em>renderable content</em></a>.  In this function, <code>this</code> is bound to the View.</p>
      */
-    function View(name?:string, renderFunction:Function):View;
+    function View(name?:string, renderFunction?:Function):View;
 
 
     /**
@@ -1114,6 +1114,13 @@ declare var Match:IMatch;
 declare module Meteor {
 
     /**
+     * @Deprecated
+     *
+     */
+    type Collection = Mongo.Collection;
+
+
+    /**
      * This class represents a symbolic error thrown by a method.
      *
      * @locus Anywhere
@@ -1670,10 +1677,10 @@ declare module Mongo {
          *
          * @locus Anywhere
          *
-         * @param {function} callback - <p>Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.</p>
+         * @param {IterationCallback} callback - <p>Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.</p>
          * @param {Any} [thisArg] - <p>An object which will be the value of <code>this</code> inside <code>callback</code>.</p>
          */
-        forEach(callback:Function, thisArg?:any):any;
+        forEach(callback:any, thisArg?:any):any;
 
 
         /**
@@ -1681,10 +1688,10 @@ declare module Mongo {
          *
          * @locus Anywhere
          *
-         * @param {function} callback - <p>Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.</p>
+         * @param {IterationCallback} callback - <p>Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.</p>
          * @param {Any} [thisArg] - <p>An object which will be the value of <code>this</code> inside <code>callback</code>.</p>
          */
-        map(callback:Function, thisArg?:any):any;
+        map(callback:any, thisArg?:any):any;
 
 
         /**
@@ -2184,13 +2191,20 @@ declare module Tracker {
 
 
     /**
-     * Run a function now and rerun it later whenever its dependencies change. Returns a Computation object that can be used to stop or observe the rerunning.
+     * Run a function now and rerun it later whenever its dependencies
+     * change. Returns a Computation object that can be used to stop or observe the
+     * rerunning.
      *
      * @locus Client
      *
-     * @param {function} runFunc - <p>The function to run. It receives one argument: the Computation object that will be returned.</p>
+     * @param {Tracker.ComputationFunction} runFunc - <p>The function to run. It receives
+     * one argument: the Computation object that will be returned.</p>
+     * @param {Options} [options]
      */
-    function autorun(runFunc:Function):Computation;
+    function autorun(runFunc:any,
+            options?:{
+                onError?:Function
+            }):Computation;
 
 
     /**

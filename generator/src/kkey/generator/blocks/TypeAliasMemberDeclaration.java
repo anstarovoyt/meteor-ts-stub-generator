@@ -15,6 +15,6 @@ public class TypeAliasMemberDeclaration extends MemberDeclaration {
 
   @Override
   protected String fullDeclaration(String indent) {
-    return getName() + " " + myAliasedMember;
+    return getName() + " = " + myAliasedMember;
   }
 }

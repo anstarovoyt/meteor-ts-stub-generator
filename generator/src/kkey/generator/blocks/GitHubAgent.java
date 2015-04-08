@@ -46,10 +46,10 @@ public class GitHubAgent {
 
         System.out.println(exactRelease);
         String[] split = exactRelease.split("\\.");
-        int parseS = Integer.parseInt(split[1]);
-        int parseStart = Integer.parseInt(split[0]);
-        int parseLast = split.length > 2 ? Integer.parseInt(split[2]) : 0;
-        if (parseStart == 0 || (parseStart == 1 && parseS == 0 && parseLast < 4)) {
+        int parseStart1 = Integer.parseInt(split[1]);
+        int parseStart0 = Integer.parseInt(split[0]);
+        int parseStart2 = split.length > 2 ? Integer.parseInt(split[2]) : 0;
+        if (parseStart0 == 0 || (parseStart0 == 1 && parseStart1 < 1)) {
           continue;
         }
         System.out.println("will really process " + exactRelease);
