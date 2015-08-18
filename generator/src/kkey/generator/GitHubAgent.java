@@ -1,4 +1,4 @@
-package kkey.generator.blocks;
+package kkey.generator;
 
 
 import com.google.gson.JsonElement;
@@ -41,15 +41,15 @@ public class GitHubAgent {
         refAsString = REFS_TAGS_RELEASE + refAsString.substring(REFS_TAGS_RELEASE.length() + START_STRING.length());
         hasStart = true;
       }
-      if (refAsString.startsWith(REFS_TAGS_RELEASE) && isCompletedNumber(refAsString)) {
+      if (refAsString.startsWith(REFS_TAGS_RELEASE)) {
         String exactRelease = refAsString.substring(REFS_TAGS_RELEASE.length());
 
         System.out.println(exactRelease);
-        String[] split = exactRelease.split("\\.");
-        int parseStart1 = Integer.parseInt(split[1]);
-        int parseStart0 = Integer.parseInt(split[0]);
-        int parseStart2 = split.length > 2 ? Integer.parseInt(split[2]) : 0;
-        if (parseStart0 == 0 || (parseStart0 == 1 && parseStart1 < 1)) {
+        //String[] split = exactRelease.split("\\.");
+        //int parseStart1 = Integer.parseInt(split[1]);
+        //int parseStart0 = Integer.parseInt(split[0]);
+        //int parseStart2 = split.length > 2 ? Integer.parseInt(split[2]) : 0;
+        if (!exactRelease.equals("1.2-rc.4")) {
           continue;
         }
         System.out.println("will really process " + exactRelease);
