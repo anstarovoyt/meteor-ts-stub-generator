@@ -24,7 +24,8 @@ public class Generator {
   public static final String LONGNAME_PROPERTY = "longname";
 
   public static final Set<String> IGNORED_PROPERTIES =
-    Sets.newHashSet("kind", "summary", "longname", "locus", "memberof", "options", "params", "instancename", "name", "scope", "filepath", "lineno");
+    Sets.newHashSet("kind", "summary", "longname", "locus", "memberof", "options", "params", "instancename", "name", "scope", "filepath",
+                    "lineno");
 
   public static final Set<String> SIMPLE_MEMBERS = Sets.newHashSet("function", "member");
   public static final String CLASS_PROPERTY_VALUE = "class";
@@ -32,6 +33,7 @@ public class Generator {
   private Map<String, NameSpace> myNameSpaces = new LinkedHashMap<>();
 
   private NameSpace getNameSpace(String name) {
+    name = PredefinedTypes.getAliasNamespace(name);
     NameSpace nameSpace = myNameSpaces.get(name);
     if (nameSpace == null) {
       nameSpace = new NameSpace(name, false);

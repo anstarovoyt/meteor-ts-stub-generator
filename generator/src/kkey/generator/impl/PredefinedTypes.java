@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class PredefinedTypes {
   private static final HashMap<String, String> TYPES = Maps.newHashMap();
+  private static final HashMap<String, String> NAMESPACE = Maps.newHashMap();
   private static final Set<String> HAS_IMPLICITY_CONSTRUCTOR = Sets.newHashSet();
   private static final Set<String> SKIPPED_FUNCTION = Sets.newHashSet();
 
@@ -20,6 +21,8 @@ public class PredefinedTypes {
     TYPES.put("Tracker.autorun", "Computation");
     TYPES.put("Blaze.Template", "any");
     TYPES.put("Template.instance", "Blaze.TemplateInstance");
+
+    NAMESPACE.put("Ap", "Accounts");
 
     HAS_IMPLICITY_CONSTRUCTOR.add("Tracker.Dependency");
 
@@ -48,9 +51,13 @@ public class PredefinedTypes {
   public static boolean isGlobalNS(String name) {
     return GLOBAL_NS.contains(name);
   }
+
   public static boolean isPlainMember(String name) {
     return PLAIN_MEMBERS.contains(name);
   }
 
-
+  public static String getAliasNamespace(String name) {
+    final String s = NAMESPACE.get(name);
+    return s == null ? name : s;
+  }
 }

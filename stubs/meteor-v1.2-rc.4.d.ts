@@ -122,31 +122,6 @@ declare module Accounts {
      */
     function verifyEmail(token:string, callback?:Function):any;
 
-    interface Iui {
-
-        /**
-         * Configure the behavior of [`{{> loginButtons}}`](#accountsui).
-         *
-         * @locus Client
-         *
-         * @param {Options} options
-         */
-        config(options:{
-                   requestPermissions?:any;
-                   requestOfflineToken?:any;
-                   forceApprovalPrompt?:any;
-                   passwordSignupFields?:string
-               }):any;
-
-    }
-
-    var ui:Iui;
-
-}
-
-
-
-interface IAp {
 
     /**
      * Set global accounts options.
@@ -155,7 +130,7 @@ interface IAp {
      *
      * @param {Options} options
      */
-    config(options:{
+    function config(options:{
                sendVerificationEmail?:boolean;
                forbidClientAccountCreation?:boolean;
                restrictCreationByEmailDomain?:any;
@@ -171,7 +146,7 @@ interface IAp {
      *
      * @param {function} func - <p>Called whenever a new user is created. Return the new user object, or throw an <code>Error</code> to abort the creation.</p>
      */
-    onCreateUser(func:Function):any;
+    function onCreateUser(func:Function):any;
 
 
     /**
@@ -193,7 +168,7 @@ interface IAp {
      * being logged in.</li>
      * </ol>
      */
-    onEmailVerificationLink(callback:Function):any;
+    function onEmailVerificationLink(callback:Function):any;
 
 
     /**
@@ -215,7 +190,7 @@ interface IAp {
      * user A can be enrolled even if user B was logged in.</li>
      * </ol>
      */
-    onEnrollmentLink(callback:Function):any;
+    function onEnrollmentLink(callback:Function):any;
 
 
     /**
@@ -225,7 +200,7 @@ interface IAp {
      *
      * @param {function} func - <p>The callback to be called when login is successful.</p>
      */
-    onLogin(func:Function):any;
+    function onLogin(func:Function):any;
 
 
     /**
@@ -235,7 +210,7 @@ interface IAp {
      *
      * @param {function} func - <p>The callback to be called after the login has failed.</p>
      */
-    onLoginFailure(func:Function):any;
+    function onLoginFailure(func:Function):any;
 
 
     /**
@@ -256,7 +231,7 @@ interface IAp {
      * password for user A can be reset even if user B was logged in.</li>
      * </ol>
      */
-    onResetPasswordLink(callback:Function):any;
+    function onResetPasswordLink(callback:Function):any;
 
 
     /**
@@ -264,7 +239,7 @@ interface IAp {
      *
      * @locus Anywhere but publish functions
      */
-    userId():any;
+    function userId():any;
 
 
     /**
@@ -274,7 +249,7 @@ interface IAp {
      *
      * @param {function} func - <p>Called whenever a login is attempted (either successful or unsuccessful).  A login can be aborted by returning a falsy value or throwing an exception.</p>
      */
-    validateLoginAttempt(func:Function):any;
+    function validateLoginAttempt(func:Function):any;
 
 
     /**
@@ -284,11 +259,30 @@ interface IAp {
      *
      * @param {function} func - <p>Called whenever a new user is created. Takes the new user object, and returns true to allow the creation or false to abort.</p>
      */
-    validateNewUser(func:Function):any;
+    function validateNewUser(func:Function):any;
+
+    interface Iui {
+
+        /**
+         * Configure the behavior of [`{{> loginButtons}}`](#accountsui).
+         *
+         * @locus Client
+         *
+         * @param {Options} options
+         */
+        config(options:{
+                   requestPermissions?:any;
+                   requestOfflineToken?:any;
+                   forceApprovalPrompt?:any;
+                   passwordSignupFields?:string
+               }):any;
+
+    }
+
+    declare var ui:Iui;
 
 }
 
-declare var Ap:IAp;
 
 
 interface IApp {
@@ -2102,7 +2096,7 @@ interface PackageAPIMember {
      * @param {Boolean} [exportOptions.testOnly] - <p>If true, this symbol will only be
      * exported when running tests for this package.</p>
      */
-    export(exportedObjects:any, architecture?:any, exportOptions?:any, testOnly?:boolean):any;
+    export(exportedObjects:any, architecture?:any, exportOptions?:any, exportOptions.testOnly?:boolean):any;
 
 
     /**

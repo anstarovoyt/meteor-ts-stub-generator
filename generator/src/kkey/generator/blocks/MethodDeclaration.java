@@ -82,8 +82,14 @@ public class MethodDeclaration extends MemberDeclaration {
       }
 
       StringJoiner joiner = new StringJoiner(joinString);
+      boolean hasVarargs = false;
       for (ArgumentDeclaration arg : myArgs) {
+        if (hasVarargs) continue;
+
         joiner.add(arg.toStringWithIndent(adjustedIndent));
+        if (arg instanceof MethodParameterDeclaration && ((MethodParameterDeclaration)arg).isVarArgs()) {
+          hasVarargs = true;
+        }
       }
 
       result.append(joiner.toString());
