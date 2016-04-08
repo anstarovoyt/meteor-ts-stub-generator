@@ -49,7 +49,7 @@ public class GitHubAgent {
         //int parseStart1 = Integer.parseInt(split[1]);
         //int parseStart0 = Integer.parseInt(split[0]);
         //int parseStart2 = split.length > 2 ? Integer.parseInt(split[2]) : 0;
-        if (!exactRelease.equals("1.2-rc.4")) {
+        if (!exactRelease.equals("1.3.1")) {
           continue;
         }
         System.out.println("will really process " + exactRelease);
