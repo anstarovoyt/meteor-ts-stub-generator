@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0f673bd-ed5e-47d6-9369-4248d65ce023" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/files/test3.1.2.json" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/typescript-compiler.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/generator/test/kkey/generator/files/test3.1.2.json" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/files/test311.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/src/kkey/generator/GitHubAgent.java" afterPath="$PROJECT_DIR$/generator/src/kkey/generator/GitHubAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java" afterPath="$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java" />
     </list>
     <list id="ad13a58c-4a29-46c0-8543-255ad4f05c48" name="New changelist" comment="" />
     <ignored path="meteor-ts-stub-generator.iws" />
@@ -31,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="test3.1.2.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/files/test3.1.2.json">
+      <file leaf-file-name="test311.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/files/test311.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+            <state relative-caret-position="561">
+              <caret line="8564" column="1" selection-start-line="8564" selection-start-column="1" selection-end-line="8564" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -71,7 +69,6 @@
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/impl/MemberProcessor.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/files/test102.ts" />
         <option value="$PROJECT_DIR$/stubs/meteor-v1.0.4.d.ts" />
-        <option value="$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/files/test104.ts" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/files/test104.json" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/MemberDeclaration.java" />
@@ -88,6 +85,8 @@
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/blocks/NameSpace.java" />
         <option value="$PROJECT_DIR$/generator/src/kkey/generator/GitHubAgent.java" />
         <option value="$PROJECT_DIR$/generator/test/kkey/generator/files/test3.1.2.json" />
+        <option value="$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java" />
+        <option value="$PROJECT_DIR$/generator/test/kkey/generator/files/test311.json" />
       </list>
     </option>
   </component>
@@ -397,35 +396,7 @@
       <recent name="kkey.generator" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GitHubAgent">
-    <configuration default="false" name="GeneratorTest.testSubString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="kkey.generator.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="generator" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="kkey.generator" />
-      <option name="MAIN_CLASS_NAME" value="kkey.generator.GeneratorTest" />
-      <option name="METHOD_NAME" value="testSubString" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.GeneratorTest.test311">
     <configuration default="false" name="GitHubAgent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -527,6 +498,32 @@
       <option name="PACKAGE_NAME" value="kkey.generator" />
       <option name="MAIN_CLASS_NAME" value="kkey.generator.GeneratorTest" />
       <option name="METHOD_NAME" value="test104" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="GeneratorTest.test311" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="kkey.generator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="generator" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="kkey.generator" />
+      <option name="MAIN_CLASS_NAME" value="kkey.generator.GeneratorTest" />
+      <option name="METHOD_NAME" value="test311" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -944,19 +941,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.GeneratorTest.testSubString" />
-      <item index="1" class="java.lang.String" itemvalue="Application.GitHubAgent" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test094" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test102" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test104" />
+      <item index="0" class="java.lang.String" itemvalue="Application.GitHubAgent" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test094" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test102" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test104" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test311" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.GitHubAgent" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test104" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test102" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test094" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.GeneratorTest.testSubString" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test311" />
+        <item index="1" class="java.lang.String" itemvalue="Application.GitHubAgent" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test104" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test102" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.GeneratorTest.test094" />
       </list>
     </recent_temporary>
   </component>
@@ -1002,7 +999,7 @@
       <workItem from="1428494758972" duration="659000" />
       <workItem from="1439917882526" duration="3855000" />
       <workItem from="1460114405090" duration="325000" />
-      <workItem from="1460116565523" duration="312000" />
+      <workItem from="1460116565523" duration="466000" />
     </task>
     <task id="LOCAL-00001" summary="simple stubs">
       <created>1426639462999</created>
@@ -1046,11 +1043,23 @@
       <option name="project" value="LOCAL" />
       <updated>1439921126925</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="meteor: added new test file">
+      <created>1460117007700</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1460117007700</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="GeneratorTest_test311 - 2016.04.08 at 15h 04m 33s.xml">
+      <configuration name="GeneratorTest.test311" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57648000" />
+    <option name="totallyTimeSpent" value="57802000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1058,11 +1067,13 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32650274" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32968637" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298887" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32650274" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3260274" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1074,18 +1085,16 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3987952" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3987952" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32650274" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3260274" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1107,7 +1116,8 @@
     <MESSAGE value="meteor: update stubs" />
     <MESSAGE value="meteor: update stubs 1.2-rc.4.d.ts" />
     <MESSAGE value="meteor: minor fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="meteor: minor fixes" />
+    <MESSAGE value="meteor: added new test file" />
+    <option name="LAST_COMMIT_MESSAGE" value="meteor: added new test file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1498,13 +1508,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="675" column="16" selection-start-line="675" selection-start-column="16" selection-end-line="675" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2556,10 +2559,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/files/test3.1.2.json">
+    <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/GeneratorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+        <state relative-caret-position="394">
+          <caret line="86" column="21" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
+          <folding>
+            <marker date="1460117056000" expanded="false" signature="32:251" placeholder="..." />
+            <marker date="1460117056000" expanded="true" signature="443:466" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="514:537" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="567:820" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="871:894" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="947:970" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1018:1041" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1079:1102" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1147:1170" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1220:1243" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1294:1317" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1351:1374" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1408:1431" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1465:1488" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1522:1545" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1585:1721" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1779:1907" placeholder="{...}" />
+            <marker date="1460117056000" expanded="true" signature="1950:2245" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/test/kkey/generator/files/test311.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="8564" column="1" selection-start-line="8564" selection-start-column="1" selection-end-line="8564" selection-end-column="1" />
           <folding />
         </state>
       </provider>
